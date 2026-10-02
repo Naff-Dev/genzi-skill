@@ -1,5 +1,5 @@
 # Example 5: Architecture Studio Portfolio
 
 ```text
-use Naff-Dev/genzi-skill bikin website portfolio arsitektur studio dengan grid proyek asimetris, galeri foto full-bleed, dan tipografi editorial
+use Naff-Dev/genzi-skill build an architecture studio portfolio with asymmetrical project grid, full-bleed imagery, and editorial typography
 ```

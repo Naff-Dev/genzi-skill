@@ -1,5 +1,5 @@
-# Example 1: Food Delivery Landing Page
+# Example 1: Grocery Delivery Landing Page
 
 ```text
-use Naff-Dev/genzi-skill buatkan landing page untuk aplikasi food delivery lokal, target ibu rumah tangga kota tier 2
+use Naff-Dev/genzi-skill build a landing page for a local grocery delivery service targeting tier-2 city families
 ```

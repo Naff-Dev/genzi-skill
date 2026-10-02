@@ -1,15 +1,17 @@
-# PRD Template (Micro & Full)
+# PRD Template (Micro & Full): Purpose & Context First
 
 Read this when entering Step 9 (Generate PRD). Choose Micro PRD or Full PRD per the "Scaling the Workflow" table in SKILL.md.
 
 Writing rules for both PRD types:
 - No em dash character anywhere. Use `-`, `:`, `.`, `,`, or plain sentences.
-- Never include invented data (statistics, testimonials, customer names, etc).
-- Tag requirements with their category when it needs clarifying: Explicit / Inferred / Assumption.
-- Clear, concrete language, zero AI buzzword filler.
-- **Clarification first**: When intent, architecture, or security constraints are ambiguous, record the user's answers or explicit assumptions.
+- Never include invented data (statistics, testimonials, customer names, pricing, awards, etc).
+- Realistic domain mock data: Real SKUs, actual product names, realistic prices/dates. No Lorem Ipsum, no "Amazing Product".
+- Tag requirements with their category: Explicit / Inferred / Assumption.
+- Clear, concrete language: Zero AI buzzword filler ("unleash", "elevate", "seamless", "modern").
+- **Internal Context Deduction First**: Anchor design directly to the domain purpose, user, and usage context rather than generic AI templates.
+- **MANDATORY APPROVAL GATE**: Never start coding immediately after writing a PRD. Stop, present the PRD to the user, and prompt them to review the implementation plan. Require explicit confirmation before implementation.
 - **Responsive behavior on mobile AND desktop** must always be part of acceptance criteria.
-- **Anti-AI Craft, Motion, SEO, Security, and Code Safety** are hard requirements, not optional notes.
+- **Anti-AI Craft, Functional Motion, SEO, Security, and Code Safety** are hard requirements, not optional notes.
 
 ---
 
@@ -18,54 +20,58 @@ Writing rules for both PRD types:
 Use this concise format (10-25 lines):
 
 ```text
-Goal            : [what this change/feature is meant to achieve]
-Surface Mode    : [Persuade | Operate | Read | Experience]
-Domain Archetype: [Editorial | Engineering | Artisanal | Kinetic SaaS | Enterprise | Culture]
-Requirements    : [bullet list, tag (Explicit)/(Inferred)/(Assumption)]
-Clarifications  : [questions asked or ambiguities resolved with user]
-Scope           : [files/components/pages created or modified]
-Out of Scope    : [what is intentionally omitted to avoid scope creep]
-Motion & Feedback: [Layer 1 focal moment, Layer 2 entrance, Layer 3 button press scale 0.97, reduced-motion]
-SEO & Semantics : [single h1, descriptive alt, OpenGraph, title/meta-description, schema if public]
-Security & Safety: [input validation schema, token storage, auth check, text-overflow wrap]
-Acceptance      :
+Goal              : [what this change/feature is meant to achieve]
+Surface Mode      : [Persuade | Operate | Read | Experience]
+Visual Language   : [Utilitarian | Dense Dashboard | Institutional | Commercial | Warm Artisanal | Editorial | etc.]
+Layout Archetype  : [Product-first | Editorial-first | Data-first | Info-first | Utility-first | etc.]
+Requirements      : [bullet list, tag (Explicit)/(Inferred)/(Assumption)]
+Clarifications    : [questions resolved with user regarding technical blockers or scope depth]
+Scope             : [files/components/pages created or modified]
+Out of Scope      : [what is intentionally omitted to avoid scope creep or fake sections]
+Motion & Feedback : [Functional motion: button press scale 0.97, state transitions, skeleton loading, reduced-motion]
+SEO & Semantics   : [single h1, descriptive alt, OpenGraph, title/meta-description, schema if public]
+Security & Safety : [input validation schema, token storage, auth check, text-overflow wrap]
+Acceptance        :
   - [Functional acceptance criteria]
   - [Mobile (~360-430px) AND Desktop (~1280px+) responsive verified, zero overflow, 44x44px touch targets]
-  - [Bespoke anti-AI craft verified: domain palette, real typography, zero banned AI buzzwords]
-  - [Hover & micro-interactions implemented with prefers-reduced-motion fallback]
+  - [Bespoke anti-AI craft verified: 15-point AI-Slop check passed, domain palette, no emoji in UI, real typography]
+  - [Functional micro-interactions implemented with prefers-reduced-motion fallback]
   - [Full-spectrum SEO verified: single h1, valid meta, zero CLS explicit dimensions]
   - [Inputs validated and sanitized, no raw HTML injection]
 ```
 
-### Micro PRD Example (Search Feature):
+### Micro PRD Example (Search Feature in Warehouse Inventory):
 
 ```text
-Goal            : User can search products by name in real-time without page reload.
-Surface Mode    : Operate
-Domain Archetype: High-Velocity Kinetic SaaS
-Requirements    :
-  - Search input with clear button above product list (Explicit)
-  - Real-time debounced filtering (300ms) to preserve UI responsiveness (Inferred)
+Goal              : User can search warehouse inventory items by SKU or name in real-time without page reload.
+Surface Mode      : Operate
+Visual Language   : Utilitarian / High-Density
+Layout Archetype  : Utility-first & Data-first (dense table with real-time filter)
+Requirements      :
+  - Search input with clear button above inventory table (Explicit)
+  - Real-time debounced filtering (200ms) to preserve UI responsiveness (Inferred)
   - Empty state with clear message when 0 items match (Inferred)
-Clarifications  :
+  - Display actual SKUs, bin locations, and stock numbers (Inferred)
+Clarifications    :
   - Confirmed: Search applies client-side across loaded catalogue rather than pagination query.
-Scope           : ProductList component, add SearchInput component, update filter hook.
-Out of Scope    : Full-text server search index, search history persistence.
-Motion & Feedback:
+Scope             : InventoryTable component, add SearchInput component, update filter hook.
+Out of Scope      : Full-text server search index, search history persistence.
+Motion & Feedback :
   - Search input focus ring transitions (150ms ease-out)
-  - Result list layout animation via CSS transform or Framer Motion layoutId
+  - Result rows update smoothly via CSS opacity transition (100ms)
   - Active clear button press scale(0.97)
-SEO & Semantics :
-  - Accessible search role: role="search" with aria-label="Product Search"
+SEO & Semantics   :
+  - Accessible search role: role="search" with aria-label="Search inventory items"
   - Clear button aria-label="Clear search input"
-Security & Safety:
+Security & Safety :
   - Sanitize search query input; strip dangerous HTML characters
-  - Use min-width: 0 on result cards to prevent long query blowout
-Acceptance      :
-  - Typing a substring filters products within 300ms debounce
-  - Clearing input restores complete product catalogue smoothly
+  - Use min-width: 0 on table cells to prevent long query blowout
+Acceptance        :
+  - Typing a substring filters products within 200ms debounce
+  - Clearing input restores complete product inventory smoothly
   - Tested on mobile (390px) and desktop (1440px): search bar full-width on mobile, right-aligned on desktop
   - Zero XSS vulnerabilities from search query reflection
+  - Zero emojis used as icons; SVG search icon used
 ```
 
 ---
@@ -75,10 +81,11 @@ Acceptance      :
 Use the following 24 structured sections. Keep each section concrete and actionable. Sections not applicable to the specific product must state "Not applicable" followed by a 1-sentence technical reason.
 
 ```text
-1.  Product Overview & Visitor Surface Mode
+1.  Product Overview & Purpose
     - Summary of the product, purpose, and audience.
-    - Surface Mode: Persuade | Operate | Read | Experience (guides motion & layout).
-    - Domain Personality Archetype: Editorial | Engineering | Artisanal | Kinetic SaaS | Enterprise | Culture.
+    - Surface Mode: Persuade | Operate | Read | Experience.
+    - Visual Language: Utilitarian | Institutional | Dense Dashboard | Commercial | Warm Artisanal | Editorial | etc.
+    - Layout Archetype: Product-first | Editorial-first | Data-first | Info-first | Utility-first.
 
 2.  Problem Statement
     - Concrete user or business problem being solved (based on user request).
@@ -87,10 +94,10 @@ Use the following 24 structured sections. Keep each section concrete and actiona
     - Tangible outcome marking success with measurable completion criteria.
 
 4.  Target Users & Usage Context
-    - Who uses this, under what conditions (desk, mobile on-the-go, low bandwidth).
+    - Who uses this, under what conditions (warehouse floor, mobile on-the-go, office desktop).
 
 5.  Clarification & Ambiguity Resolution Log
-    - Questions asked to the user and their confirmed decisions.
+    - Questions asked to the user and their confirmed decisions (technical blockers / scope depth).
     - Explicit list of assumptions made for non-blocking choices.
 
 6.  User Needs & Scenarios
@@ -98,9 +105,11 @@ Use the following 24 structured sections. Keep each section concrete and actiona
 
 7.  Core Features & Prioritization
     - Ranked list of features, tagged (Explicit) or (Inferred).
+    - Strictly aligned with 9-Level Priority Hierarchy: Functionality & Usability > Visual Polish > Decoration.
 
 8.  Page & Screen Structure
     - Sitemap or component hierarchy tree with semantic HTML landmarks.
+    - Avoids generic centered-hero template; layout driven directly by domain purpose.
 
 9.  User Flows
     - Step-by-step walkthroughs of primary interactions, happy path, and alternate paths.
@@ -119,13 +128,14 @@ Use the following 24 structured sections. Keep each section concrete and actiona
     - Security Headers: CSP, X-Content-Type-Options, Referrer-Policy, CORS constraints.
 
 13. Bespoke Anti-AI Design Direction & Craft Floor (MANDATORY)
-    - Domain Personality Matrix alignment: Exact visual archetype selected.
-    - Visual Identity: Specific primary color (HSL), secondary, background, and text colors.
-    - Typography: Specific named Display font and Body font pairing (Google Fonts / local).
+    - Visual Language & Archetype selected from domain context.
+    - Visual Identity: Specific primary color (HSL), secondary, background, and text colors (no generic black+neon).
+    - Typography: Specific named Display font and Body font pairing suited to domain formality.
     - Copywriting Craft: Zero banned AI buzzwords (no "Unleash", "Elevate", "Seamless", "Supercharge").
+    - Zero Emoji in UI: Pure SVGs or standard icon library for functional icons only.
+    - Card & Radius Discipline: Tables, lists, dividers utilized; systematic small/medium border-radii.
     - Browser Surfaces Theming: Selection color, caret-color, custom scrollbar, focus rings.
-    - Layout Composition: Asymmetrical grid, fluid clamp() scales, 65-75ch body measure.
-    - Anti-Slop Check: Confirm zero forbidden AI defaults (no generic purple gradients, no 3-card march).
+    - AI-Slop Checklist: Passes all 15 audit questions before implementation.
 
 14. Responsive Behavior & Mobile Ergonomics (MANDATORY)
     - Mobile Small (~360-390px): 1-column layouts, 44x44px touch targets, 8px separation.
@@ -134,12 +144,11 @@ Use the following 24 structured sections. Keep each section concrete and actiona
     - Desktop (~1280px+): Multi-column grids, fixed sidebars, max content constraint (1200-1440px).
     - Hard rule: Zero horizontal scrollbars (overflow-x: clip), zero unhandled text truncation.
 
-15. Authored 4-Layer Motion System (MANDATORY)
-    - Layer 1 (Ambient/Focal): One authored signature entrance or interactive transformation.
-    - Layer 2 (Scrollytelling): Staggered entrances (max 5-6 items, 40-80ms delay), exit faster than enter.
-    - Layer 3 (Micro-interactions): Button active press scale(0.97), card lift, toggle springs (80-150ms).
-    - Layer 4 (GPU & A11y): Transform/opacity animations only; prefers-reduced-motion fallback implemented.
-    - Timing & Easing: Natural deceleration (cubic-bezier(0.16, 1, 0.3, 1)) on enter.
+15. Functional Motion System (MANDATORY)
+    - Motion by Function: Animations strictly serve interaction feedback, state change, or loading.
+    - Micro-interactions: Button active press scale(0.97), toggle springs (<150ms).
+    - No gratuitous motion: No infinite gradient animations, glowing orbs, or forced hero animations on utilitarian apps.
+    - GPU & A11y: Transform/opacity animations only; prefers-reduced-motion fallback implemented.
 
 16. Technical Architecture & File Plan
     - Framework & Stack: Strictly adhere to workspace detection findings.
@@ -153,18 +162,19 @@ Use the following 24 structured sections. Keep each section concrete and actiona
     - Immutability & Cleanups: Safe state updates, cleanup on unmount for timers/listeners.
 
 18. Hardening & Boundary Resilience
-    - Extreme Inputs: 100+ character strings, emoji, CJK, RTL logical CSS properties.
+    - Extreme Inputs: 100+ character strings, emoji input support, CJK, RTL logical CSS properties.
     - Text Overflow: Truncate / line-clamp rules, min-width: 0 on flex/grid children.
     - Four-State Async UI: Explicit handling of Idle/Loading, Success, Empty, and Error + Retry.
     - Gesture Safety: pointercancel handling, multi-touch defense, clean state resets.
 
-19. Data Requirements & API Contracts
-    - Data schemas, API request/response types, mock datasets if backend unready.
+19. Data Requirements & Realistic Domain Mock Data
+    - Data schemas, API request/response types.
+    - Concrete domain data: Real item names, realistic SKUs, actual prices, dates (no Lorem Ipsum).
 
 20. Asset & Photography Strategy
     - Real photography from Unsplash CDN with optimization query parameters (?w=800&q=75).
     - generate_image tool for custom branding assets when needed.
-    - Lucide/Phosphor/Heroicons for consistent stroke icons with aria-labels.
+    - Inline SVGs or Lucide/Heroicons for consistent stroke icons with aria-labels.
 
 21. Accessibility (WCAG 2.1 AA)
     - Semantic HTML elements (<main>, <nav>, <section>, <article>, <button>).
@@ -182,8 +192,8 @@ Use the following 24 structured sections. Keep each section concrete and actiona
 23. Verifiable Acceptance Criteria (The Six Mandatory Hard Blockers)
     - Concrete criteria covering functional behavior.
     - HARD BLOCKER 1: Responsive & Mobile Ergonomics verified on mobile (~360-430px) and desktop (~1440px).
-    - HARD BLOCKER 2: Bespoke Anti-AI Craft & Personality verified (Domain Archetype, no AI buzzwords).
-    - HARD BLOCKER 3: Authored 4-Layer Motion System, micro-interactions, and reduced-motion verified.
+    - HARD BLOCKER 2: Bespoke Anti-AI Craft & Personality verified (Passes 15-Point AI-Slop Check).
+    - HARD BLOCKER 3: Functional Motion System, micro-interactions, and reduced-motion verified.
     - HARD BLOCKER 4: Full-Spectrum SEO, Semantics & Web Vitals verified (single h1, Schema, zero CLS).
     - HARD BLOCKER 5: Security & Data Privacy baseline verified (Zod schemas, XSS defense, token hygiene).
     - HARD BLOCKER 6: Code Safety & Resilient Hardening verified (strict types, 4-state UI, error boundaries).
@@ -194,4 +204,14 @@ Use the following 24 structured sections. Keep each section concrete and actiona
 
 ---
 
-After completing the PRD, present it clearly to the user before proceeding to implementation on medium-to-large tasks.
+## Mandatory User Approval Gate (STOP Before Coding)
+
+### HARD DIRECTIVE: DUAL-GATE APPROVAL BEFORE CODE IMPLEMENTATION
+After generating either a Micro PRD or a Full PRD:
+1. **STOP IMMEDIATELY.** Do not write components, modify code files, install dependencies, or run implementation scripts.
+2. **Render Interactive Artifact**: Write the complete PRD into an interactive markdown artifact with `RequestFeedback: true` so the user can easily read and evaluate the full specification.
+3. **Trigger Approval Question**: Prompt the user using the `ask_question` tool with structured choices:
+   - "(Recommended) Approve PRD and proceed to implementation"
+   - "Modify visual direction / domain archetype"
+   - "Adjust scope or feature depth"
+4. **WAIT FOR EXPLICIT CONFIRMATION.** Do not proceed to code implementation until the user reviews and confirms the plan.

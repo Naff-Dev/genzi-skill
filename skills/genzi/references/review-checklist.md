@@ -1,39 +1,53 @@
-# Self-Review Checklist
+# Self-Review Checklist: The Six Mandatory Hard Blockers & Anti-AI Audit
 
 Read this when entering Step 16 (Self-review), after implementation is done and before declaring the task complete to the user.
 
 Run through every category below. If any item fails, fix it, then re-run that category (and any other category the fix might affect) before continuing.
 
 ```text
-PRODUCT & FUNCTIONALITY
+PRODUCT, CONTEXT & FUNCTIONALITY
 [ ] The PRD's Problem Statement is genuinely solved by the implementation
+[ ] PRD was presented to and explicitly approved by the user before code implementation began
 [ ] Every main User Flow can be completed start to finish without breaking
 [ ] Every Core Feature (Explicit + Inferred) actually works in practice
 [ ] Clarifications and resolved user questions are reflected in the final output
+[ ] 9-Level Priority Hierarchy strictly obeyed: Functionality & Usability > Visual Polish > Decoration
 
-BESPOKE ANTI-AI CRAFT & PERSONALITY (HARD BLOCKER)
-[ ] Aligns with the Domain Personality Matrix (editorial, engineering, artisanal, SaaS, fintech, or culture)
-[ ] Zero generic AI visual clichés (no purple-to-blue glow traps, no cloned centered heroes, no 3-card marches)
-[ ] Zero banned AI marketing buzzwords in UI copy or headings (no "Unleash", "Elevate", "Seamless", "Supercharge", etc.)
-[ ] Copy uses grounded, domain-authentic human language with concrete verbs and specific outcomes
-[ ] Real saturated primary color defines brand identity (never gray-on-gray)
-[ ] Dark mode was ONLY chosen if genuinely warranted by product context; otherwise light mode is mandatory
-[ ] Real named display and body fonts loaded (Google Fonts or local, never browser default)
-[ ] Typography measure respected: 65-75ch body measure, text-wrap: balance on headings
-[ ] Browser surfaces themed: ::selection, caret-color, custom scrollbars, :focus-visible rings, tabular nums
-[ ] Real photography used from CDN, never solid-color placeholder boxes
+BESPOKE ANTI-AI CRAFT & PERSONALITY (HARD BLOCKER #2)
+[ ] PASSES ALL 15 POINTS OF THE AI-SLOP CHECK:
+    1. Zero Vercel/Linear clone template styling unless explicitly requested
+    2. Dark mode was ONLY chosen if genuinely warranted by product context; otherwise clean light mode is mandatory
+    3. Zero purposeless gradients, glowing orbs, or radial background fades
+    4. ABSOLUTE BAN ON EMOJIS in UI: Zero emoji (🚀 ✨ 🔥 💡 ⚡ ❤️ 🎯 📈 🛡️) used as icons, badges, or decoration
+    5. Card discipline enforced: Content structured via tables, lists, dividers, inline pairs, or tabs where appropriate (no card-soup)
+    6. Radius discipline enforced: Systematic corner radius (small/medium, no rounded-2xl/full on everything)
+    7. Shadow discipline enforced: Shadow only for elevation/modals; flat borders/whitespace preferred for content separation
+    8. Contextual typography: Real named font loaded matching domain formality, measure 65-75ch, text-wrap: balance
+    9. Human copywriting: Grounded domain verbs, zero banned AI buzzwords ("unleash", "elevate", "seamless", "supercharge", "modern", "next-gen")
+    10. Purpose-driven layout: Product-first (store), editorial-first (news), data-first (dashboard), info-first (school), utility-first (admin)
+    11. CTA discipline: Sized and placed appropriately, not oversized or repeated excessively
+    12. Contextual color palette: Rooted in real domain psychology (not generic black/white + neon purple/cyan)
+    13. Zero invented sections: No fake testimonials, pricing tiers, FAQs, or newsletters on utilitarian/internal tools
+    14. Realistic mock data: Concrete domain entities (real SKUs, item names, realistic dates/prices), zero Lorem Ipsum, zero "Amazing Product"
+    15. Authentic identity: If name and logo are removed, the site feels deliberately crafted for this specific product, not an AI template
+    16. Single elevation declared: Crisp border OR soft shadow, zero ghost cards (1px border under wide shadow)
+    17. Zero kickers or eyebrow badges above headings: Let the heading speak and carry its own weight
+    18. Zero gradient text: Visual contrast achieved purely through typography weight, size, and measure
+    19. Overlays escape clipping: Dropdowns, tooltips, and modal dialogs escape ancestor overflow: hidden via portals/popovers
+[ ] Real photography used from CDN when visual context calls for it, never solid-color placeholder boxes
+[ ] Browser surfaces themed: ::selection, caret-color, custom scrollbars, :focus-visible rings, tabular nums on numbers
 
-AUTHORED 4-LAYER MOTION SYSTEM (HARD BLOCKER)
-[ ] Layer 1 (Ambient/Focal): One authored signature focal sequence carries the product soul
-[ ] Layer 2 (Scrollytelling): Stagger chains capped at 5-6 items, 40-80ms offset, natural deceleration
-[ ] Layer 2 (Exits): Exit transitions animate 50-70% faster than entrance (150-250ms)
-[ ] Layer 3 (Micro-interactions): Every button has active press (scale 0.97) and hover lift
-[ ] Layer 3 (States): Shimmer loading, success checkmark morph, shake on error alert
-[ ] Layer 4 (GPU & A11y): Animate transforms and opacity only (zero layout thrashing)
-[ ] Layer 4 (Reduced Motion): prefers-reduced-motion media query implemented and retains essential state feedback
+FUNCTIONAL MOTION SYSTEM & ACCESSIBILITY (HARD BLOCKER #3)
+[ ] Motion by Function: Every animation has a functional purpose (feedback, state transition, loading skeleton, error shake)
+[ ] Zero gratuitous motion: No infinite gradient animations, glowing pulses, floating blobs, or excessive parallax
+[ ] Utilitarian & dashboard interfaces are snappy and lightweight: No forced hero signature animations where speed is needed
+[ ] Micro-interactions: Active button press scale(0.97) with responsive spring feedback (<150ms)
+[ ] Scrollytelling (when present on public/editorial pages): Max 5-6 items, 40-80ms offset, natural deceleration; exits 50-70% faster (150-250ms)
+[ ] GPU acceleration: Animate transforms and opacity only (zero layout thrashing, never animate top/left/width/height)
+[ ] Accessible prefers-reduced-motion fallback implemented and tested
 [ ] Gestures handle pointercancel, lostpointercapture, and blur safely without getting stuck
 
-FULL-SPECTRUM SEO, SEMANTICS & WEB VITALS (HARD BLOCKER)
+FULL-SPECTRUM SEO, SEMANTICS & WEB VITALS (HARD BLOCKER #4)
 [ ] Landmark semantic HTML5 outline used (<header>, <nav>, <main>, <article>, <footer>)
 [ ] Exactly one <h1> per page capturing the primary keyword and value proposition
 [ ] Heading levels never skip steps (h1 -> h2 -> h3)
@@ -46,7 +60,7 @@ FULL-SPECTRUM SEO, SEMANTICS & WEB VITALS (HARD BLOCKER)
 [ ] Core Web Vitals: Explicit dimensions or aspect-ratio on all images and containers (Zero CLS)
 [ ] Core Web Vitals: Interactive responses under 150ms (INP safe)
 
-SECURITY & DATA PRIVACY (HARD BLOCKER)
+SECURITY & DATA PRIVACY (HARD BLOCKER #5)
 [ ] All user inputs validated with strict schemas (Zod/Valibot) or type guards
 [ ] Zero dangerouslySetInnerHTML or innerHTML injection without sanitized allowlists
 [ ] External links use rel="noopener noreferrer" and safe protocols (http/https/mailto)
@@ -55,10 +69,11 @@ SECURITY & DATA PRIVACY (HARD BLOCKER)
 [ ] Zero secrets, private environment variables, or database credentials leaked to client JS
 [ ] Safe logging: no passwords, PII, or full server stack traces exposed to end-users
 
-CODE SAFETY, HARDENING & ARCHITECTURE (HARD BLOCKER)
+CODE SAFETY, HARDENING & ARCHITECTURE (HARD BLOCKER #6)
+[ ] Zero half-baked code: No "// TODO" comments, no lazy truncation, working click handlers for all interactive controls
 [ ] Strict TypeScript types used (strict: true, zero loose 'any' casts)
 [ ] Asynchronous UI states modeled with discriminated unions (eliminating impossible states)
-[ ] All 4 async states handled: Loading (shimmer/skeleton), Success, Empty state, and Error with Retry button
+[ ] All 4 async states handled: Loading (skeleton), Success, Empty (with action CTA), and Error with Retry button
 [ ] Component-level Error Boundaries in place so one failure does not crash the entire app
 [ ] Text overflow handled: truncate, line-clamp, overflow-wrap: break-word, min-width: 0 on flex/grid children
 [ ] Tested with extreme inputs (100+ chars, emoji, long words) without breaking layouts
@@ -67,7 +82,8 @@ CODE SAFETY, HARDENING & ARCHITECTURE (HARD BLOCKER)
 [ ] Resources cleaned up: event listeners, intervals, and AbortControllers aborted on unmount
 [ ] No unused imports, dead code, or commented-out blocks left in final delivery
 
-RESPONSIVE MASTERY & MOBILE ERGONOMICS (HARD BLOCKER)
+RESPONSIVE MASTERY & MOBILE ERGONOMICS (HARD BLOCKER #1)
+[ ] Active multi-viewport browser verification: Verified live on Mobile (390px) and Desktop (1440px) when local server runs; zero horizontal overflow (document.documentElement.scrollWidth === window.innerWidth)
 [ ] Verified on Mobile Small (~360px): layout, touch targets, and typography intact
 [ ] Verified on Mobile Standard (~390-430px): no horizontal overflow, comfortable reading
 [ ] Verified on Tablet (~768-834px): adaptive column layouts flow naturally
@@ -94,8 +110,8 @@ REQUIREMENTS & INTEGRITY
 There are **SIX MANDATORY HARD BLOCKERS** that must all pass before the task is finished:
 
 1. **RESPONSIVE & MOBILE ERGONOMICS**: Verified on mobile (~360-430px) AND desktop (~1440px), zero horizontal overflow, 44x44px touch targets, safe area insets respected, thumb zone optimized.
-2. **BESPOKE ANTI-AI CRAFT & PERSONALITY**: Matches Domain Personality Matrix, zero generic AI visual clichés, zero banned marketing buzzwords, saturated brand color, real typography pairing, themed browser surfaces.
-3. **AUTHORED 4-LAYER MOTION SYSTEM**: Focal hero moment present, staggered scrollytelling choreography, active tactile micro-interactions on all controls (press scale 0.97), prefers-reduced-motion fallback implemented.
+2. **BESPOKE ANTI-AI CRAFT & PERSONALITY**: Passes the 15-Point AI-Slop Check without exception. Zero emoji as UI elements, zero generic AI templates/clichés, zero banned marketing puffery, contextual palette, real typography pairing, themed browser surfaces.
+3. **FUNCTIONAL MOTION SYSTEM**: Fast, lightweight, purposeful. Micro-interactions (<150ms press scale 0.97), async state feedback, no forced hero animations on utilitarian apps, prefers-reduced-motion fallback implemented.
 4. **FULL-SPECTRUM SEO, SEMANTICS & WEB VITALS**: Semantic HTML5 landmark structure, single <h1> rule, complete OpenGraph/Twitter cards, domain JSON-LD Schema.org, Core Web Vitals protected (zero CLS, LCP priority).
 5. **SECURITY & DATA PRIVACY**: Strict input validation schemas (Zod/Valibot), XSS/injection prevented, tokens secured in HttpOnly cookies, zero leaked secrets.
 6. **CODE SAFETY & RESILIENT HARDENING**: Strict types, 4-state UI handled, error boundaries, text overflow protected with min-width: 0 and wrapping.

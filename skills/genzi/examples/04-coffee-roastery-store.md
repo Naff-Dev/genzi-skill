@@ -1,5 +1,5 @@
 # Example 4: Specialty Coffee Roastery Storefront
 
 ```text
-use Naff-Dev/genzi-skill buatkan storefront toko kopi roastery lokal dengan katalog biji kopi single-origin, filter rasa, dan langganan bulanan
+use Naff-Dev/genzi-skill create a local coffee roastery storefront with single-origin beans catalog, flavor filters, and monthly subscriptions
 ```

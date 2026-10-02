@@ -1,633 +1,245 @@
-# Design Guidelines
+# Design Guidelines: Purpose & Context First (Anti-AI Design System)
 
-Read this when entering Step 2 (Detect Product Context) and Steps 10-11 (Design Direction, Interaction).
-
----
-
-## 0. Design Philosophy (READ THIS FIRST)
-
-The default output of most AI systems is: dark background, purple-to-blue gradient, white text, card grid, glassmorphism. That is not a design. That is a fallback.
-
-**The directive here is the opposite:**
-
-- Start from the product's personality, audience, and goal - not from a color that "feels safe."
-- Be bold by default. Restraint is earned, not the starting point.
-- A great frontend should feel like it was designed by a human who cared deeply about this specific product.
-- If the design could belong to any other product, it is wrong.
-
-**Reference visual benchmarks (study these before designing):**
-
-```text
-GAZU (fashion e-commerce)
-    - Oversized editorial typography as layout element
-    - Real photography, no illustrations
-    - Near-black and off-white only, zero gradients
-    - Clean categories as visual blocks, not card grids
-    - Typography IS the hero, not a button or badge
-
-Okaso (furniture/interior)
-    - Full-bleed real product photo as hero background
-    - Minimal text overlay, one clear CTA
-    - Color comes from the product itself (orange sofa = brand warmth)
-    - Small floating UI card for detail/variant - intentional, not decorative
-
-Trekcave (adventure booking)
-    - Clean white base, vivid orange accent for CTA only
-    - Bold, heavy sans for headings - large, confident
-    - Hero is image + text + stat card - asymmetric composition
-    - Real photography of the destination, no illustrations
-
-Vespa (product page)
-    - Asymmetric editorial layout - text left, full product image right
-    - White base, zero gradients, typography drives hierarchy
-    - Small tags/labels as product specs, not decorative badges
-    - Real product photography, no 3D renders or illustrations
-```
-
-**Default Mode: Colorful, Opinionated, Alive.**
-
-Unless the product type or user explicitly demands neutral/minimal/dark:
-- Use color actively. Not as accent. As identity.
-- Use typography as a design element, not just a delivery mechanism.
-- Use animation to make the interface feel real and responsive.
+Read this when entering Step 1 (Detect Product Context), Step 2 (Clarification Gate vs Internal Context Deduction), and Steps 10-11 (Design Direction, Layout, Typography, Color, and Functional Motion).
 
 ---
 
-## 1. Context-Aware Design & Visitor Surface Modes
+## 0. Core Philosophy: Purpose & Context First
 
-Never use one design template for every product type. Determine the **Visitor Surface Mode** and product context first:
+The default output of most AI code generators is depressingly predictable:
+Dark background, purple-to-blue or cyan radial gradients, white text, floating bento cards, glassmorphism, huge centered hero with sparkle emoji badges (`✨ Powered by AI`), and empty marketing puffery like *"Transform your workflow with our next-generation platform"*.
 
-```text
-VISITOR SURFACE MODES (from Impeccable):
-1. Persuade (Visitor decides and acts):
-   - Landing pages, marketing, campaigns, pricing, waitlists.
-   - Design is the product. Earn attention, build conviction, drive action.
-   - Motion carries the brand voice; one rehearsed focal sequence.
+**That is not design. That is a prompt-to-UI generator fallback.**
 
-2. Operate (Visitor completes a task):
-   - SaaS app shells, dashboards, editors, admin tools, settings, POS.
-   - Scanability, muscle memory, consistency, and native affordances outrank decoration.
-   - Brand lives in crisp micro-interactions, flawless state handling, and dense typography.
+### THE MOST IMPORTANT RULE
+If the user does **NOT** provide instructions regarding appearance, style, color, layout, typography, or design references:
 
-3. Read (Visitor understands something):
-   - Docs, knowledge bases, articles, guides, changelogs.
-   - Hierarchy and measure optimized for comprehension (65-75ch line length, high contrast).
-   - Quiet, unobtrusive motion serving orientation and reading comfort.
+> **DO NOT treat this as permission to use generic AI design (Vercel/Linear dark mode SaaS templates).**
+> 
+> **DO NOT choose an AI template style as default.**
+> 
+> **Understand product -> Understand user -> Determine hierarchy -> Determine visual language -> Select typography -> Select palette -> Structure layout -> Implement with discipline.**
 
-4. Experience (Visitor is inside the work itself):
-   - Portfolios, creative galleries, interactive showcases, brand experiences.
-   - The artifact leads from the very first viewport; interface chrome recedes.
-   - High visual expression, bespoke layouts, and authored motion.
-```
+The ultimate goal is not to produce a website that looks "AI-generated modern" or an impractical Dribbble/Behance visual showcase.
 
-### 1.1 Product Type Priorities
-
-```text
-Portfolio / Personal Brand (Mode: Experience)
-    Personality-first. Pick a strong visual voice.
-    Use editorial typography (display fonts, large type, tight tracking).
-    Color: 1-2 vivid signature colors. Make them count.
-    Layout: unconventional grid, asymmetric sections, strong whitespace rhythm.
-    Motion: smooth scroll transitions, word clip reveal on enter, cursor interaction.
-    DO NOT default to dark/minimal. That is overdone.
-
-SaaS / Web App (Mode: Operate)
-    Clarity over decoration, but clarity does not mean boring.
-    Color: saturated primary + neutral system. Not gray-on-gray.
-    Navigation: fast, clear, predictable. Never bury key actions.
-    Data/forms: spacing discipline, strong input states, visible feedback.
-    Motion: micro-interactions on every action (save, error, toggle), skeleton loaders.
-
-E-commerce / Marketplace (Mode: Persuade)
-    Product is hero. Typography and color serve the product.
-    Color: neutral base + 1 vivid accent for CTA and trust signals.
-    Trust: clear pricing, real reviews, real brand signals.
-    Motion: image hover zoom, cart feedback animation, quantity update animation.
-    Reference: GAZU, Vespa, Okaso examples above.
-
-Internal Business Tool / Admin (Mode: Operate)
-    Dense but not chaotic. Speed above all.
-    Color: low-saturation base, color only for status (error, warning, success).
-    Typography: readable at small sizes, monospace for codes/IDs when useful. Tabular numbers.
-    Motion: instant feedback (100ms), minimal animation (skeleton loaders acceptable).
-
-Creative / Campaign / Landing Page (Mode: Persuade / Experience)
-    This is where full expression is allowed and expected.
-    Art direction: unconventional layout, bold color fields, strong type scale.
-    Motion: scroll-driven animations, entrance effects, parallax (controlled), focal reveal.
-    Color: anything. Own it. Make it memorable.
-    Typography: expressive. Display fonts. Oversized headings are expected.
-
-Transactional App (POS, Booking, Cashier) (Mode: Operate)
-    Speed and legibility over aesthetics, but still branded.
-    Large tap targets (min 48px), high contrast, minimal cognitive load per step.
-    Color: saturated for action/CTA, desaturated for UI chrome.
-    Motion: instant confirm/deny feedback, zero blocking animation.
-    Reference: Trekcave example above.
-```
-
-If a product doesn't fit any category above, decide the mode and priorities based on user intent and usage context. Never default to a generic landing-page template.
-
-### 1.2 Domain Personality Matrix (Anti-Cliché Brand Archetypes)
-
-Every prompt belongs to a domain. Instead of applying a generic SaaS skin to everything, match the product to its natural design archetype:
-
-| Domain Archetype | Visual Mood & Tone | Typography Pairing | Layout Rhythm | Signature Color Chemistry | Motion Physics Profile |
-|---|---|---|---|---|---|
-| **Editorial & High Luxury** (Fashion, Architecture, Culture) | Restrained, generous whitespace, confident | Display Serif (DM Serif, Playfair, Fraunces) + Neutral Sans (General Sans, Inter) | Full-bleed hero, asymmetric columns, oversized type as layout | Warm off-white (#FAF9F6), charcoal black (#18181B), single muted accent | Cinematic slow ease (`cubic-bezier(0.25, 1, 0.5, 1)`), clip-path text reveals |
-| **High-Density Engineering** (DevTools, Cloud, Infra, CyberSec) | Hyper-structured, precise, utility-driven | Technical Grotesk (Space Grotesk, Syne) + Structured Sans/Mono (IBM Plex) | Bento grid, terminal preview, dense data tables, sharp borders | Deep slate (#0F172A), neon mint (#10B981) or electric amber (#F59E0B) | Instant snappy feedback (100-120ms), zero-bounce linear transitions |
-| **Warm Artisanal & Hospitality** (Coffee, Bakery, Craft, Dining) | Earthy, organic, welcoming, sensory | Warm Serif or Character Grotesk (Fraunces, Cabinet) + Warm Sans (DM Sans) | Organic asymmetric split, warm background panels, generous padding | Warm cream (#FDFCF7), terracotta (#C85A32), olive (#4A5D4E) | Gentle soft springs (`stiffness: 260, damping: 28`), subtle parallax |
-| **High-Velocity Kinetic SaaS** (Collaboration, CRM, Productivity) | Energetic, crisp, direct, highly focused | Geometric Neo-Grotesk (Plus Jakarta Sans, Satoshi) + Neutral Sans (Inter) | 7:5 asymmetric hero with live interactive widget, dynamic bento features | Crisp white (#FFFFFF), saturated electric cobalt (#2563EB) or violet (#7C3AED) | Tactile springs (`stiffness: 380, damping: 26`), active button press scale 0.97 |
-| **Trust & Regulated Enterprise** (Banking, Medical, Legal) | Authoritative, calm, dependable, high contrast | Structured Sans (Plus Jakarta Sans) + Clean Workhorse (Inter) | Predictable scan patterns, prominent trust badges, explicit data disclosure | Crisp ice blue-white (#F8FAFC), deep navy (#0F2942), crisp emerald (#059669) | Precise subdued transitions (150-200ms), no playful spring overshoot |
-| **Culture & Neobrutalist** (Gen Z, Indie, Creative Agency) | Raw, high-impact, daring, irreverent | Bold Display (Clash Display, Syne Black) + Heavy Sans (Cabinet Grotesk) | Offset card layers, bold 2px borders, sticker tags, high contrast | Pure white or cream base, stark ink black, acid lime (#A3E635) or hot coral | High-tension spring snaps (`stiffness: 450, damping: 18`), tilt interactions |
-
-**Hard Rule on Personality Selection:**
-Never pick an archetype randomly. Analyze the user's prompt, identify the audience and emotional context, and commit 100% to that archetype across colors, fonts, spacing, layout, and motion.
+The ultimate goal is:
+**To craft a website that feels deliberately designed for that specific product by a human product designer who deeply understands real-world operational context.**
 
 ---
 
-## 2. Color System (MANDATORY to follow)
+## 1. The 9-Level Design Priority Hierarchy
 
-### 2.1 Do NOT Default to Dark or Black
-
-Dark mode is a valid choice ONLY when:
-- The product type genuinely benefits from it (code editor, media player, night dashboard).
-- The user explicitly requests it.
-- The brand identity is defined by dark.
-
-DO NOT pick dark because it "looks professional." That is the AI safety blanket. Reject it.
-
-### 2.2 Color Selection Process
-
-Before choosing colors, answer:
-1. What emotion should this product evoke? (trust, energy, calm, boldness, playfulness)
-2. Who uses this? (age, profession, context)
-3. Is there an existing brand identity?
-
-Then pick:
+In every design, layout, and interaction decision, strictly follow this priority order:
 
 ```text
-Primary color: 1 vivid, saturated color that defines the brand.
-    Do not default to blue unless the product is genuinely finance/health/trust.
-    Consider: warm orange, electric green, vivid coral, deep violet, saturated
-    teal, bold red, golden yellow, magenta - these are underused and distinctive.
-
-Secondary color: complements or contrasts the primary.
-    Analogous (nearby on wheel) for harmony.
-    Complementary (opposite) for energy.
-
-Neutral base:
-    Light mode: white or off-white (e.g. #FAFAF8, #F5F4F0, warm cream).
-    Dark mode (only if chosen): very dark, not pure black (#0D0D0D, #111118).
-    Grays must be hue-shifted (tinted toward the primary), not pure RGB grays.
-
-Accent: optional 3rd color for highlights, tags, badges only.
+1. Functionality        (Primary features and core workflows work reliably)
+2. Information Hierarchy(Visitor's eye immediately grasps primary data and actions)
+3. Usability            (Intuitive layout, clear affordances, ergonomic, efficient)
+4. Accessibility        (WCAG AA contrast, keyboard navigation, min 44x44px touch targets)
+5. Consistency          (Systematic spacing, typography scale, and unified components)
+6. Performance          (Lightweight, sub-second load, Core Web Vitals protected, zero CLS)
+7. Brand / Context      (Visual language authentic to industry, audience, and domain)
+8. Visual Polish        (Clean borders, crisp elevation, subtle micro-interactions)
+9. Decoration           (Aesthetic flair: strictly purposeful and non-distracting)
 ```
 
-### 2.3 Palette Examples (starting points only, always adapt)
-
-```text
-High-energy (startup, creative, youth-facing):
-    Primary:    hsl(22, 95%, 55%)    vivid orange
-    Secondary:  hsl(340, 80%, 55%)   hot pink/magenta
-    Background: hsl(30, 20%, 97%)    warm off-white
-    Text:       hsl(20, 15%, 12%)    warm near-black
-
-Trust-first (finance, legal, health):
-    Primary:    hsl(214, 75%, 45%)   confident blue (not generic)
-    Secondary:  hsl(160, 60%, 42%)   teal-green
-    Background: hsl(210, 20%, 98%)   cool off-white
-    Text:       hsl(215, 25%, 12%)   cool near-black
-
-Creative / portfolio (artist, designer):
-    Primary:    hsl(280, 85%, 55%)   vivid violet
-    Secondary:  hsl(50, 90%, 55%)    golden yellow
-    Background: hsl(0, 0%, 98%)      near-white
-    Text:       hsl(0, 0%, 8%)       near-black
-
-E-commerce / consumer:
-    Primary:    hsl(15, 90%, 50%)    vivid red-orange
-    Secondary:  hsl(35, 85%, 50%)    amber
-    Background: hsl(0, 0%, 100%)     white
-    Text:       hsl(0, 0%, 10%)      black
-
-Editorial / fashion (GAZU style):
-    Primary:    hsl(0, 0%, 8%)       near-black
-    Accent:     hsl(0, 0%, 100%)     white
-    Background: hsl(40, 10%, 96%)    warm off-white
-    Note: color comes from the product photography, not from UI elements.
-```
-
-### 2.4 Gradient Rules
-
-```text
-ALLOWED:
-- Gradient as a brand color field (hero background, section break).
-- Gradient on a button when the brand is high-energy or creative.
-- Subtle gradient overlay on images for text legibility only.
-- Text gradient on one specific display heading only.
-
-FORBIDDEN:
-- Purple-to-blue gradient as the primary identity (generic AI look).
-- Gradient on every card, button, section, and background simultaneously.
-- Gradient as wallpaper with no other design intent.
-- Multiple different gradients competing on the same page.
-```
+**HARD DIRECTIVE:** NEVER invert this hierarchy. Never sacrifice usability, readability, or data density for the sake of a "wow effect" or decorative animations.
 
 ---
 
-## 3. Typography System (MANDATORY to follow)
+## 2. Internal Context Deduction (Rule 12)
 
-### 3.1 Always Load a Real Font
+When a user provides a bare or informal prompt without visual direction, such as:
+> *"Build me a website for warehouse stock tracking"*
+> *"Build a website for a motorcycle repair workshop"*
+> *"Build a website for a dental clinic"*
 
-Never use the browser default (Times New Roman, Arial, or bare `sans-serif`). Always import from Google Fonts or use a defined system font stack.
+**DO NOT** ask the user about visual styling, color palettes, or font choices at the Clarification Gate. The agent **MUST** independently execute **Internal Context Deduction** across these 10 dimensions:
 
-### 3.2 Font Selection
+### The 10 Dimensions of Context Deduction:
+1. **Website Type**: Is this an e-commerce catalog, school portal, internal ERP tool, operational dashboard, service booking site, or editorial publication?
+2. **Primary Goal**: What is the visitor's core objective? (Look up emergency contact, rapid barcode input, purchase an item, or read an article?)
+3. **Target User**: Who operates this? (Busy warehouse staff on a desktop monitor, parents on smartphones, doctors on tablets, or retail consumers?)
+4. **Industry & Domain**: Healthcare, education, mechanical repair, legal, food & beverage, logistics, or creative arts?
+5. **Usage Context**: Ambient lighting (outdoor sun vs office desk), connection speed, primary device (mobile vs desktop).
+6. **Available Data & Features**: Tabular data, search forms, photo galleries, or metric summaries?
+7. **Information Hierarchy**: What is the very first piece of information the user must see? What is secondary?
+8. **Usability Demands**: High data throughput, rapid tactile input, or step-by-step guidance?
+9. **Authentic Brand Character**: Institutional and authoritative, utilitarian and rugged, warm and artisanal, or technical and precise?
+10. **Cultural & Language Context**: Currency conventions, localized date formats (DD/MM/YYYY), contact expectations (direct phone / WhatsApp vs formal tickets).
 
-```text
-Display / Heading (pick one per project):
-    Clash Display        geometric, bold, ultra-modern (editorial/fashion)
-    Cabinet Grotesk      warm geometric, contemporary
-    Satoshi              clean, confident sans
-    Syne                 distinctive, editorial
-    Space Grotesk        technical, sharp
-    DM Serif Display     editorial serif, contrasts with sans
-    Playfair Display     classic editorial serif
-    Fraunces             expressive variable serif
-    Outfit               clean, versatile
-    Plus Jakarta Sans    geometric, professional
-
-Body (readability priority):
-    Inter                neutral, highly legible
-    DM Sans              warm, modern
-    Figtree              friendly, open
-    General Sans         clean workhorse
-    IBM Plex Sans        structured, technical
-
-Pairing rule: CONTRAST the display and body fonts.
-    Geometric sans display + humanist sans body.
-    Serif display + geometric sans body.
-    DO NOT pair two similar sans-serif fonts.
-```
-
-### 3.3 Type Scale (use clamp() for fluid scaling)
-
-```text
-Display / Hero:  clamp(3.5rem, 8vw, 9rem)   large, commanding (GAZU/Trekcave scale)
-H1:              clamp(2rem, 4vw, 3.5rem)
-H2:              clamp(1.5rem, 2.5vw, 2.25rem)
-H3:              1.25rem to 1.5rem
-Body:            1rem (16px base)
-Small / Caption: 0.875rem
-Label:           0.75rem, uppercase, tracked
-
-Rules:
-- Never use more than 3 font sizes within one section.
-- Heading and body must have clearly different sizes.
-- Display text: line-height 1.0-1.1, letter-spacing -0.03em (tight, editorial).
-- Body text: line-height 1.55-1.70.
-- Uppercase labels: letter-spacing +0.08em to +0.15em.
-- Oversized display type used as LAYOUT element (like GAZU) is valid and encouraged.
-```
-
-### 3.4 Font Weight as Hierarchy
-
-```text
-900 / Black:    hero headings, display text only
-700 / Bold:     H1, H2, CTA labels, key numbers
-600 / SemiBold: H3, nav items, card titles
-500 / Medium:   UI labels, subheadings
-400 / Regular:  body text
-300 / Light:    captions, metadata (use sparingly)
-```
+*Note: This reasoning occurs internally. The final output must clearly show that design choices were guided by genuine rationale without forcing the user to read verbose deliberation.*
 
 ---
 
-## 4. Animation and Motion System (MANDATORY to implement)
+## 3. Purpose-Driven Layouts: Never Repeat the Same Template
 
-### 4.1 Authored 4-Layer Motion Framework (MANDATORY Architecture)
-
-Every interactive element must respond visually. A static interface feels dead, while scattered, uncoordinated animations feel like cheap decoration. Build motion across 4 explicit layers:
-
+### THE BANNED DEFAULT TEMPLATE:
+Strictly avoid using this generic SaaS layout for every project:
 ```text
-LAYER 1: AMBIENT & HERO FOCAL MOMENT
-- One signature authored animation that carries the soul of the product.
-- Examples: kinetic typography clip reveal, interactive 3D/canvas canvas, magnetic button cursor, or live preview widget.
-- Calibrated to the Domain Personality Archetype.
-
-LAYER 2: STAGGERED SCROLLYTELLING & CHOREOGRAPHY
-- Coordinated entrance of sections as the user scrolls into view.
-- Max 5-6 items in a stagger chain with 40-80ms offset per item (never let staggers drag).
-- Entrances use natural exponential deceleration (400-600ms).
-- Exits ALWAYS exit faster than entrances (150-250ms, approx 50-70% of enter duration).
-
-LAYER 3: TACTILE MICRO-INTERACTIONS & FEEDBACK
-- Immediate response (<150ms) to every user gesture:
-  * Button active press: transform scale(0.97) + tactile release spring.
-  * Inputs: smooth focus ring expansion, floating label shift.
-  * Toggles & switches: physical spring snap (stiffness: 380, damping: 26).
-  * Tab indicators: sliding underline / pill using layoutId or CSS transform.
-  * Async states: shimmer skeleton, success checkmark draw, shake alert on error.
-
-LAYER 4: GPU ACCELERATION & ACCESSIBILITY GUARDRAILS
-- Animate ONLY GPU-accelerated transform, opacity, and filter properties.
-- Zero layout thrashing (never animate top/left/width/height directly).
-- Mandatory prefers-reduced-motion fallback that preserves opacity & color without violent spatial displacement.
+[ Navbar ]
+    ↓
+[ Centered Huge Hero + Sparkle Emoji Badge ]
+    ↓
+[ Abstract Subtitle ]
+    ↓
+[ 2 Pill Buttons CTA ]
+    ↓
+[ 3 Equal-Width Feature Cards ]
+    ↓
+[ Big Gradient CTA Section ]
+    ↓
+[ Footer ]
 ```
 
-### 4.2 Material by Meaning (Choose Properties by What They Communicate)
+### Purpose-Driven Layout Archetypes:
+Tailor page scaffolding directly to the domain:
 
-```text
-Continuity & Relationship:
-    Shared-element motion, FLIP transitions, directional slide, layout morphing.
-    Use when an element moves between positions or expands from a card to a modal.
+1. **Retail / Store Website (Product-First Layout)**:
+   - Hero directly highlights featured products or primary shopping categories.
+   - Product catalog grid featuring clear prices, real-time stock availability, and quick add-to-cart actions.
+   - Cart access and search are always within immediate reach.
 
-Focus & Depth:
-    Backdrop-blur (4px to 12px), subtle scale shift, soft directional shadow elevation.
-    Use when bringing an element into focus or dimming background context.
+2. **News / Publication Website (Editorial / Content-First Layout)**:
+   - Lead story with commanding headline and dense excerpt, flanked by numbered latest news lists and editorial columns.
+   - Multi-column asymmetrical layouts with hairline dividers rather than stacked cards.
 
-Reveal & Composition:
-    Masks, clip-paths (e.g., inset(100% 0 0 0) -> inset(0 0 0 0)), controlled image cropping.
-    Use for editorial hero entrances, typography reveals, and card disclosures.
+3. **Dashboard & Operations (Data-First Layout)**:
+   - Compact sidebar or utilitarian top navigation bar.
+   - Key metric summary bar (tabular numbers, concise labels).
+   - Interactive data tables with sorting, filtering, pagination, and inline row actions.
+   - Disciplined whitespace (dense layout) ensuring critical data is visible without unnecessary scrolling.
 
-State & Feedback:
-    Smallest visible change that makes action and result unmistakable.
-    Scale-down press (0.97), color pulse, icon tick, shimmer state.
-```
+4. **School / Education Website (Info & Navigation-First Layout)**:
+   - Urgent notices upfront: Enrollment announcements, academic calendar, emergency contacts.
+   - Multi-tier clear navigation (About, Academic Programs, Facilities, Admissions).
+   - Informative sections with schedule tables and official document download links.
 
-### 4.3 Required Animations (Always Implement These)
+5. **Portfolio Website (Project-First Layout)**:
+   - Creative work takes center stage from the very first viewport.
+   - High-fidelity imagery, project role breakdown, and live preview links.
+   - Interface chrome recedes to let the artifacts shine.
 
-```text
-HOVER STATES (every interactive element must have an intentional response):
-    Buttons:         scale(1.02 to 1.04) + color shift + shadow lift, 150-200ms ease-out
-    Cards:           translateY(-4px to -8px) + shadow elevation + subtle border brightness, 200-250ms
-    Links:           underline slide-in (clip-path or scaleX) or smooth color transition, 150ms
-    Nav items:       active indicator slide / background pill fill, 150ms
-    Icons:           small scale or rotational tilt (±8deg), 200ms
-    Product images:  zoom scale(1.05 to 1.08) with overflow hidden, 400-500ms ease-out
+6. **Restaurant / Cafe Website (Menu, Location & Contact-First Layout)**:
+   - Operating hours, full physical address, map directions, and direct booking contacts immediately visible.
+   - Menu presented in organized categorical price lists (food, drinks, sets) that are fast to scan on mobile, not generic SaaS cards.
 
-CLICK / ACTIVE FEEDBACK:
-    Buttons:         scale(0.96-0.97) quick press, 80-100ms, then spring release
-    Toggles/Switches: smooth spring slide (stiffness: 400, damping: 30), 200ms
-    Checkboxes:      check icon draw / scale bounce, 150ms
-
-ENTRANCE ANIMATIONS:
-    Pattern:         opacity 0 -> 1 with translateY(20-32px) -> 0
-    Duration:        400-600ms with natural deceleration
-    Stagger chain:   40-80ms delay per child item. Cap chain at maximum 5-6 items.
-    Implementation:  IntersectionObserver + class toggle, or Framer Motion whileInView / variants.
-
-EXIT ANIMATIONS (Always Exit Faster than Entrance):
-    Duration:        150-250ms (roughly 50-70% of enter duration)
-    Pattern:         opacity 1 -> 0 with scale(0.98) or translateY(-10px)
-
-FOUR-STATE ASYNC FEEDBACK:
-    Loading:         Shimmer skeleton with moving gradient highlight or crisp spinner.
-    Success:         Green pulse or checkmark morph, auto-dismiss toast.
-    Error:           Subtle horizontal shake (translateX: -4px, 4px, -2px, 0), 250ms + visible alert.
-    Empty:           Fade-in with illustrated icon and actionable CTA.
-
-TEXT & HERO REVEAL (for Portfolios, Creative, Landing Pages):
-    Word / line clip-path reveal: inset(100% 0 0 0) -> inset(0 0 0 0)
-    Duration:        600-800ms per line, cubic-bezier(0.16, 1, 0.3, 1).
-    Stagger:         50-80ms per line/word.
-```
-
-### 4.4 Timing, Curves and Physics Tokens
-
-```text
-TIMING SCALES:
-    Immediate Feedback:   100-150ms (button press, active ripple)
-    Routine State Change: 150-250ms (hover, dropdown toggle, tab switch)
-    View / Modal / Drawer:300-450ms (dialog open, sheet slide-in)
-    Authored Focal Entrance: 500-750ms (hero reveal, page banner)
-
-PHYSICS & EASING CURVES:
-    Natural Deceleration (Default enter):
-        cubic-bezier(0.16, 1, 0.3, 1)  /* Ultra-smooth exponential ease-out */
-    Snappy UI (Dropdowns, popovers):
-        cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    Spring Physics (Micro-interactions, bouncy buttons):
-        cubic-bezier(0.34, 1.56, 0.64, 1.0)
-    Framer Motion Spring Spec:
-        { type: "spring", stiffness: 350, damping: 25, mass: 1 }
-```
-
-### 4.5 Technology Stack Priority
-
-```text
-1. CSS Transitions & Transforms:
-   Best for hover, focus, active press, simple visibility toggles. Zero JS overhead.
-
-2. Framer Motion (React / Next.js):
-   FIRST CHOICE for React projects when building complex layout animations, AnimatePresence
-   for exit transitions, scroll-driven whileInView, and gesture physics. Use freely.
-
-3. GSAP + ScrollTrigger:
-   Best for vanilla JS, timeline-driven sequences, or pinned horizontal scroll sections.
-
-4. View Transitions API:
-   Native browser shared-element navigation between pages or large views.
-```
-
-### 4.6 Gesture Safety & Interruption Handling
-
-- If pointer capture is lost (`lostpointercapture`, `pointercancel`, or window `blur`), reset animation and drag state immediately.
-- Prevent gestures from getting stuck in mid-state when a second finger touches the screen.
-
-### 4.7 Accessible prefers-reduced-motion (MANDATORY)
-
-Reduced motion does NOT mean eliminating visual feedback. It means removing disorienting spatial movement while keeping essential opacity, color, and state changes:
-
-```css
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-    
-    /* Retain essential opacity and color feedback */
-    .fade-transition, [data-motion="fade"] {
-        transition: opacity 150ms ease-in-out !important;
-    }
-}
-```
+7. **Internal Tool / POS / Admin (Utility-First Layout)**:
+   - Cashier screens, inventory tracking, or transaction logs: speed and muscle memory rule.
+   - Keyboard shortcuts, barcode scan inputs, auto-focused fields, and high contrast. Zero blocking decorative fluff.
 
 ---
 
-## 5. Asset Rule - Images from Browser CDN (PREFERRED)
+## 4. Visual Language Spectrum (15+ Archetypes)
 
-For web projects that need real photography, always use browser-accessible CDN sources directly in `src` attributes. Do NOT skip images or use colored placeholders when real images improve the product.
+The agent must master diverse visual languages rather than always falling back to "modern SaaS":
 
-### 5.1 Preferred Image Sources (use directly via URL, no download needed)
-
-```text
-UNSPLASH (high-quality, free, no attribution required for web):
-    Base URL: https://images.unsplash.com/photo-{ID}?w=1200&q=80&auto=format&fit=crop
-    Example:  https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200&q=80
-
-PEXELS (free, high-quality):
-    Images.pexels.com CDN - use the direct photo URL from their API/website
-
-PICSUM (placeholder with real photos, good for prototyping):
-    https://picsum.photos/seed/{keyword}/{width}/{height}
-    Example: https://picsum.photos/seed/fashion/800/600
-
-SPECIFIC CATEGORY SEARCHES on Unsplash:
-    Fashion:     search "fashion editorial minimal"
-    Interior:    search "interior minimal furniture"
-    Food:        search "food photography minimal"
-    Tech:        search "technology workspace"
-    Nature:      search "landscape mountain trail"
-    People:      search "portrait professional"
-```
-
-### 5.2 Image Usage Rules
-
-```text
-1. Always use a real photo when the section has a visual role (hero, product, feature).
-2. Never use a solid-color rectangle as a "placeholder" in a final product.
-3. Use object-fit: cover for full-bleed images. Always set width/height.
-4. Add alt text that describes the image content, not "image" or "photo".
-5. Use loading="lazy" on images below the fold.
-6. Unsplash CDN supports query params: ?w=800&q=75&auto=format for optimization.
-7. For product images the user hasn't provided: use generate_image tool to
-   create a matching visual, or use a clearly marked placeholder.
-```
-
-### 5.3 When to Use generate_image Tool
-
-```text
-- Custom illustrations or graphics specific to the brand
-- Product mockups not available via stock photography
-- Unique hero visuals that don't exist on stock sites
-- Brand-specific icons or decorative elements
-```
+| Visual Language | Core Characteristics | Typography | Color Palette | Ideal Domain |
+|---|---|---|---|---|
+| **Utilitarian / Industrial** | Maximum efficiency, crisp borders, minimal decoration, dense data tables | Clean Sans (Inter, Roboto) + Monospace (JetBrains, Plex Mono) | Slate, measured grays, functional accents (amber, emerald) | Warehouses, auto repair, logistics, POS, monitoring |
+| **Institutional / Official** | Formal, credible, stable, disciplined hierarchy | Classic/Modern Serif (Merriweather, Source Serif) + Workhorse Sans | Deep navy, rich burgundy, warm gray, ivory white | Hospitals, government agencies, law firms, universities |
+| **Warm Artisanal** | Organic, tactile, grounded, celebrating craftsmanship | Warm Serif / Humanist (Fraunces, Recoleta) + Warm Sans (DM Sans) | Terracotta, olive green, cream (#FDFCF7), roasted coffee tones | Roasteries, bakeries, florists, craft workshops |
+| **Dense Dashboard** | High information density per square inch, tabular numerals, functional status chips | Compact Sans (Plus Jakarta Sans, Inter) 12-14px | Balanced neutrals, clean backgrounds, pure semantic status colors | Accounting, CRM pipelines, trading, logistics analytics |
+| **Editorial & Cultural** | Expressive typography as layout element, rhythmic whitespace, asymmetric columns | Display Serif (DM Serif, Playfair) + Editorial Sans | Warm off-white (#FAF9F6), charcoal (#18181B), single muted accent | Magazines, architecture studios, cultural galleries |
+| **Commercial Retail** | High contrast, bold pricing, clear action buttons, crisp product imagery | Bold Sans (Plus Jakarta Sans, Outfit, General Sans) | Pure white base, vibrant brand accent (warm orange, brick red, royal blue) | Supermarkets, electronics stores, SME storefronts |
+| **Documentation / Technical** | Strict heading hierarchy, clear code blocks, breadcrumbs, tree navigation | Structured Sans + Code Mono | Balanced neutrals, eye-friendly syntax highlighting | API documentation, user manuals, operating procedures |
+| **Playful & Friendly** | Softly rounded corners, cheerful and warm palette, inviting copy | Warm Sans (Figtree, Nunito, Fredoka) | Warm pastels, honey mustard, mint, soft sky blue | Child education, pet services, hobby communities |
+| **Minimalist Contemporary** | Essentialism, elimination of non-essential chrome, meticulous type | Geometric Neo-Grotesk (Satoshi, General Sans) | Disciplined monochrome with one decisive accent tone | Photography studios, brand consultancies |
 
 ---
 
-## 6. Layout, Spacing & Browser Surfaces Craft Floor
+## 5. Absolute Ban on Emojis in UI (Rule 2)
 
-### 6.1 Spacing System (use these units, not arbitrary px)
+**BY DEFAULT: DO NOT USE EMOJIS IN THE USER INTERFACE.**
 
-```text
-4px   - micro gap (icon to label)
-8px   - small internal padding
-12px  - small component padding
-16px  - standard component padding, small gap
-24px  - gap between related elements
-32px  - gap between components
-48px  - section internal spacing
-64px  - between major sections
-96px  - between page-level sections on desktop
-128px - hero vertical padding
-```
+Never use emojis such as:
+`🚀` `✨` `🔥` `💡` `⚡` `❤️` `🎯` `📈` `🛡️` `👉` `🎉` `🌟`
+as:
+- Button icons or CTA adornments (`🚀 Get Started` ❌)
+- Feature badges or section kickers (`✨ AI Powered` ❌)
+- Card header icons (`🛡️ Enterprise Security` ❌)
+- Decorative layout indicators
 
-### 6.2 Layout Composition & Measure
-
-```text
-- Max content width: 1200-1440px, centered with margin: auto.
-- CSS Grid for page-level layout. Flexbox for component-level.
-- Never use fixed pixel heights on content containers (use min-height).
-- Section backgrounds: use intentional contrast and rhythm. Alternate:
-  off-white > tinted light brand > white > image-full > white.
-- Grid asymmetry: 7:5 or 3:5 column split is more dynamic than 50:50.
-- Body measure: 65-75ch line length for comfortable reading. Never full-width unconstrained text.
-- Heading balance: use `text-wrap: balance` on all headings to eliminate orphan single words.
-- Full-bleed sections (no container width cap) for hero and feature images.
-- Oversized typography used as layout element (not just text) is encouraged.
-```
-
-### 6.3 Browser Surfaces Theming (The Impeccable Craft Floor)
-
-The parts you didn't draw still carry the design. Un-themed browser defaults make an interface feel assembled rather than authored:
-
-```css
-/* 1. Brand selection colors */
-::selection {
-    background-color: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.25);
-    color: hsl(var(--text-color));
-}
-
-/* 2. Brand caret color */
-input, textarea {
-    caret-color: hsl(var(--primary-color));
-}
-
-/* 3. Accessible, deliberate focus rings */
-:focus-visible {
-    outline: 2px solid hsl(var(--primary-color));
-    outline-offset: 2px;
-}
-
-/* 4. Tabular numbers for clean numeric alignment */
-.tabular, table, [data-numeric] {
-    font-variant-numeric: tabular-nums;
-}
-
-/* 5. Custom themed scrollbars */
-* {
-    scrollbar-width: thin;
-    scrollbar-color: hsla(var(--text-h), 10%, 60%, 0.4) transparent;
-}
-```
-
-### 6.4 Responsive Mastery, Mobile Ergonomics & Touch Architecture (MANDATORY)
-
-A desktop layout crammed into mobile with shrunken fonts is a total failure. Mobile interfaces require distinct ergonomics and layout architecture:
-
-```text
-VIEWPORT TARGETS & VALIDATION SPECS:
-1. Mobile Small:    360px - 390px (iPhone SE, compact Androids)
-2. Mobile Standard: 390px - 430px (iPhone 14/15/16 Pro, standard Samsung Galaxy)
-3. Tablet / Fold:   768px - 834px (iPad mini, iPad Air)
-4. Desktop Work:    1024px - 1440px (MacBook Air / Pro, standard monitors)
-5. Ultrawide:       1920px+ (must constrain max container width to 1440px with margin: auto)
-
-TOUCH ERGONOMICS & THUMB ZONE (Mobile):
-- Minimum touch target: 44x44px for every button, icon link, input, and chip (WCAG 2.5.5).
-- Touch separation: at least 8px spacing between tap targets to prevent misclicks.
-- Ergonomic thumb zone: Primary interactive controls (CTAs, bottom sheets, filter triggers)
-  must sit in the lower 40% of the screen within comfortable one-handed reach.
-- Safe Area Insets: Always accommodate device notches, dynamic islands, and home indicator bars:
-  padding-top: env(safe-area-inset-top);
-  padding-bottom: max(1rem, env(safe-area-inset-bottom));
-
-ZERO HORIZONTAL OVERFLOW GUARANTEE:
-- Apply `overflow-x: clip` (or `hidden`) on top-level page wrappers.
-- All media must have `max-width: 100%; height: auto; display: block;`.
-- Never use fixed pixel widths on layout elements (`width: 500px` is forbidden; use `max-width: 500px; width: 100%;`).
-- Complex data tables and code blocks must be wrapped in explicit scroll containers with custom thin scrollbars:
-  .table-scroll-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-
-ADAPTIVE NAVIGATION ARCHITECTURE:
-- Desktop: horizontal header with clean spacing and direct access to primary navigation.
-- Mobile (<768px): clean off-canvas drawer or bottom sheet with backdrop-blur, accessible close button,
-  focus trap, and body scroll lock when open (`overflow: hidden` on body).
-```
+### Proper Icon Solutions:
+1. **Bespoke Inline SVG (Default, Zero-Dependency, Lightweight)**:
+   Use clean, crisp inline SVGs with `width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"`.
+2. **Standard Project Icon Library**:
+   When building in modern frameworks (React, Next.js, Vue), standard icon libraries like `lucide-react`, `heroicons`, or `@phosphor-icons/react` are fully acceptable and encourage consistency.
+3. **Emoji Exceptions**:
+   Emojis are ONLY permitted when:
+   - They represent actual user-generated data (chat message content, user reactions).
+   - The user explicitly requested emojis in their prompt.
 
 ---
 
-## 7. Bespoke Anti-AI Craft & Cliché Eradication (HARD RULE)
+## 6. Component Discipline: Anti-Slop Rules
 
-Never produce a UI that feels like generic AI output. Every project must possess its own distinct visual DNA and authentic human voice.
+### 6.1 Card Discipline: Do Not Wrap Everything in Cards (Rule 7)
+Cards are not a universal container. Wrapping every paragraph into a card is the hallmark of lazy AI generation.
 
-### 7.1 Banned AI Visual Clichés (The "AI Starter Pack")
-If a design exhibits more than ONE of the following patterns, it is considered generic AI slop and MUST be redesigned:
-1. **The Purple/Cyan Dark-Mode Trap**: Pure dark #000000 background bathed in generic purple-to-blue or cyan radial gradients.
-2. **The Cloned Centered Hero**: Centered text + pill badge with sparkle emoji (`✨ Powered by AI`) + 2 pill buttons + floating dashboard screenshot with glowing border.
-3. **The Unbroken 3-Card March**: Exactly 3 equal-width cards in a row with identical 1px border glow and glassmorphism backdrop blur.
-4. **Nested Cards in Cards**: Putting cards inside cards inside cards instead of using clean negative space and typography to establish grouping.
-5. **Floating Geometric Blobs**: 3D floating donuts, metallic spheres, or pastel gradient blobs serving zero communicative purpose.
-6. **Fake Stock SVG Doodles**: Hand-drawn wavy arrows or sketch doodles slapped near headings to simulate "playfulness".
-7. **Uniform Gray Wash**: Monochrome gray-on-gray interface with zero saturated brand primary color.
+**Use these structural alternatives:**
+- **Tables**: For data comparisons, inventory lists, transaction histories, and technical specifications.
+- **Lists & Dividers**: Menus, task queues, schedules, or audit logs separated cleanly by hairline borders or negative space.
+- **Grouped Sections / Fieldsets**: For structured forms and multi-criteria filters.
+- **Inline Key-Value Rows**: Label-value pairs (e.g., "Stock: 42 units", "Bin Location: B-03").
+- **Accordions / Tabs**: For layered details or FAQs to prevent vertical clutter.
+- **Plain Text + Images**: Editorial layouts where photography and prose sit side-by-side naturally.
 
-### 7.2 Banned AI Buzzwords & Marketing Clichés
-AI models default to repetitive, empty marketing puffery. The following words and phrases are STRICTLY FORBIDDEN in copy, headings, and PRDs:
+*Use cards ONLY when an item represents a discrete, self-contained interactive entity (e.g., a physical product in a store, an independent discount voucher).*
+
+### 6.2 Radius Discipline: Systematic Corner Radii (Rule 8)
+Do not plaster `rounded-2xl`, `rounded-3xl`, or `rounded-full` onto every element. Establish a deliberate scale:
+- **Buttons**: Small or medium radius (`rounded-md`, 4px - 8px). Pill shape (`rounded-full`) is reserved for standalone filter chips or floating action badges.
+- **Form Inputs**: Small radius (`rounded`, 4px - 6px) for crisp precision.
+- **Cards / Panels**: Medium radius (`rounded-lg` or `rounded-xl`, 8px - 12px).
+- **Modals / Popovers**: Medium radius (`rounded-xl`, 12px).
+- **Page Containers / Layout Wrappers**: Often need zero radius (`rounded-none`).
+
+### 6.3 Shadow Discipline & Single Elevation Rule (Rule 9)
+Do not give every card and section an identical heavy drop shadow.
+- **Declare elevation once: Border OR Shadow.** A 1px border under a wide soft drop shadow is the classic AI "ghost card." Choose either a crisp hairline border on flat surfaces, or a soft offset shadow for elevated layers, never both competing.
+- **Shadows reserved for interactive depth**: Use shadows only for floating dialogs, dropdowns, and elevated active layers.
+- **No hard offset block shadows**: Do not use `box-shadow: 4px 4px 0` outside a dedicated neobrutalist world.
+
+### 6.4 Surface & Component Anti-Patterns (The Impeccable Craft Floor)
+- **No Kickers / Eyebrows above Headings**: Delete the generic tag or pill badge slapped above headings. Let the heading speak and carry its own weight.
+- **No Gradient Text**: Gradients on text are an AI costume. Create visual contrast through size, line-height, and font weight.
+- **No Colored Side-Stripes**: Avoid thick colored `border-left` or `border-right` on cards, alerts, or list items.
+- **Overlays Must Escape Containers**: Dropdowns, tooltips, and modal sheets inside `overflow: hidden` or `overflow: auto` containers get clipped. Use `<dialog>`, the HTML Popover API, `position: fixed`, or React portals to ensure menus float cleanly.
+- **Modals as Last Resort**: Modals interrupt user flow. Exhaust inline expanders, accordions, sliding drawers, and progressive disclosure before reaching for a blocking modal dialog.
+- **No Sketch SVG Doodles**: Hand-drawn wavy arrows or amateur SVG doodle illustrations are forbidden. Use real photos or clean geometric vector diagrams.
+
+### 6.5 Spacing Discipline: Match Information Density (Rule 10)
+Do not enforce massive padding (96px - 128px) on every website:
+- **Internal Tools / POS / Warehouses**: Tight spacing (4px - 16px) so complete operational toolsets stay visible without scrolling.
+- **Data Dashboards**: Measured spacing (12px - 24px) for efficient eye scanning.
+- **Public Landing Pages**: Generous breathing room (48px - 80px) for editorial hierarchy.
+
+---
+
+## 7. Contextual Color Palettes: Reject the Dark-Mode Reflex (Rule 6)
+
+### 7.1 Do Not Default to Dark Mode
+Dark mode is ONLY appropriate when:
+1. The user explicitly requests dark mode.
+2. The domain naturally requires it (night code editors, radar monitors, video editing suites, cinema players).
+3. All other domains (schools, auto shops, florists, accounting, dental clinics, restaurants) **MUST USE A CRISP, ACCESSIBLE LIGHT MODE ROOTED IN BRAND REALITY**.
+
+### 7.2 Contextual Domain Colors
+Avoid generic black-and-white schemes with electric neon accents:
+- **Dental Clinic / Health**: Hygienic sky blue, soft sage green, crisp cool-white background.
+- **Auto Workshop**: Steel gray, industrial warning amber or energetic red, oil-charcoal trim.
+- **Florist / Bakery**: Botanical deep green, flour cream, terracotta accents, blush rose.
+- **Accounting / Finance**: Confident navy, balanced slate, functional emerald for positive balances, crimson for negative.
+- **Schools / Education**: Academic royal navy, warm golden yellow, warm ivory background.
+
+---
+
+## 8. Human Copywriting: Ban AI Robot Jargon (Rules 4, 17, 18)
+
+### 8.1 Banned AI Marketing Buzzwords:
 ```text
-FORBIDDEN WORDS & PHRASES:
+STRICTLY FORBIDDEN WORDS AND PHRASES:
 - "Unleash / Unleashing"
 - "Elevate / Elevating"
 - "Seamless / Seamlessly"
@@ -638,134 +250,368 @@ FORBIDDEN WORDS & PHRASES:
 - "Game-changer"
 - "Transform your workflow"
 - "Harness the power of..."
+- "The ultimate solution for..."
+- "Modern, powerful, and easy to use"
 - "Discover a world of..."
 - "Take your X to the next level"
-- "Designed with modern teams in mind"
-- "Effortlessly manage"
-- "The ultimate solution for..."
-- "Say goodbye to..."
 ```
 
-### 7.3 Grounded Human Copywriting Rules
-Replace empty puffery with concrete, specific, verifiable facts and actions:
-- **Use Domain Nouns & Exact Verbs**: Instead of *"Supercharge your team with next-gen insights"*, write *"Inspect Kafka consumer lag and slow PostgreSQL queries in one unified trace"*.
-- **Speak from Human Experience**: Instead of *"Elevate your morning routine"*, write *"Freshly roasted Arabica beans sourced directly from Soreang smallholders"*.
-- **Direct Value First**: State the literal outcome in the first 5 words of the heading.
+### 8.2 Write Concrete, Action-Oriented Copy:
+State **WHAT THE PRODUCT ACTUALLY DOES**, not how grand it claims to be:
 
-### 7.4 Comprehensive Craft Floor Failure Checklist
-Each item below is a hard failure gate:
+- **AI Slop**: *"A modern, cutting-edge platform designed to seamlessly transform your inventory workflow."*
+- **Human Copy**: *"Record incoming goods, track shelf inventory counts, and export daily audit reports in one view."*
+
+- **AI Slop**: *"Next-generation culinary experiences engineered to elevate your daily breakfast."*
+- **Human Copy**: *"Order freshly cooked breakfast bowls, prepared and delivered to your office before 8:30 AM."*
+
+### 8.3 Never Fabricate Unnecessary Sections (Rules 17 & 18)
+If a user asks for: *"Build an inventory tracking web app"*, **DO NOT** tack on:
+- Fake customer testimonials
+- Generic SaaS pricing tiers
+- Cliché AI FAQ accordions
+- Newsletter subscription boxes
+- Fabricated partner logos ("Trusted by 500+ enterprises")
+- Made-up statistics ("10M+ Happy Users")
+
+Use **REALISTIC DOMAIN DATA**:
+- For inventory: Real item names ("Shell Helix HX7 10W-40 1L", SKU: "OIL-SH-001", Stock: 18 units, Supplier: "PT Sumber Pelumas").
+- NEVER use generic placeholders like "Amazing Product A", "Lorem Ipsum", or "Super Feature 1".
+
+---
+
+## 9. Functional Motion System: Motion by Function (Rule 15)
+
+Animations must serve functional interaction, state visibility, and cognitive clarity:
+
+### VALID ANIMATION PURPOSES:
+1. **Tactile Feedback**: Button active press `transform: scale(0.97)`, duration <150ms with snappy spring response.
+2. **State Changes**: Smooth input focus ring expansion, sliding tab active indicator.
+3. **Validation & Alerts**: Subtle horizontal error shake (translateX: -4px, 4px, -2px, 0), smooth alert toast entrance.
+4. **Loading States**: Shimmer skeleton loader when asynchronous data is resolving.
+5. **Reading Comfort**: Gentle entrance scrollytelling on public editorial pages (capped at 4-6 items, 40-60ms stagger, natural deceleration, exits 50-70% faster).
+
+### FORBIDDEN ANIMATIONS:
+- Infinite glowing radial borders around cards
+- Continuous floating blobs or gradient orbs serving zero informational purpose
+- Disorienting excessive parallax causing vestibular discomfort
+- Random fade-ins on every paragraph that delay reading
+- Forcing a "Hero signature focal animation" onto fast utilitarian dashboards or admin tools
+
+### Mandatory Reduced-Motion Fallback (`prefers-reduced-motion`):
+```css
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+```
+
+---
+
+## 10. Responsive Ergonomics: Mobile as a Distinct Layout (Rule 11)
+
+Responsive design is not simply scaling down desktop viewports or stacking columns:
 
 ```text
-PALETTE FAILURES:
-[ ] Purple-to-blue gradient as primary identity
-[ ] Pure black (#000000) background with zero warmth or brand color
-[ ] Gray-on-gray: no primary color present anywhere in the UI
-[ ] Dark background when product type does not require it
-[ ] Failing contrast: body & placeholder text < 4.5:1, large text < 3:1
-[ ] Neutral gray secondary text on colored backgrounds (must tint from surface hue)
-
-TYPOGRAPHY & MEASURE FAILURES:
-[ ] Default browser font (Times New Roman, Arial, bare sans-serif)
-[ ] Every element approximately the same font size
-[ ] Heading and body in the same weight
-[ ] No display/heading font loaded
-[ ] Full-width unconstrained paragraphs exceeding 85ch line length
-[ ] Orphan single-word lines in headings (missing text-wrap: balance)
-
-LAYOUT & SCAFFOLDING FAILURES:
-[ ] Hero: centered heading + subtext + two buttons + logo strip = generic SaaS
-[ ] Three equal-width feature cards always in a row
-[ ] Nested cards (cards placed inside other cards)
-[ ] Kicker / eyebrow tags slapped above headings by reflex (let the heading speak)
-[ ] Zero-blur block shadows (box-shadow: 4px 4px 0) outside an intentional neobrutalist world
-[ ] Every section is full-width text/image alternating, forever
-[ ] Padding is framework/browser default, never intentionally set
-[ ] All images are colored placeholder boxes
-
-DECORATION & ASSET FAILURES:
-[ ] Glassmorphism on every card
-[ ] Glowing buttons with multiple competing box-shadow layers
-[ ] Floating decorative blobs with no informational purpose
-[ ] Sketch-style SVG doodles imitating pictures (amateur aesthetic)
-[ ] Gradient overlay on every image for no reason
-
-ANIMATION FAILURES:
-[ ] Zero animations anywhere (static, dead interface)
-[ ] Only one animation: a simple opacity fade on the hero
-[ ] Hover states are identical for buttons, cards, links, and icons
-[ ] Exit animations taking longer than entrance animations
-[ ] No loading/success/error feedback on form submit
-[ ] Missing prefers-reduced-motion fallback
-
-CONTENT, SECURITY & PERFORMANCE FAILURES:
-[ ] Colored rectangles instead of real images in a visual product
-[ ] Lorem ipsum as placeholder text
-[ ] Fake statistics, testimonials, or awards the user never provided
-[ ] Insecure dangerous HTML injection without sanitization
-[ ] Client-side state without handling all 4 async states (loading, empty, error, success)
-[ ] Missing explicit image dimensions causing layout shifts (CLS failure)
-[ ] Arbitrary icon circles slapped on every feature card or heading (AI slop icon trap)
+MOBILE ERGONOMIC PRINCIPLES:
+1. Touch Targets: Minimum 44x44px for every clickable button, navigation link, checkbox, and tab bar. Minimum 8px tap separation.
+2. Thumb Zone Reach: Primary actions (cashier submit, checkout CTA, filter sheet trigger) must sit in the lower 40% of the screen for comfortable one-handed reach.
+3. Table Transformation: Wide desktop data tables must transform into vertical stacked lists or live inside clear horizontal scroll containers.
+4. Safe Area Insets: padding-top: env(safe-area-inset-top); padding-bottom: max(1rem, env(safe-area-inset-bottom));
+5. Zero Horizontal Overflow: Apply overflow-x: clip on root wrappers. Never allow accidental horizontal scrolling.
 ```
 
 ---
 
-## 8. Icon Strategy: Direct Bespoke SVG vs Clarification Gate (Anti-Slop Hard Rule)
+## 11. Self-Check: The 15-Point AI-Slop Audit
 
-AI-generated sites have an unmistakable tell: arbitrary icon badges slapped on every heading, cards with colored icon circles, sparkle icons, and decorative icon grids that add zero functional value.
-
-**Strict Anti-AI Slop Icon Policy:**
-
-1. **Bespoke Inline SVG First (Default)**:
-   - When icons are functionally needed (e.g. search, close, arrow, menu toggle, chevron), use clean, lightweight, bespoke inline SVGs directly in the component.
-   - Standardize SVG properties:
-     ```html
-     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-       <path d="..." />
-     </svg>
-     ```
-   - Direct SVGs ensure zero dependency bloat, instant rendering, and precise custom tailoring.
-
-2. **The Clarification Gate for Icon Libraries**:
-   - If an external icon library (such as Lucide, Phosphor, Heroicons, or Tabler) is considered, do NOT silently assume or bundle it.
-   - At Step 2 (Clarification Gate), ask the user if they want bespoke inline SVGs or a specific icon package.
-
-3. **Strict Usage Restraints**:
-   - Use an icon ONLY when it:
-     * Clarifies an interactive action (search, close, edit, delete, download, filter, back).
-     * Aids critical navigation (mobile menu hamburger, chevron for dropdown).
-     * Represents a standard recognized function (cart count, user avatar fallback).
-   - STRICTLY FORBIDDEN:
-     * An icon on every heading or section title.
-     * 3-card feature grids with random icon circles at the top of each card (classic AI slop).
-     * Decorative sparkle icons (`✨`) or arbitrary geometric icon badges.
-     * Icon-only buttons without an `aria-label`.
-
----
-
-## 9. Content Integrity Rule (No Fake Data)
-
-Never fabricate facts to fill the UI:
+Before outputting code or markup, evaluate against this checklist:
 
 ```text
-- No fake testimonials
-- No fake statistics or user counts
-- No fake company logos
-- No fake awards
-- No business claims the user never gave
+[ ] 1. Does this design look like a Vercel/Linear clone template?
+[ ] 2. Did I automatically default to dark mode without genuine domain need?
+[ ] 3. Did I use generic purple/blue or cyan radial gradients without brand rationale?
+[ ] 4. Did I use emojis anywhere in the UI as icons, badges, or decorations?
+[ ] 5. Did I wrap nearly all content into cards instead of using tables, lists, or dividers?
+[ ] 6. Are all corners overly rounded (rounded-2xl or rounded-full everywhere)?
+[ ] 7. Did I plaster heavy drop shadows onto flat elements?
+[ ] 8. Is typography generic startup sans with giant oversized headings?
+[ ] 9. Does copywriting sound like AI puffery ("unleash", "seamless", "modern")?
+[ ] 10. Does the hero follow the cloned formula: Centered text + subtitle + 2 pill buttons?
+[ ] 11. Are CTAs oversized and repeated excessively across the page?
+[ ] 12. Does the layout disregard domain context (e.g., inventory tool styled like SaaS landing)?
+[ ] 13. Did I invent unrequested sections (testimonials, pricing, fake stats, FAQs)?
+[ ] 14. Is mock data generic filler (Lorem Ipsum, Amazing Product) rather than real domain data?
+[ ] 15. If the brand name and logo are removed, does it still look like an AI template?
 ```
 
-Use obvious placeholders: `"[Client Name]"`, `"Add testimonial here"`. Never disguise a placeholder as real data.
+**IF THE ANSWER IS "YES" TO ANY OF THESE QUESTIONS: SCRAP THAT PATTERN AND FIX IT BEFORE DELIVERING TO THE USER.**
 
 ---
 
-## 10. SEO, Semantics & Web Performance Integration
+## 12. Production-Grade CSS Design Token Kits (Drop-in Archetypes)
 
-Every public page must implement the Genzi Full-Spectrum SEO Standard:
-- Landmark semantic HTML5 outline (`<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`).
-- Exactly one `<h1>` per page capturing the core keyword and user intent.
-- Complete OpenGraph and Twitter card metadata with brand-specific previews.
-- Domain-appropriate JSON-LD Schema.org structured data (Organization, SoftwareApplication, Product, LocalBusiness).
-- Core Web Vitals optimization: Hero preloading (`fetchpriority="high"`), zero CLS through explicit image dimensions, and sub-150ms interaction response.
+Use these battle-tested CSS token boilerplates directly in generated projects to ensure instant domain authenticity, crisp contrast, and zero AI-slop fallback:
 
-Read `references/seo-and-performance.md` for complete implementation code and schemas.
+### 12.1 Archetype A: Utilitarian / Industrial (Warehouse, Auto Shop, Logistics, POS)
+```css
+/* Google Fonts: Inter (400, 500, 600) + JetBrains Mono (500) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap');
+
+:root {
+  /* Surfaces & Neutral Scale (Rugged, high-contrast, dust-resistant light) */
+  --bg: hsl(210, 15%, 96%);
+  --surface: hsl(0, 0%, 100%);
+  --surface-raised: hsl(210, 15%, 93%);
+  --surface-active: hsl(210, 15%, 88%);
+  --border: hsl(215, 14%, 82%);
+  --border-strong: hsl(215, 16%, 65%);
+
+  /* Text & Contrast */
+  --text: hsl(215, 28%, 12%);
+  --text-muted: hsl(215, 14%, 42%);
+  --text-inverse: hsl(0, 0%, 100%);
+
+  /* Functional Industrial Accents */
+  --primary: hsl(28, 90%, 46%); /* Industrial Amber/Safety Orange */
+  --primary-hover: hsl(28, 92%, 40%);
+  --primary-contrast: hsl(0, 0%, 100%);
+  --accent: hsl(215, 30%, 25%); /* Heavy Slate */
+  
+  /* Status Colors */
+  --status-success: hsl(152, 68%, 34%);
+  --status-warning: hsl(38, 92%, 46%);
+  --status-error: hsl(354, 75%, 46%);
+
+  /* Typography Stacks */
+  --font-heading: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+  /* Disciplined Corner Radii (Compact & Functional) */
+  --radius-sm: 3px;
+  --radius-md: 5px;
+  --radius-lg: 8px;
+
+  /* Shadows Reserved Strictly for Elevation */
+  --shadow-elevation: 0 4px 12px hsla(215, 28%, 12%, 0.12);
+}
+
+::selection { background-color: hsla(28, 90%, 46%, 0.25); color: var(--text); }
+input, textarea { caret-color: var(--primary); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+table, [data-numeric] { font-variant-numeric: tabular-nums; }
+```
+
+### 12.2 Archetype B: Dense Dashboard (Accounting, CRM, Analytics, Trading)
+```css
+/* Google Fonts: Plus Jakarta Sans (400, 500, 600, 700) */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Crisp, analytical backdrop with maximum table scanability */
+  --bg: hsl(210, 20%, 98%);
+  --surface: hsl(0, 0%, 100%);
+  --surface-raised: hsl(210, 20%, 95%);
+  --surface-subtle: hsl(210, 25%, 97%);
+  --border: hsl(214, 20%, 88%);
+  --border-subtle: hsl(214, 20%, 93%);
+
+  /* Precision Text */
+  --text: hsl(222, 47%, 11%);
+  --text-muted: hsl(215, 16%, 47%);
+  --text-subtle: hsl(215, 14%, 60%);
+
+  /* Focused Analytical Accent */
+  --primary: hsl(221, 83%, 53%); /* Focused Cobalt */
+  --primary-hover: hsl(221, 83%, 45%);
+  --primary-light: hsl(221, 83%, 96%);
+
+  /* Semantic Financial Accents */
+  --status-surplus: hsl(158, 64%, 40%);
+  --status-deficit: hsl(0, 72%, 51%);
+  --status-neutral: hsl(215, 16%, 47%);
+
+  /* Typography & Measure */
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Plus Jakarta Sans', sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+
+  /* Systematic Sharp Radii */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 10px;
+
+  /* Minimal Elevation for Popovers Only */
+  --shadow-elevation: 0 4px 16px hsla(222, 47%, 11%, 0.08), 0 1px 3px hsla(222, 47%, 11%, 0.05);
+}
+
+::selection { background-color: hsla(221, 83%, 53%, 0.2); color: var(--text); }
+input, textarea { caret-color: var(--primary); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+table { font-variant-numeric: tabular-nums; border-collapse: collapse; }
+```
+
+### 12.3 Archetype C: Warm Artisanal (Specialty Coffee, Bakery, Florist, Craft)
+```css
+/* Google Fonts: Fraunces (600, 700) + DM Sans (400, 500) */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap');
+
+:root {
+  /* Warm tactile parchment and stone foundations */
+  --bg: hsl(40, 25%, 97%); /* Warm ivory cream #FDFCF7 */
+  --surface: hsl(40, 30%, 99%);
+  --surface-raised: hsl(36, 20%, 92%);
+  --surface-accent: hsl(28, 40%, 90%);
+  --border: hsl(35, 16%, 84%);
+  --border-strong: hsl(30, 18%, 68%);
+
+  /* Organic Ink Tones */
+  --text: hsl(24, 25%, 15%); /* Deep roasted espresso */
+  --text-muted: hsl(24, 12%, 44%);
+  --text-inverse: hsl(40, 25%, 97%);
+
+  /* Sensory Artisanal Chemistry */
+  --primary: hsl(18, 64%, 44%); /* Terracotta Clay */
+  --primary-hover: hsl(18, 68%, 38%);
+  --accent: hsl(135, 18%, 38%); /* Dried Olive Green */
+
+  /* Typography Stacks */
+  --font-heading: 'Fraunces', Georgia, serif;
+  --font-body: 'DM Sans', -apple-system, sans-serif;
+
+  /* Natural, Softer Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Subtle Warm Shadow */
+  --shadow-elevation: 0 8px 24px hsla(24, 25%, 15%, 0.08);
+}
+
+::selection { background-color: hsla(18, 64%, 44%, 0.22); color: var(--text); }
+input, textarea { caret-color: var(--primary); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+```
+
+### 12.4 Archetype D: Institutional / Official (Healthcare, Hospital, University, Law)
+```css
+/* Google Fonts: Source Serif 4 (600) + Public Sans (400, 500, 600) */
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&display=swap');
+
+:root {
+  /* High-trust, hygienic, clear foundation */
+  --bg: hsl(210, 24%, 98%);
+  --surface: hsl(0, 0%, 100%);
+  --surface-raised: hsl(210, 20%, 94%);
+  --border: hsl(215, 20%, 85%);
+  --border-strong: hsl(215, 25%, 65%);
+
+  /* Authoritative Typography Tones */
+  --text: hsl(218, 45%, 12%); /* Deep institutional navy */
+  --text-muted: hsl(215, 16%, 42%);
+
+  /* Trust Anchors */
+  --primary: hsl(214, 82%, 35%); /* Dignified Royal Navy */
+  --primary-hover: hsl(214, 82%, 28%);
+  --accent: hsl(164, 76%, 32%); /* Clinical Spruce Green */
+
+  /* Typography Stacks */
+  --font-heading: 'Source Serif 4', Georgia, serif;
+  --font-body: 'Public Sans', -apple-system, sans-serif;
+
+  /* Formal Radii */
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+
+  --shadow-elevation: 0 4px 14px hsla(218, 45%, 12%, 0.08);
+}
+
+::selection { background-color: hsla(214, 82%, 35%, 0.2); color: var(--text); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+```
+
+### 12.5 Archetype E: Commercial Retail (Supermarket, Electronics, SME Storefront)
+```css
+/* Google Fonts: Outfit (500, 600, 700) + Inter (400, 500) */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@500;600;700;800&display=swap');
+
+:root {
+  /* Bright, energetic, purchase-oriented backdrop */
+  --bg: hsl(0, 0%, 100%);
+  --surface: hsl(0, 0%, 100%);
+  --surface-raised: hsl(210, 16%, 96%);
+  --surface-accent: hsl(12, 100%, 97%);
+  --border: hsl(210, 14%, 88%);
+
+  /* Immediate Action Contrast */
+  --text: hsl(220, 25%, 10%);
+  --text-muted: hsl(220, 12%, 46%);
+  --text-price: hsl(10, 88%, 46%);
+
+  /* High-Conversion Brand Colors */
+  --primary: hsl(12, 90%, 52%); /* Warm energetic vermilion */
+  --primary-hover: hsl(12, 94%, 45%);
+  --accent: hsl(215, 90%, 48%); /* Trust Blue */
+
+  /* Typography Stacks */
+  --font-heading: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 9999px;
+
+  --shadow-card: 0 2px 8px hsla(220, 25%, 10%, 0.06);
+  --shadow-elevation: 0 8px 24px hsla(220, 25%, 10%, 0.14);
+}
+
+::selection { background-color: hsla(12, 90%, 52%, 0.2); color: var(--text); }
+:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+```
+
+### 12.6 Archetype F: Editorial / Cultural (Architecture, Magazine, Design Studio)
+```css
+/* Google Fonts: DM Serif Display + General Sans / Inter */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Minimalist gallery canvas */
+  --bg: hsl(30, 10%, 97%); /* #FAF9F6 Warm Gallery White */
+  --surface: hsl(0, 0%, 100%);
+  --surface-raised: hsl(30, 8%, 93%);
+  --border: hsl(0, 0%, 82%);
+  --border-hairline: hsl(0, 0%, 88%);
+
+  /* Charcoal Editorial Ink */
+  --text: hsl(0, 0%, 9%); /* #171717 Ink Charcoal */
+  --text-muted: hsl(0, 0%, 42%);
+
+  /* Monochromatic with Single Signature Touch */
+  --primary: hsl(0, 0%, 10%);
+  --primary-hover: hsl(0, 0%, 25%);
+  --accent: hsl(345, 60%, 48%); /* Single muted crimson accent */
+
+  /* Typography Stacks */
+  --font-heading: 'DM Serif Display', Georgia, serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Architectural Sharpness (Minimal to Zero Radius) */
+  --radius-sm: 0px;
+  --radius-md: 2px;
+  --radius-lg: 4px;
+
+  /* Flat Surface Priority: Hairlines over Heavy Shadows */
+  --shadow-elevation: 0 10px 30px hsla(0, 0%, 0%, 0.07);
+}
+
+::selection { background-color: hsla(0, 0%, 10%, 0.85); color: #FAF9F6; }
+:focus-visible { outline: 1px solid var(--text); outline-offset: 3px; }
+```
 

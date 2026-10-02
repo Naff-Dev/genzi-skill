@@ -188,9 +188,137 @@ Domain Models / Schemas (Zod / Types)
 - **Resource cleanup**: Always return cleanup functions in `useEffect` (cancel timers, unsubscribe listeners, abort pending fetch requests).
 - **Pure functions**: Keep business calculations pure and deterministic to make unit testing trivial.
 
+### 3.4 Standardized 4-State Component Pattern & Error Boundary
+
+Dynamic data components must NEVER render an unhandled state or a raw generic spinner in the middle of content. Implement this standardized 4-state contract:
+
+```tsx
+import React, { ReactNode } from 'react';
+
+export type AsyncState<T> =
+  | { status: 'loading' }
+  | { status: 'empty'; message: string; actionLabel?: string; onAction?: () => void }
+  | { status: 'error'; error: Error; retry: () => void }
+  | { status: 'success'; data: T };
+
+interface AsyncStateViewProps<T> {
+  state: AsyncState<T>;
+  loadingSkeleton: ReactNode;
+  renderSuccess: (data: T) => ReactNode;
+  emptyIcon?: ReactNode;
+}
+
+export function AsyncStateView<T>({
+  state,
+  loadingSkeleton,
+  renderSuccess,
+  emptyIcon,
+}: AsyncStateViewProps<T>) {
+  switch (state.status) {
+    case 'loading':
+      return <div aria-busy="true" aria-live="polite">{loadingSkeleton}</div>;
+
+    case 'empty':
+      return (
+        <div className="empty-state-container" role="status">
+          {emptyIcon && <div className="empty-state-icon" aria-hidden="true">{emptyIcon}</div>}
+          <h3 className="empty-state-title">No Records Found</h3>
+          <p className="empty-state-message">{state.message}</p>
+          {state.actionLabel && state.onAction && (
+            <button type="button" onClick={state.onAction} className="btn-primary">
+              {state.actionLabel}
+            </button>
+          )}
+        </div>
+      );
+
+    case 'error':
+      return (
+        <div className="error-state-container" role="alert">
+          <h3 className="error-state-title">Unable to Load Data</h3>
+          <p className="error-state-message">{state.error.message || 'An unexpected error occurred while fetching data.'}</p>
+          <button type="button" onClick={state.retry} className="btn-retry">
+            Retry Connection
+          </button>
+        </div>
+      );
+
+    case 'success':
+      return <>{renderSuccess(state.data)}</>;
+  }
+}
+```
+
+#### Production Error Boundary Boilerplate:
+```tsx
+import React, { Component, ErrorInfo, ReactNode } from 'react';
+
+interface Props {
+  children: ReactNode;
+  fallbackTitle?: string;
+  onReset?: () => void;
+}
+
+interface State {
+  hasError: boolean;
+  error?: Error;
+}
+
+export class ComponentErrorBoundary extends Component<Props, State> {
+  public state: State = { hasError: false };
+
+  public static getDerivedStateFromError(error: Error): State {
+    return { hasError: true, error };
+  }
+
+  public componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    console.error('Uncaught error in component tree:', error, errorInfo);
+  }
+
+  private handleReset = () => {
+    this.setState({ hasError: false, error: undefined });
+    if (this.props.onReset) this.props.onReset();
+  };
+
+  public render() {
+    if (this.state.hasError) {
+      return (
+        <div className="error-boundary-panel" role="alert">
+          <h3>{this.props.fallbackTitle || 'Component Error'}</h3>
+          <p>This module encountered an issue and could not render.</p>
+          <button type="button" onClick={this.handleReset} className="btn-secondary">
+            Reset Module
+          </button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+```
+
 ---
 
-## 4. Verification & Hardening Checklist
+## 4. Zero Half-Baked Code Policy (Hard Rule)
+
+Professional engineering requires complete, functional deliverables. The following practices are strictly forbidden:
+
+```text
+FORBIDDEN LAZY AI PRACTICES:
+- Placeholder comments: "// TODO: implement later", "// add rest of items here", "/* ... */"
+- Dummy non-functional handlers: onClick={() => console.log('clicked')}
+- Missing state wires: UI controls (filters, tabs, search, pagination, modals) that visually exist but do not respond to interaction
+- Truncated files or skipping repetitive code blocks with "/* remaining code as above */"
+
+MANDATORY COMPLETENESS STANDARDS:
+1. Every interactive control MUST be wired to working state handlers (backed by realistic local storage, in-memory state, or mocked services).
+2. All components must be delivered in full without code omission comments.
+3. Every filter, sort, search input, and modal toggle must actually change UI state and reflect in the rendered view.
+```
+
+---
+
+## 5. Verification & Hardening Checklist
 
 Before marking code complete, verify:
 
@@ -203,9 +331,10 @@ SECURITY:
 [ ] API endpoints enforce authorization & ownership checks on the server
 [ ] Zero secrets, private keys, or passwords committed or leaked to client
 
-HARDENING:
+HARDENING & COMPLETE UI STATES:
+[ ] Zero half-baked code: No "// TODO" comments, no lazy truncation, working click handlers
 [ ] Long text wraps or truncates gracefully (tested with 100+ chars)
-[ ] All 4 async states handled: Loading, Success, Empty, Error with Retry
+[ ] All 4 async states handled: Loading (skeleton), Success, Empty (with action), Error with Retry
 [ ] Submit buttons prevent double-click / concurrent race conditions
 [ ] CSS uses min-width: 0 on flex/grid children to prevent overflow blowout
 [ ] Touch targets meet 44x44px minimum on mobile devices
