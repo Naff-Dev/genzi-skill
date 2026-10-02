@@ -72,6 +72,24 @@ requiredReferences.forEach((ref) => {
   }
 });
 
+// 3. Validate examples
+const requiredExamples = [
+  '01-food-delivery-landing.md',
+  '02-pos-cashier-app.md',
+  '03-saas-crm-pipeline.md',
+  '04-coffee-roastery-store.md',
+  '05-architecture-portfolio.md'
+];
+
+requiredExamples.forEach((ex) => {
+  const exPath = path.join(__dirname, '..', 'skills', 'genzi', 'examples', ex);
+  if (!fs.existsSync(exPath)) {
+    logFail(`Missing example file: ${ex}`);
+  } else {
+    logPass(`Example file exists: ${ex}`);
+  }
+});
+
 if (hasErrors) {
   console.error('\nValidation failed with errors.');
   process.exit(1);

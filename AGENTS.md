@@ -17,6 +17,23 @@ This repository contains the `genzi` skill and plugin for Antigravity, Gemini, C
 use Naff-Dev/genzi-skill [task kamu]
 ```
 
+**5 Contoh Prompt Siap Pakai:**
+```text
+use Naff-Dev/genzi-skill buatkan landing page untuk aplikasi food delivery lokal, target ibu rumah tangga kota tier 2
+```
+```text
+use Naff-Dev/genzi-skill build a fast POS cashier app with daily sales report, barcode scan, and inventory tracking
+```
+```text
+use Naff-Dev/genzi-skill redesign dashboard deal pipeline ini agar lebih visual, bold, responsive, dan ada ringkasan revenue per stage
+```
+```text
+use Naff-Dev/genzi-skill buatkan storefront toko kopi roastery lokal dengan katalog biji kopi single-origin, filter rasa, dan langganan bulanan
+```
+```text
+use Naff-Dev/genzi-skill bikin website portfolio arsitektur studio dengan grid proyek asimetris, galeri foto full-bleed, dan tipografi editorial
+```
+
 ### Universal Copy-Paste Prompt
 ```
 Gunakan skill dari repo ini: https://github.com/Naff-Dev/genzi-skill

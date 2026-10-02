@@ -44,18 +44,31 @@ Tidak perlu install apa-apa. Paste satu baris ini ke agent kamu:
 use Naff-Dev/genzi-skill [tulis task kamu di sini]
 ```
 
-Contoh yang bisa langsung dicopy:
+Contoh yang bisa langsung dicopy (5 skenario praktis):
 
+1. **Food Delivery Lokal (Hyperlocal / Consumer)**:
 ```text
 use Naff-Dev/genzi-skill buatkan landing page untuk aplikasi food delivery lokal, target ibu rumah tangga kota tier 2
 ```
 
+2. **POS Cashier App (Kasir & Inventaris / Retail)**:
 ```text
-use Naff-Dev/genzi-skill build a POS cashier app with daily sales report and inventory tracking
+use Naff-Dev/genzi-skill build a fast POS cashier app with daily sales report, barcode scan, and inventory tracking
 ```
 
+3. **SaaS Deal Pipeline (Dashboard / Kinetic B2B)**:
 ```text
-use Naff-Dev/genzi-skill redesign dashboard ini agar lebih visual, bold, dan responsive
+use Naff-Dev/genzi-skill redesign dashboard deal pipeline ini agar lebih visual, bold, responsive, dan ada ringkasan revenue per stage
+```
+
+4. **Kopi Roastery & Subscription (Artisan / E-Commerce)**:
+```text
+use Naff-Dev/genzi-skill buatkan storefront toko kopi roastery lokal dengan katalog biji kopi single-origin, filter rasa, dan langganan bulanan
+```
+
+5. **Studio Arsitektur (Showcase / Editorial Portfolio)**:
+```text
+use Naff-Dev/genzi-skill bikin website portfolio arsitektur studio dengan grid proyek asimetris, galeri foto full-bleed, dan tipografi editorial
 ```
 
 <details>
@@ -329,6 +342,12 @@ genzi/
 ├── skills/
 │   └── genzi/
 │       ├── SKILL.md                       ← instruksi utama (18 langkah)
+│       ├── examples/                      ← 5 contoh prompt siap pakai
+│       │   ├── 01-food-delivery-landing.md
+│       │   ├── 02-pos-cashier-app.md
+│       │   ├── 03-saas-crm-pipeline.md
+│       │   ├── 04-coffee-roastery-store.md
+│       │   └── 05-architecture-portfolio.md
 │       └── references/
 │           ├── design-guidelines.md       ← warna, tipografi, motion, craft floor, anti-slop
 │           ├── seo-and-performance.md     ← full-spectrum SEO, JSON-LD Schema, Core Web Vitals
