@@ -128,6 +128,22 @@ Transactional App (POS, Booking, Cashier) (Mode: Operate)
 
 If a product doesn't fit any category above, decide the mode and priorities based on user intent and usage context. Never default to a generic landing-page template.
 
+### 1.2 Domain Personality Matrix (Anti-Cliché Brand Archetypes)
+
+Every prompt belongs to a domain. Instead of applying a generic SaaS skin to everything, match the product to its natural design archetype:
+
+| Domain Archetype | Visual Mood & Tone | Typography Pairing | Layout Rhythm | Signature Color Chemistry | Motion Physics Profile |
+|---|---|---|---|---|---|
+| **Editorial & High Luxury** (Fashion, Architecture, Culture) | Restrained, generous whitespace, confident | Display Serif (DM Serif, Playfair, Fraunces) + Neutral Sans (General Sans, Inter) | Full-bleed hero, asymmetric columns, oversized type as layout | Warm off-white (#FAF9F6), charcoal black (#18181B), single muted accent | Cinematic slow ease (`cubic-bezier(0.25, 1, 0.5, 1)`), clip-path text reveals |
+| **High-Density Engineering** (DevTools, Cloud, Infra, CyberSec) | Hyper-structured, precise, utility-driven | Technical Grotesk (Space Grotesk, Syne) + Structured Sans/Mono (IBM Plex) | Bento grid, terminal preview, dense data tables, sharp borders | Deep slate (#0F172A), neon mint (#10B981) or electric amber (#F59E0B) | Instant snappy feedback (100-120ms), zero-bounce linear transitions |
+| **Warm Artisanal & Hospitality** (Coffee, Bakery, Craft, Dining) | Earthy, organic, welcoming, sensory | Warm Serif or Character Grotesk (Fraunces, Cabinet) + Warm Sans (DM Sans) | Organic asymmetric split, warm background panels, generous padding | Warm cream (#FDFCF7), terracotta (#C85A32), olive (#4A5D4E) | Gentle soft springs (`stiffness: 260, damping: 28`), subtle parallax |
+| **High-Velocity Kinetic SaaS** (Collaboration, CRM, Productivity) | Energetic, crisp, direct, highly focused | Geometric Neo-Grotesk (Plus Jakarta Sans, Satoshi) + Neutral Sans (Inter) | 7:5 asymmetric hero with live interactive widget, dynamic bento features | Crisp white (#FFFFFF), saturated electric cobalt (#2563EB) or violet (#7C3AED) | Tactile springs (`stiffness: 380, damping: 26`), active button press scale 0.97 |
+| **Trust & Regulated Enterprise** (Banking, Medical, Legal) | Authoritative, calm, dependable, high contrast | Structured Sans (Plus Jakarta Sans) + Clean Workhorse (Inter) | Predictable scan patterns, prominent trust badges, explicit data disclosure | Crisp ice blue-white (#F8FAFC), deep navy (#0F2942), crisp emerald (#059669) | Precise subdued transitions (150-200ms), no playful spring overshoot |
+| **Culture & Neobrutalist** (Gen Z, Indie, Creative Agency) | Raw, high-impact, daring, irreverent | Bold Display (Clash Display, Syne Black) + Heavy Sans (Cabinet Grotesk) | Offset card layers, bold 2px borders, sticker tags, high contrast | Pure white or cream base, stark ink black, acid lime (#A3E635) or hot coral | High-tension spring snaps (`stiffness: 450, damping: 18`), tilt interactions |
+
+**Hard Rule on Personality Selection:**
+Never pick an archetype randomly. Analyze the user's prompt, identify the audience and emotional context, and commit 100% to that archetype across colors, fonts, spacing, layout, and motion.
+
 ---
 
 ## 2. Color System (MANDATORY to follow)
@@ -289,15 +305,35 @@ Rules:
 
 ## 4. Animation and Motion System (MANDATORY to implement)
 
-### 4.1 Motion Thesis: Authored, Intentional, Alive
+### 4.1 Authored 4-Layer Motion Framework (MANDATORY Architecture)
 
-Every interactive element must respond visually. A static interface feels broken, while scattered, uncoordinated animations feel like cheap decoration. Motion must have purpose, rhythm, and clear narrative.
+Every interactive element must respond visually. A static interface feels dead, while scattered, uncoordinated animations feel like cheap decoration. Build motion across 4 explicit layers:
 
-**The Motion Thesis (define before implementing):**
-1. **Focal Moment**: The one sequence or interaction that deserves distinct authorship and carries the product's soul (e.g. hero editorial clip reveal, interactive card flip/expand, dynamic state transition).
-2. **Continuity**: Preserve spatial relationships and user mental models across route changes, modal openings, and layout shifts (shared elements, FLIP-style transforms, View Transitions).
-3. **Feedback**: Immediate acknowledgment for every user input (button clicks, form submits, toggles, filter selections).
-4. **Performance Budget**: Animate GPU-accelerated properties (`transform`, `opacity`, `filter`). Avoid animating layout properties (`width`, `height`, `top`, `left`, `margin`) unless using FLIP or container queries.
+```text
+LAYER 1: AMBIENT & HERO FOCAL MOMENT
+- One signature authored animation that carries the soul of the product.
+- Examples: kinetic typography clip reveal, interactive 3D/canvas canvas, magnetic button cursor, or live preview widget.
+- Calibrated to the Domain Personality Archetype.
+
+LAYER 2: STAGGERED SCROLLYTELLING & CHOREOGRAPHY
+- Coordinated entrance of sections as the user scrolls into view.
+- Max 5-6 items in a stagger chain with 40-80ms offset per item (never let staggers drag).
+- Entrances use natural exponential deceleration (400-600ms).
+- Exits ALWAYS exit faster than entrances (150-250ms, approx 50-70% of enter duration).
+
+LAYER 3: TACTILE MICRO-INTERACTIONS & FEEDBACK
+- Immediate response (<150ms) to every user gesture:
+  * Button active press: transform scale(0.97) + tactile release spring.
+  * Inputs: smooth focus ring expansion, floating label shift.
+  * Toggles & switches: physical spring snap (stiffness: 380, damping: 26).
+  * Tab indicators: sliding underline / pill using layoutId or CSS transform.
+  * Async states: shimmer skeleton, success checkmark draw, shake alert on error.
+
+LAYER 4: GPU ACCELERATION & ACCESSIBILITY GUARDRAILS
+- Animate ONLY GPU-accelerated transform, opacity, and filter properties.
+- Zero layout thrashing (never animate top/left/width/height directly).
+- Mandatory prefers-reduced-motion fallback that preserves opacity & color without violent spatial displacement.
+```
 
 ### 4.2 Material by Meaning (Choose Properties by What They Communicate)
 
@@ -538,11 +574,86 @@ input, textarea {
 }
 ```
 
+### 6.4 Responsive Mastery, Mobile Ergonomics & Touch Architecture (MANDATORY)
+
+A desktop layout crammed into mobile with shrunken fonts is a total failure. Mobile interfaces require distinct ergonomics and layout architecture:
+
+```text
+VIEWPORT TARGETS & VALIDATION SPECS:
+1. Mobile Small:    360px - 390px (iPhone SE, compact Androids)
+2. Mobile Standard: 390px - 430px (iPhone 14/15/16 Pro, standard Samsung Galaxy)
+3. Tablet / Fold:   768px - 834px (iPad mini, iPad Air)
+4. Desktop Work:    1024px - 1440px (MacBook Air / Pro, standard monitors)
+5. Ultrawide:       1920px+ (must constrain max container width to 1440px with margin: auto)
+
+TOUCH ERGONOMICS & THUMB ZONE (Mobile):
+- Minimum touch target: 44x44px for every button, icon link, input, and chip (WCAG 2.5.5).
+- Touch separation: at least 8px spacing between tap targets to prevent misclicks.
+- Ergonomic thumb zone: Primary interactive controls (CTAs, bottom sheets, filter triggers)
+  must sit in the lower 40% of the screen within comfortable one-handed reach.
+- Safe Area Insets: Always accommodate device notches, dynamic islands, and home indicator bars:
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: max(1rem, env(safe-area-inset-bottom));
+
+ZERO HORIZONTAL OVERFLOW GUARANTEE:
+- Apply `overflow-x: clip` (or `hidden`) on top-level page wrappers.
+- All media must have `max-width: 100%; height: auto; display: block;`.
+- Never use fixed pixel widths on layout elements (`width: 500px` is forbidden; use `max-width: 500px; width: 100%;`).
+- Complex data tables and code blocks must be wrapped in explicit scroll containers with custom thin scrollbars:
+  .table-scroll-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+ADAPTIVE NAVIGATION ARCHITECTURE:
+- Desktop: horizontal header with clean spacing and direct access to primary navigation.
+- Mobile (<768px): clean off-canvas drawer or bottom sheet with backdrop-blur, accessible close button,
+  focus trap, and body scroll lock when open (`overflow: hidden` on body).
+```
+
 ---
 
-## 7. Anti-Slop & Craft Floor Checklist (HARD RULE)
+## 7. Bespoke Anti-AI Craft & Cliché Eradication (HARD RULE)
 
-Never produce a UI that matches any of the following. Each item is a hard failure state:
+Never produce a UI that feels like generic AI output. Every project must possess its own distinct visual DNA and authentic human voice.
+
+### 7.1 Banned AI Visual Clichés (The "AI Starter Pack")
+If a design exhibits more than ONE of the following patterns, it is considered generic AI slop and MUST be redesigned:
+1. **The Purple/Cyan Dark-Mode Trap**: Pure dark #000000 background bathed in generic purple-to-blue or cyan radial gradients.
+2. **The Cloned Centered Hero**: Centered text + pill badge with sparkle emoji (`✨ Powered by AI`) + 2 pill buttons + floating dashboard screenshot with glowing border.
+3. **The Unbroken 3-Card March**: Exactly 3 equal-width cards in a row with identical 1px border glow and glassmorphism backdrop blur.
+4. **Nested Cards in Cards**: Putting cards inside cards inside cards instead of using clean negative space and typography to establish grouping.
+5. **Floating Geometric Blobs**: 3D floating donuts, metallic spheres, or pastel gradient blobs serving zero communicative purpose.
+6. **Fake Stock SVG Doodles**: Hand-drawn wavy arrows or sketch doodles slapped near headings to simulate "playfulness".
+7. **Uniform Gray Wash**: Monochrome gray-on-gray interface with zero saturated brand primary color.
+
+### 7.2 Banned AI Buzzwords & Marketing Clichés
+AI models default to repetitive, empty marketing puffery. The following words and phrases are STRICTLY FORBIDDEN in copy, headings, and PRDs:
+```text
+FORBIDDEN WORDS & PHRASES:
+- "Unleash / Unleashing"
+- "Elevate / Elevating"
+- "Seamless / Seamlessly"
+- "Supercharge / Supercharging"
+- "Next-gen / Next-generation"
+- "Revolutionize / Revolutionizing"
+- "Empower / Empowering"
+- "Game-changer"
+- "Transform your workflow"
+- "Harness the power of..."
+- "Discover a world of..."
+- "Take your X to the next level"
+- "Designed with modern teams in mind"
+- "Effortlessly manage"
+- "The ultimate solution for..."
+- "Say goodbye to..."
+```
+
+### 7.3 Grounded Human Copywriting Rules
+Replace empty puffery with concrete, specific, verifiable facts and actions:
+- **Use Domain Nouns & Exact Verbs**: Instead of *"Supercharge your team with next-gen insights"*, write *"Inspect Kafka consumer lag and slow PostgreSQL queries in one unified trace"*.
+- **Speak from Human Experience**: Instead of *"Elevate your morning routine"*, write *"Freshly roasted Arabica beans sourced directly from Soreang smallholders"*.
+- **Direct Value First**: State the literal outcome in the first 5 words of the heading.
+
+### 7.4 Comprehensive Craft Floor Failure Checklist
+Each item below is a hard failure gate:
 
 ```text
 PALETTE FAILURES:
@@ -586,41 +697,52 @@ ANIMATION FAILURES:
 [ ] No loading/success/error feedback on form submit
 [ ] Missing prefers-reduced-motion fallback
 
-CONTENT & SECURITY FAILURES:
+CONTENT, SECURITY & PERFORMANCE FAILURES:
 [ ] Colored rectangles instead of real images in a visual product
 [ ] Lorem ipsum as placeholder text
 [ ] Fake statistics, testimonials, or awards the user never provided
 [ ] Insecure dangerous HTML injection without sanitization
 [ ] Client-side state without handling all 4 async states (loading, empty, error, success)
+[ ] Missing explicit image dimensions causing layout shifts (CLS failure)
+[ ] Arbitrary icon circles slapped on every feature card or heading (AI slop icon trap)
 ```
 
 ---
 
-## 8. Icon Rule
+## 8. Icon Strategy: Direct Bespoke SVG vs Clarification Gate (Anti-Slop Hard Rule)
 
-Icons are not primary decoration. Use an icon when it:
+AI-generated sites have an unmistakable tell: arbitrary icon badges slapped on every heading, cards with colored icon circles, sparkle icons, and decorative icon grids that add zero functional value.
 
-```text
-- Clarifies an action (search, edit, delete, download, filter, external link)
-- Aids navigation
-- Aids fast scanning of a list or table
-- Represents a widely-recognized function
-```
+**Strict Anti-AI Slop Icon Policy:**
 
-Avoid:
-```text
-- An icon on every heading
-- Icon grids with no real function
-- Icons only to make the UI look busier
-```
+1. **Bespoke Inline SVG First (Default)**:
+   - When icons are functionally needed (e.g. search, close, arrow, menu toggle, chevron), use clean, lightweight, bespoke inline SVGs directly in the component.
+   - Standardize SVG properties:
+     ```html
+     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+       <path d="..." />
+     </svg>
+     ```
+   - Direct SVGs ensure zero dependency bloat, instant rendering, and precise custom tailoring.
 
-Icon-only interactive elements must have an `aria-label`.
+2. **The Clarification Gate for Icon Libraries**:
+   - If an external icon library (such as Lucide, Phosphor, Heroicons, or Tabler) is considered, do NOT silently assume or bundle it.
+   - At Step 2 (Clarification Gate), ask the user if they want bespoke inline SVGs or a specific icon package.
 
-Recommended libraries: Lucide Icons, Phosphor Icons, Heroicons, Tabler Icons.
+3. **Strict Usage Restraints**:
+   - Use an icon ONLY when it:
+     * Clarifies an interactive action (search, close, edit, delete, download, filter, back).
+     * Aids critical navigation (mobile menu hamburger, chevron for dropdown).
+     * Represents a standard recognized function (cart count, user avatar fallback).
+   - STRICTLY FORBIDDEN:
+     * An icon on every heading or section title.
+     * 3-card feature grids with random icon circles at the top of each card (classic AI slop).
+     * Decorative sparkle icons (`✨`) or arbitrary geometric icon badges.
+     * Icon-only buttons without an `aria-label`.
 
 ---
 
-## 9. Content Rule
+## 9. Content Integrity Rule (No Fake Data)
 
 Never fabricate facts to fill the UI:
 
@@ -633,4 +755,17 @@ Never fabricate facts to fill the UI:
 ```
 
 Use obvious placeholders: `"[Client Name]"`, `"Add testimonial here"`. Never disguise a placeholder as real data.
+
+---
+
+## 10. SEO, Semantics & Web Performance Integration
+
+Every public page must implement the Genzi Full-Spectrum SEO Standard:
+- Landmark semantic HTML5 outline (`<header>`, `<nav>`, `<main>`, `<article>`, `<footer>`).
+- Exactly one `<h1>` per page capturing the core keyword and user intent.
+- Complete OpenGraph and Twitter card metadata with brand-specific previews.
+- Domain-appropriate JSON-LD Schema.org structured data (Organization, SoftwareApplication, Product, LocalBusiness).
+- Core Web Vitals optimization: Hero preloading (`fetchpriority="high"`), zero CLS through explicit image dimensions, and sub-150ms interaction response.
+
+Read `references/seo-and-performance.md` for complete implementation code and schemas.
 

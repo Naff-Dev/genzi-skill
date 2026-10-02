@@ -12,20 +12,23 @@
     "prd-generator",
     "anti-slop",
     "motion-animation",
-    "responsive-design"
+    "responsive-design",
+    "seo",
+    "core-web-vitals"
   ],
-  "homepage": "https://github.com/Naff-Dev/genzi#readme",
+  "homepage": "https://github.com/Naff-Dev/genzi-skill#readme",
   "bugs": {
-    "url": "https://github.com/Naff-Dev/genzi/issues"
+    "url": "https://github.com/Naff-Dev/genzi-skill/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/Naff-Dev/genzi.git"
+    "url": "https://github.com/Naff-Dev/genzi-skill.git"
   },
   "author": "naffdev",
   "license": "MIT",
   "files": [
     "skills",
+    "assets",
     "plugin.json",
     "LICENSE",
     "README.md"

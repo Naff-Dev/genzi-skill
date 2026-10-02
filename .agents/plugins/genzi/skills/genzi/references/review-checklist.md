@@ -11,31 +11,40 @@ PRODUCT & FUNCTIONALITY
 [ ] Every Core Feature (Explicit + Inferred) actually works in practice
 [ ] Clarifications and resolved user questions are reflected in the final output
 
-DESIGN & CRAFT FLOOR (HARD BLOCKER)
-[ ] Design matches the product type and Visitor Surface Mode (Persuade/Operate/Read/Experience)
-[ ] Visual hierarchy is clear: distinct weight, scale, and spatial grouping
-[ ] No pattern from the Anti-Slop checklist appears (no generic purple AI gradient)
-[ ] Real saturated primary color is present and defines brand identity (NOT gray-on-gray)
-[ ] Dark mode was ONLY chosen if genuinely warranted by product type or user request;
-    otherwise light mode is mandatory
-[ ] Real named display and body fonts are loaded (Google Fonts or local, never browser default)
+BESPOKE ANTI-AI CRAFT & PERSONALITY (HARD BLOCKER)
+[ ] Aligns with the Domain Personality Matrix (editorial, engineering, artisanal, SaaS, fintech, or culture)
+[ ] Zero generic AI visual clichés (no purple-to-blue glow traps, no cloned centered heroes, no 3-card marches)
+[ ] Zero banned AI marketing buzzwords in UI copy or headings (no "Unleash", "Elevate", "Seamless", "Supercharge", etc.)
+[ ] Copy uses grounded, domain-authentic human language with concrete verbs and specific outcomes
+[ ] Real saturated primary color defines brand identity (never gray-on-gray)
+[ ] Dark mode was ONLY chosen if genuinely warranted by product context; otherwise light mode is mandatory
+[ ] Real named display and body fonts loaded (Google Fonts or local, never browser default)
 [ ] Typography measure respected: 65-75ch body measure, text-wrap: balance on headings
-[ ] Browser surfaces themed: ::selection, caret-color, custom scrollbars, :focus-visible rings
-[ ] Contrast ratios verified: body/placeholder ≥ 4.5:1, large headings ≥ 3:1
-[ ] Real photography used (Unsplash CDN or generated), never solid-color placeholder boxes
+[ ] Browser surfaces themed: ::selection, caret-color, custom scrollbars, :focus-visible rings, tabular nums
+[ ] Real photography used from CDN, never solid-color placeholder boxes
 
-INTERACTION & MOTION SYSTEM (HARD BLOCKER)
-[ ] Motion Thesis defined and respected: Focal moment + Continuity + Feedback + Budget
-[ ] One authored focal moment or sequence that gives the surface personality
-[ ] Every button has hover animation (scale + shadow/color, 150-200ms ease-out)
-[ ] Every button has active press micro-interaction (scale 0.96-0.97, 80-100ms)
-[ ] Every card has hover animation (translateY lift + shadow elevation, 200-250ms)
-[ ] Every link has visible hover response (underline slide or color fade)
-[ ] Entrance animations present for key sections with natural deceleration (cubic-bezier(0.16, 1, 0.3, 1))
-[ ] Exit transitions animate faster than entrance (~50-70% of enter duration)
-[ ] Stagger chains capped at 5-6 items, 40-80ms delay per item
-[ ] prefers-reduced-motion media query is implemented and preserves semantic feedback
+AUTHORED 4-LAYER MOTION SYSTEM (HARD BLOCKER)
+[ ] Layer 1 (Ambient/Focal): One authored signature focal sequence carries the product soul
+[ ] Layer 2 (Scrollytelling): Stagger chains capped at 5-6 items, 40-80ms offset, natural deceleration
+[ ] Layer 2 (Exits): Exit transitions animate 50-70% faster than entrance (150-250ms)
+[ ] Layer 3 (Micro-interactions): Every button has active press (scale 0.97) and hover lift
+[ ] Layer 3 (States): Shimmer loading, success checkmark morph, shake on error alert
+[ ] Layer 4 (GPU & A11y): Animate transforms and opacity only (zero layout thrashing)
+[ ] Layer 4 (Reduced Motion): prefers-reduced-motion media query implemented and retains essential state feedback
 [ ] Gestures handle pointercancel, lostpointercapture, and blur safely without getting stuck
+
+FULL-SPECTRUM SEO, SEMANTICS & WEB VITALS (HARD BLOCKER)
+[ ] Landmark semantic HTML5 outline used (<header>, <nav>, <main>, <article>, <footer>)
+[ ] Exactly one <h1> per page capturing the primary keyword and value proposition
+[ ] Heading levels never skip steps (h1 -> h2 -> h3)
+[ ] All media elements have descriptive, informative alt text (never empty or generic "image")
+[ ] OpenGraph metadata complete (og:title, og:description, og:image, og:url, og:site_name)
+[ ] Twitter Cards metadata complete (summary_large_image, twitter:title, twitter:description, twitter:image)
+[ ] Domain-specific JSON-LD Schema.org structured data embedded and valid
+[ ] Canonical URL and theme-color meta tags specified
+[ ] Core Web Vitals: Hero image preloaded with high priority; below-fold media lazy loaded
+[ ] Core Web Vitals: Explicit dimensions or aspect-ratio on all images and containers (Zero CLS)
+[ ] Core Web Vitals: Interactive responses under 150ms (INP safe)
 
 SECURITY & DATA PRIVACY (HARD BLOCKER)
 [ ] All user inputs validated with strict schemas (Zod/Valibot) or type guards
@@ -46,7 +55,7 @@ SECURITY & DATA PRIVACY (HARD BLOCKER)
 [ ] Zero secrets, private environment variables, or database credentials leaked to client JS
 [ ] Safe logging: no passwords, PII, or full server stack traces exposed to end-users
 
-CODE SAFETY, HARDENING & MAINTAINABILITY (HARD BLOCKER)
+CODE SAFETY, HARDENING & ARCHITECTURE (HARD BLOCKER)
 [ ] Strict TypeScript types used (strict: true, zero loose 'any' casts)
 [ ] Asynchronous UI states modeled with discriminated unions (eliminating impossible states)
 [ ] All 4 async states handled: Loading (shimmer/skeleton), Success, Empty state, and Error with Retry button
@@ -58,41 +67,37 @@ CODE SAFETY, HARDENING & MAINTAINABILITY (HARD BLOCKER)
 [ ] Resources cleaned up: event listeners, intervals, and AbortControllers aborted on unmount
 [ ] No unused imports, dead code, or commented-out blocks left in final delivery
 
-ACCESSIBILITY (WCAG 2.1 AA)
-[ ] All interactive elements reachable and operable via keyboard
-[ ] Visible focus rings on all interactive elements (:focus-visible)
-[ ] Form fields have explicitly associated <label> elements
-[ ] Semantic HTML used (<main>, <nav>, <section>, <button>, <header>, <footer>)
-[ ] Icon-only buttons have an aria-label or accessible text
-[ ] Color is never the sole indicator of state or meaning
-[ ] All images have descriptive alt text (not "photo" or "image")
-
-RESPONSIVE (HARD BLOCKER, verified on BOTH mobile and desktop)
-[ ] Verified on mobile viewport (~360-430px): layout, navigation, typography, forms all correct
-[ ] Verified on desktop viewport (~1280px+): layout, sidebars, typography all correct
-[ ] Verified on tablet viewport (~768-1024px) when layout complexity warrants
-[ ] Zero horizontal scrollbars from unhandled container overflow at any viewport
-[ ] Touch targets are at least 44x44px minimum for reliable mobile tapping
+RESPONSIVE MASTERY & MOBILE ERGONOMICS (HARD BLOCKER)
+[ ] Verified on Mobile Small (~360px): layout, touch targets, and typography intact
+[ ] Verified on Mobile Standard (~390-430px): no horizontal overflow, comfortable reading
+[ ] Verified on Tablet (~768-834px): adaptive column layouts flow naturally
+[ ] Verified on Desktop (~1024-1440px+): max container width constrained (1440px max)
+[ ] Zero horizontal scrollbars from unhandled container overflow at any viewport (overflow-x: clip)
+[ ] Touch targets are at least 44x44px minimum with 8px tap separation
+[ ] Ergonomic thumb zone: Primary mobile actions and CTAs positioned in lower 40% of viewport
+[ ] Safe area insets respected for notched screens (env(safe-area-inset-top/bottom))
+[ ] Adaptive mobile navigation (drawer/sheet with backdrop blur, focus trap, and escape key handler)
 
 REQUIREMENTS & INTEGRITY
 [ ] Every Acceptance Criterion in the PRD is met and verified
 [ ] Assumptions made are consistent with the final implementation
-[ ] No em dash character ("—") anywhere in code, comments, or copy
+[ ] No em dash character anywhere in code, comments, or copy
 [ ] No fake content, statistics, client logos, or fabricated testimonials
 [ ] No lorem ipsum anywhere in the user interface
 ```
 
 ---
 
-## The Five Mandatory Hard Blockers
+## The Six Mandatory Hard Blockers
 
 "The build succeeded" or "no errors" alone is NEVER enough to declare a task complete.
-There are **FIVE HARD BLOCKERS** that must all pass before the task is finished:
+There are **SIX MANDATORY HARD BLOCKERS** that must all pass before the task is finished:
 
-1. **RESPONSIVE**: Verified on mobile (~390px) AND desktop (~1440px), zero overflow.
-2. **DESIGN & CRAFT FLOOR**: Real font, real primary color, themed browser surfaces, contrast passed, no AI slop.
-3. **INTERACTION & MOTION**: Authored motion thesis, hover/active states on all controls, reduced-motion path.
-4. **SECURITY & DATA PRIVACY**: Strict input validation, XSS prevention, secure token hygiene, zero leaked secrets.
-5. **CODE SAFETY & HARDENING**: Strict types, 4-state UI handling, error boundaries, resilient text wrapping.
+1. **RESPONSIVE & MOBILE ERGONOMICS**: Verified on mobile (~360-430px) AND desktop (~1440px), zero horizontal overflow, 44x44px touch targets, safe area insets respected, thumb zone optimized.
+2. **BESPOKE ANTI-AI CRAFT & PERSONALITY**: Matches Domain Personality Matrix, zero generic AI visual clichés, zero banned marketing buzzwords, saturated brand color, real typography pairing, themed browser surfaces.
+3. **AUTHORED 4-LAYER MOTION SYSTEM**: Focal hero moment present, staggered scrollytelling choreography, active tactile micro-interactions on all controls (press scale 0.97), prefers-reduced-motion fallback implemented.
+4. **FULL-SPECTRUM SEO, SEMANTICS & WEB VITALS**: Semantic HTML5 landmark structure, single <h1> rule, complete OpenGraph/Twitter cards, domain JSON-LD Schema.org, Core Web Vitals protected (zero CLS, LCP priority).
+5. **SECURITY & DATA PRIVACY**: Strict input validation schemas (Zod/Valibot), XSS/injection prevented, tokens secured in HttpOnly cookies, zero leaked secrets.
+6. **CODE SAFETY & RESILIENT HARDENING**: Strict types, 4-state UI handled, error boundaries, text overflow protected with min-width: 0 and wrapping.
 
-Skipping any of these five means the task is incomplete.
+Skipping any of these six means the task is strictly incomplete. Fix all failing blockers before delivering to the user.

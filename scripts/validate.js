@@ -59,7 +59,8 @@ const requiredReferences = [
   'prd-template.md',
   'design-guidelines.md',
   'security-and-hardening.md',
-  'review-checklist.md'
+  'review-checklist.md',
+  'seo-and-performance.md'
 ];
 
 requiredReferences.forEach((ref) => {

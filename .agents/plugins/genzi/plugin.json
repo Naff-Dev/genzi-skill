@@ -6,7 +6,7 @@
   "author": {
     "name": "naffdev"
   },
-  "repository": "https://github.com/Naff-Dev/genzi",
+  "repository": "https://github.com/Naff-Dev/genzi-skill",
   "license": "MIT",
   "keywords": [
     "genzi",
@@ -19,7 +19,9 @@
     "ux-ui",
     "anti-slop",
     "motion-animation",
-    "responsive-design"
+    "responsive-design",
+    "seo",
+    "core-web-vitals"
   ],
   "skills": [
     "./skills/genzi"

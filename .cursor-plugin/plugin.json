@@ -3,7 +3,7 @@
   "version": "2.0.0",
   "description": "Genzi adalah koentji. Full professional AI partner: PM + Art Director + Senior Engineer + Code Reviewer. Turns informal requests into PRD, bold design, motion animations, and responsive implementation.",
   "author": "naffdev",
-  "repository": "https://github.com/Naff-Dev/genzi",
+  "repository": "https://github.com/Naff-Dev/genzi-skill",
   "skills": [
     "./skills/"
   ]
