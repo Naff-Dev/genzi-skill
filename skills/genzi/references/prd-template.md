@@ -7,131 +7,175 @@ Writing rules for both PRD types:
 - Never include invented data (statistics, testimonials, customer names, etc).
 - Tag requirements with their category when it needs clarifying: Explicit / Inferred / Assumption.
 - Clear, concrete language, no filler.
-- Responsive behavior on mobile AND desktop must always be part of the requirements/acceptance criteria, even in a Micro PRD, since it is a mandatory hard rule.
+- **Clarification first**: When intent, architecture, or security constraints are ambiguous, record the user's answers or explicit assumptions.
+- **Responsive behavior on mobile AND desktop** must always be part of acceptance criteria.
+- **Design, Motion, Security, and Code Safety** are hard requirements, not optional notes.
 
 ---
 
 ## Micro PRD (for small-to-medium tasks)
 
-Use this short format, 5-10 lines is enough:
+Use this concise format (10-20 lines):
 
 ```text
-Goal         : [what this change/feature is meant to achieve]
-Requirements : [bullet list, tag (Explicit)/(Inferred)/(Assumption) when it needs clarifying]
-Scope        : [files/components/pages affected]
-Out of scope : [what is intentionally not being done, if relevant]
-Acceptance   : [1-3 concrete criteria that mark the task done, including a
-                mobile + desktop check]
+Goal            : [what this change/feature is meant to achieve]
+Surface Mode    : [Persuade | Operate | Read | Experience]
+Requirements    : [bullet list, tag (Explicit)/(Inferred)/(Assumption)]
+Clarifications  : [questions asked or ambiguities resolved with user]
+Scope           : [files/components/pages created or modified]
+Out of Scope    : [what is intentionally omitted to avoid scope creep]
+Motion & Feedback: [hover, active click, async loading/error feedback, entrance motion]
+Security & Safety: [input validation schema, token storage, auth check, text-overflow wrap]
+Acceptance      :
+  - [Functional acceptance criteria]
+  - [Mobile (~360-430px) AND Desktop (~1280px+) responsive verified, zero overflow]
+  - [Hover & micro-interactions implemented with prefers-reduced-motion fallback]
+  - [Inputs validated and sanitized, no raw HTML injection]
 ```
 
-Example (for "add a search feature to the product list page"):
+### Micro PRD Example (Search Feature):
 
 ```text
-Goal         : User can search products by name without reloading the page.
-Requirements :
-  - Search input above the product list (Explicit)
-  - Real-time filtering while typing, with debounce (Inferred, to avoid
-    hurting performance)
-  - "No products found" message when the result is empty (Inferred)
-Scope        : ProductList component, add a new SearchBar component.
-Acceptance   :
-  - Typing a product name filters the list by substring match
-  - Empty results show a clear message
-  - No regression to the existing category filter
-  - Search bar and results are usable and correctly laid out on both
-    mobile and desktop
+Goal            : User can search products by name in real-time without page reload.
+Surface Mode    : Operate
+Requirements    :
+  - Search input with clear button above product list (Explicit)
+  - Real-time debounced filtering (300ms) to preserve UI responsiveness (Inferred)
+  - Empty state with clear message when 0 items match (Inferred)
+Clarifications  :
+  - Confirmed: Search applies client-side across loaded catalogue rather than pagination query.
+Scope           : ProductList component, add SearchInput component, update filter hook.
+Out of Scope    : Full-text server search index, search history persistence.
+Motion & Feedback:
+  - Search input focus ring transitions (150ms ease-out)
+  - Result list cross-fade / layout animation via CSS or Framer Motion
+  - Loading shimmer if async search is simulated
+Security & Safety:
+  - Sanitize search query input; strip dangerous HTML characters
+  - Use min-width: 0 on result cards to prevent long query blowout
+Acceptance      :
+  - Typing a substring filters products within 300ms debounce
+  - Clearing input restores complete product catalogue smoothly
+  - Tested on mobile (390px) and desktop (1440px): search bar full-width on mobile, right-aligned on desktop
+  - Zero XSS vulnerabilities from search query reflection
 ```
 
 ---
 
-## Full PRD (for large tasks/new products)
+## Full PRD (for large tasks, new surfaces, major features)
 
-Use the following 21 sections. Keep each section short and concrete, no need to pad it if the information is simple. A section irrelevant to this product type can say "Not relevant for this product" with a brief reason.
+Use the following 24 structured sections. Keep each section concrete and actionable. Sections not applicable to the specific product must state "Not applicable" followed by a 1-sentence technical reason.
 
 ```text
-1.  Product Overview
-    One or two paragraph summary: what the product is, who it's for,
-    its main goal.
+1.  Product Overview & Visitor Surface Mode
+    - Summary of the product, purpose, and audience.
+    - Surface Mode: Persuade | Operate | Read | Experience (guides motion & layout).
 
 2.  Problem Statement
-    The real problem being solved, based on what the user said, not an
-    assumed problem the user never mentioned.
+    - Concrete user or business problem being solved (based on user request).
 
-3.  Product Goal
-    The end result the user/business wants to achieve.
+3.  Product Goal & Target Outcomes
+    - Tangible outcome marking success.
 
-4.  Target Users
-    Based on what the user provided. If not stated, write a reasonable
-    generic profile for this product type and tag it (Assumption).
+4.  Target Users & Usage Context
+    - Who uses this, under what conditions (desk, mobile on-the-go, low bandwidth).
 
-5.  User Needs
-    Concrete needs the target user has from this product.
+5.  Clarification & Ambiguity Resolution Log
+    - Questions asked to the user and their confirmed decisions.
+    - Explicit list of assumptions made for non-blocking choices.
 
-6.  Core Features
-    List of main features, ordered by priority. Tag each
-    (Explicit)/(Inferred).
+6.  User Needs & Scenarios
+    - Primary and secondary user scenarios start to finish.
 
-7.  Page / Screen Structure
-    List of pages/screens and what each one does.
+7.  Core Features & Prioritization
+    - Ranked list of features, tagged (Explicit) or (Inferred).
 
-8.  User Flows
-    Step-by-step flow for the main usage scenarios.
+8.  Page & Screen Structure
+    - Sitemap or component hierarchy tree.
 
-9.  Functional Requirements
-    What the system must be able to do, written as verifiable bullet
-    points.
+9.  User Flows
+    - Step-by-step walkthroughs of primary interactions, happy path, and alternate paths.
 
-10. Non-Functional Requirements
-    Performance, basic security, scalability appropriate to the
-    product (don't over-scope this for a small product).
+10. Functional Requirements
+    - Precise, testable specifications of system behavior.
 
-11. Design Direction
-    See references/design-guidelines.md. State the design priorities
-    for this product type and the visual direction (typography, palette,
-    composition) without falling into generic AI patterns.
+11. Non-Functional & Reliability Requirements
+    - Performance budget (LCP < 2.5s, bundle limits), uptime expectations, responsiveness.
 
-12. Responsive Behavior (MANDATORY)
-    Explicit behavior on mobile and desktop (and tablet if relevant) for
-    every major element: navigation, layout, typography, forms, images,
-    tables. This section can never be skipped or marked "not applicable".
+12. Security & Data Privacy (MANDATORY)
+    - Input Validation: Schema validation (Zod/Valibot) on all incoming data.
+    - XSS & Injection: No unescaped HTML, DOMPurify for rich text, parameterized queries.
+    - Auth & Permissions: HttpOnly cookie storage, server-side permission checks.
+    - Secrets: Private keys restricted to server environment, never bundled into client.
+    - Security Headers: CSP, X-Content-Type-Options, Referrer-Policy, CORS constraints.
 
-13. Interaction & Animation
-    Animations/transitions that serve a function (hover, feedback, page
-    transition, etc), never decoration without purpose.
+13. Design Direction & Craft Floor (MANDATORY)
+    - Visual Identity: Specific primary color (HSL), secondary, background, and text colors.
+    - Typography: Specific named Display font and Body font pairing (Google Fonts / local).
+    - Browser Surfaces Theming: Selection color, caret-color, custom scrollbar, focus rings.
+    - Layout Composition: Asymmetrical grid, fluid clamp() scales, 65-75ch body measure.
+    - Anti-Slop Check: Confirm zero forbidden AI defaults (no generic purple gradients).
 
-14. Accessibility
-    Minimum accessibility needs: semantic HTML, keyboard nav, labels,
-    contrast, alt text.
+14. Responsive Behavior (MANDATORY)
+    - Mobile (~360-430px): 1-column layouts, sticky bottom/top bars, 44x44px touch targets.
+    - Tablet (~768-1024px): Adaptive column split, adjusted drawer/sheet behaviors.
+    - Desktop (~1280px+): Multi-column grids, fixed sidebars, max content constraint (1200-1440px).
+    - Hard rule: Zero horizontal scrollbars, zero unhandled text truncation.
 
-15. SEO
-    Only for public-facing products. Write "Not relevant" for an
-    internal tool.
+15. Interaction & Motion System (MANDATORY)
+    - Motion Thesis:
+        * Focal Moment: One authored signature entrance or interactive transformation.
+        * Continuity: Shared-element / FLIP / View Transitions across states.
+        * Feedback: Button press scale(0.97), card lift, toggle springs (80-150ms).
+        * Reduced Motion: prefers-reduced-motion fallback preserving opacity & state.
+    - Timing & Easing: Natural deceleration (cubic-bezier(0.16, 1, 0.3, 1)) on enter;
+      exit faster than enter (exit ~60% of enter duration).
 
-16. Technical Architecture
-    The stack in use (from workspace-detection), folder structure,
-    component pattern, state management (only if actually needed),
-    required integrations.
+16. Technical Architecture & File Plan
+    - Framework & Stack: Strictly adhere to workspace detection findings.
+    - Clean Layering: UI Components -> Custom Hooks -> Service / API Layer -> Domain Schemas.
+    - Concrete File Plan: List of exact files to create, modify, or delete.
 
-17. Data Requirements
-    What data needs to be stored/fetched, where it comes from (user
-    input, API, database), basic schema if relevant.
+17. Safe & Maintainable Code Architecture
+    - Strict TypeScript typing (strict: true, zero loose 'any' casts).
+    - State Modeling: Discriminated unions for asynchronous state machines.
+    - Error Boundaries: Top-level and component-level error boundaries.
+    - Immutability & Cleanups: Safe state updates, cleanup on unmount for timers/listeners.
 
-18. Asset Requirements
-    Images/icons/fonts needed, which already exist in the project,
-    which need to be found or created.
+18. Hardening & Boundary Resilience (From Impeccable)
+    - Extreme Inputs: 100+ character strings, emoji, CJK, RTL logical CSS properties.
+    - Text Overflow: Truncate / line-clamp rules, min-width: 0 on flex/grid children.
+    - Four-State Async UI: Explicit handling of Idle/Loading, Success, Empty, and Error + Retry.
+    - Gesture Safety: pointercancel handling, multi-touch defense, clean state resets.
 
-19. Edge Cases
-    Uncommon conditions that must be handled: empty input, errors, slow
-    loading, data not found, etc.
+19. Data Requirements & API Contracts
+    - Data schemas, API request/response types, mock datasets if backend unready.
 
-20. Acceptance Criteria
-    Concrete, verifiable criteria that mark this feature/product as done
-    and correct. Must explicitly include a mobile + desktop responsive
-    check.
+20. Asset & Photography Strategy
+    - Real photography from Unsplash CDN with optimization query parameters (?w=800&q=75).
+    - generate_image tool for custom branding assets.
+    - Lucide/Phosphor/Heroicons for consistent stroke icons with aria-labels.
 
-21. Assumptions
-    List of every Assumption made while writing this PRD, so the user
-    can correct any that are wrong.
+21. Accessibility (WCAG 2.1 AA)
+    - Semantic HTML elements (<main>, <nav>, <section>, <article>, <button>).
+    - Contrast ratio: ≥4.5:1 for body text, ≥3:1 for large display text.
+    - Keyboard navigable: Tab order logical, skip links, visible focus rings.
+
+22. SEO & Metadata
+    - Title tags, meta descriptions, Open Graph cards, canonical tags (public pages only).
+
+23. Verifiable Acceptance Criteria
+    - Concrete criteria covering functional behavior.
+    - HARD BLOCKER 1: Responsive verified on mobile (~390px) and desktop (~1440px).
+    - HARD BLOCKER 2: Design craft floor & typography verified.
+    - HARD BLOCKER 3: Motion thesis, micro-interactions, and reduced-motion verified.
+    - HARD BLOCKER 4: Security baseline & input validation verified.
+    - HARD BLOCKER 5: Error and empty states tested and operational.
+
+24. Assumptions & Risks
+    - Document every design and technical assumption for user verification.
 ```
 
-After the PRD is written, move on to Steps 10-13 in SKILL.md (Design Direction, Interaction, Technical Architecture, Acceptance Criteria) before starting implementation.
+---
+
+After completing the PRD, present it clearly to the user before proceeding to implementation on medium-to-large tasks.

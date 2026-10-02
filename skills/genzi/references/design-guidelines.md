@@ -53,55 +53,80 @@ Unless the product type or user explicitly demands neutral/minimal/dark:
 
 ---
 
-## 1. Context-Aware Design
+## 1. Context-Aware Design & Visitor Surface Modes
 
-Never use one design template for every product type. Determine the product type first, then prioritize accordingly:
+Never use one design template for every product type. Determine the **Visitor Surface Mode** and product context first:
 
 ```text
-Portfolio / Personal Brand
+VISITOR SURFACE MODES (from Impeccable):
+1. Persuade (Visitor decides and acts):
+   - Landing pages, marketing, campaigns, pricing, waitlists.
+   - Design is the product. Earn attention, build conviction, drive action.
+   - Motion carries the brand voice; one rehearsed focal sequence.
+
+2. Operate (Visitor completes a task):
+   - SaaS app shells, dashboards, editors, admin tools, settings, POS.
+   - Scanability, muscle memory, consistency, and native affordances outrank decoration.
+   - Brand lives in crisp micro-interactions, flawless state handling, and dense typography.
+
+3. Read (Visitor understands something):
+   - Docs, knowledge bases, articles, guides, changelogs.
+   - Hierarchy and measure optimized for comprehension (65-75ch line length, high contrast).
+   - Quiet, unobtrusive motion serving orientation and reading comfort.
+
+4. Experience (Visitor is inside the work itself):
+   - Portfolios, creative galleries, interactive showcases, brand experiences.
+   - The artifact leads from the very first viewport; interface chrome recedes.
+   - High visual expression, bespoke layouts, and authored motion.
+```
+
+### 1.1 Product Type Priorities
+
+```text
+Portfolio / Personal Brand (Mode: Experience)
     Personality-first. Pick a strong visual voice.
     Use editorial typography (display fonts, large type, tight tracking).
     Color: 1-2 vivid signature colors. Make them count.
     Layout: unconventional grid, asymmetric sections, strong whitespace rhythm.
-    Motion: smooth scroll transitions, text reveal on enter.
+    Motion: smooth scroll transitions, word clip reveal on enter, cursor interaction.
     DO NOT default to dark/minimal. That is overdone.
 
-SaaS / Web App
+SaaS / Web App (Mode: Operate)
     Clarity over decoration, but clarity does not mean boring.
     Color: saturated primary + neutral system. Not gray-on-gray.
     Navigation: fast, clear, predictable. Never bury key actions.
     Data/forms: spacing discipline, strong input states, visible feedback.
     Motion: micro-interactions on every action (save, error, toggle), skeleton loaders.
 
-E-commerce / Marketplace
+E-commerce / Marketplace (Mode: Persuade)
     Product is hero. Typography and color serve the product.
     Color: neutral base + 1 vivid accent for CTA and trust signals.
     Trust: clear pricing, real reviews, real brand signals.
     Motion: image hover zoom, cart feedback animation, quantity update animation.
     Reference: GAZU, Vespa, Okaso examples above.
 
-Internal Business Tool / Admin
+Internal Business Tool / Admin (Mode: Operate)
     Dense but not chaotic. Speed above all.
     Color: low-saturation base, color only for status (error, warning, success).
-    Typography: readable at small sizes, monospace for codes/IDs when useful.
-    Motion: instant feedback, minimal animation (skeleton loaders acceptable).
+    Typography: readable at small sizes, monospace for codes/IDs when useful. Tabular numbers.
+    Motion: instant feedback (100ms), minimal animation (skeleton loaders acceptable).
 
-Creative / Campaign / Landing Page
+Creative / Campaign / Landing Page (Mode: Persuade / Experience)
     This is where full expression is allowed and expected.
     Art direction: unconventional layout, bold color fields, strong type scale.
-    Motion: scroll-driven animations, entrance effects, parallax (controlled).
+    Motion: scroll-driven animations, entrance effects, parallax (controlled), focal reveal.
     Color: anything. Own it. Make it memorable.
     Typography: expressive. Display fonts. Oversized headings are expected.
 
-Transactional App (POS, Booking, Cashier)
+Transactional App (POS, Booking, Cashier) (Mode: Operate)
     Speed and legibility over aesthetics, but still branded.
-    Large tap targets, high contrast, minimal cognitive load per step.
+    Large tap targets (min 48px), high contrast, minimal cognitive load per step.
     Color: saturated for action/CTA, desaturated for UI chrome.
-    Motion: instant confirm/deny feedback, no decorative animation.
+    Motion: instant confirm/deny feedback, zero blocking animation.
     Reference: Trekcave example above.
 ```
 
-If a product doesn't fit any category above, decide the design priorities yourself based on the product's goal and who will use it. Never default to a generic landing-page pattern.
+If a product doesn't fit any category above, decide the mode and priorities based on user intent and usage context. Never default to a generic landing-page template.
 
 ---
 
@@ -262,125 +287,134 @@ Rules:
 
 ---
 
-## 4. Animation and Motion (MANDATORY to implement)
+## 4. Animation and Motion System (MANDATORY to implement)
 
-### 4.1 Animate to Feel Real, Not to Impress
+### 4.1 Motion Thesis: Authored, Intentional, Alive
 
-Every interactive element must respond visually. A static interface feels broken. Animation is not optional decoration - it is part of the product feeling alive.
+Every interactive element must respond visually. A static interface feels broken, while scattered, uncoordinated animations feel like cheap decoration. Motion must have purpose, rhythm, and clear narrative.
 
-**Motion animation (Framer Motion, GSAP, CSS custom) is encouraged for:**
-- Page or section entrance effects
-- Scroll-driven reveal animations
-- Smooth route/tab transitions in SPAs
-- Hero text character or word reveals
-- Staggered list/card entrances
-- Number count-up for stats
-- Interactive hover states with physics (spring easing)
+**The Motion Thesis (define before implementing):**
+1. **Focal Moment**: The one sequence or interaction that deserves distinct authorship and carries the product's soul (e.g. hero editorial clip reveal, interactive card flip/expand, dynamic state transition).
+2. **Continuity**: Preserve spatial relationships and user mental models across route changes, modal openings, and layout shifts (shared elements, FLIP-style transforms, View Transitions).
+3. **Feedback**: Immediate acknowledgment for every user input (button clicks, form submits, toggles, filter selections).
+4. **Performance Budget**: Animate GPU-accelerated properties (`transform`, `opacity`, `filter`). Avoid animating layout properties (`width`, `height`, `top`, `left`, `margin`) unless using FLIP or container queries.
 
-### 4.2 Required Animations (always implement these)
+### 4.2 Material by Meaning (Choose Properties by What They Communicate)
 
 ```text
-HOVER STATES (every interactive element must have one):
-    Buttons:    scale(1.02-1.04) + color shift + shadow lift, 150-200ms
-    Cards:      translateY(-4px to -8px) + shadow increase, 200-250ms
-    Links:      underline slide-in or color fade, 150ms
-    Nav items:  background fill or underline, 150ms
-    Icons:      small scale or color change, 200ms
-    Product images (e-comm): zoom scale(1.05) on hover, 400ms ease-out
-    Easing:     ease-out or cubic-bezier(0.25, 0.46, 0.45, 0.94)
+Continuity & Relationship:
+    Shared-element motion, FLIP transitions, directional slide, layout morphing.
+    Use when an element moves between positions or expands from a card to a modal.
 
-ENTRANCE ANIMATIONS (elements entering viewport):
-    Use IntersectionObserver + CSS class toggle, or Framer Motion whileInView.
-    Pattern: opacity 0->1 + translateY(24-40px)->0
-    Duration: 500-700ms, ease-out
-    Stagger between items: 80-120ms delay per item
-    Max stagger chain: 5-6 items at a time.
+Focus & Depth:
+    Backdrop-blur (4px to 12px), subtle scale shift, soft directional shadow elevation.
+    Use when bringing an element into focus or dimming background context.
 
-CLICK / PRESS FEEDBACK:
-    Button click: scale(0.97) press, 80-100ms, then release
-    Form submit:  loading state (spinner), then success or error state
+Reveal & Composition:
+    Masks, clip-paths (e.g., inset(100% 0 0 0) -> inset(0 0 0 0)), controlled image cropping.
+    Use for editorial hero entrances, typography reveals, and card disclosures.
 
-FORM / ACTION FEEDBACK:
-    Submit:  button goes into loading state, then success/error state
-    Delete:  fade + height collapse, 200-300ms
-    Toast:   slide in from edge, 250ms ease-out
-    Toggle:  smooth state transition, 200ms
-
-LOADING STATES:
-    Skeleton loaders with shimmer animation for content areas.
-    Spinner for point actions.
-    Progress bar for multi-step operations.
-
-NUMBER ANIMATIONS (for stats/dashboards):
-    Count up from 0 when entering viewport.
-    Duration: 800-1200ms, ease-out.
-
-TEXT REVEAL (for hero/display text - portfolio, creative, landing pages):
-    Word or line clip-path reveal: inset(100% 0 0 0) -> inset(0 0 0 0)
-    Duration: 600-900ms per line, stagger lines by 80-120ms.
-    OR: opacity + translateY per word, stagger 30-50ms per word.
-
-SCROLL-DRIVEN (for creative/campaign/landing pages):
-    Parallax on hero image: translateY at 0.3-0.5x scroll speed
-    Section background color transition on scroll
-    Sticky nav appearance on scroll (opacity + translateY)
+State & Feedback:
+    Smallest visible change that makes action and result unmistakable.
+    Scale-down press (0.97), color pulse, icon tick, shimmer state.
 ```
 
-### 4.3 Timing and Easing Reference
+### 4.3 Required Animations (Always Implement These)
 
 ```text
-Hover in/out:              100-200ms,  ease-out
-Click/press micro:         80-150ms,   ease-in-out
-UI expand/collapse:        200-300ms,  ease-out
-Entrance animations:       500-800ms,  ease-out
-Page transitions:          300-500ms,  ease-in-out
-Text/word reveal:          600-900ms,  cubic-bezier(0.16, 1, 0.3, 1)
-Scroll-driven:             continuous, linear or ease-out
-Spring/physics hover:      400-600ms,  cubic-bezier(0.34, 1.56, 0.64, 1.0)
+HOVER STATES (every interactive element must have an intentional response):
+    Buttons:         scale(1.02 to 1.04) + color shift + shadow lift, 150-200ms ease-out
+    Cards:           translateY(-4px to -8px) + shadow elevation + subtle border brightness, 200-250ms
+    Links:           underline slide-in (clip-path or scaleX) or smooth color transition, 150ms
+    Nav items:       active indicator slide / background pill fill, 150ms
+    Icons:           small scale or rotational tilt (±8deg), 200ms
+    Product images:  zoom scale(1.05 to 1.08) with overflow hidden, 400-500ms ease-out
 
-Preferred easings:
-    ease-out (fast start, soft end):   cubic-bezier(0.0, 0.0, 0.2, 1.0)
-    ease-in-out (symmetric):           cubic-bezier(0.4, 0.0, 0.2, 1.0)
-    spring-like (slight overshoot):    cubic-bezier(0.34, 1.56, 0.64, 1.0)
-    snappy:                            cubic-bezier(0.25, 0.46, 0.45, 0.94)
-    expo-out (very snappy):            cubic-bezier(0.16, 1, 0.3, 1)
+CLICK / ACTIVE FEEDBACK:
+    Buttons:         scale(0.96-0.97) quick press, 80-100ms, then spring release
+    Toggles/Switches: smooth spring slide (stiffness: 400, damping: 30), 200ms
+    Checkboxes:      check icon draw / scale bounce, 150ms
+
+ENTRANCE ANIMATIONS:
+    Pattern:         opacity 0 -> 1 with translateY(20-32px) -> 0
+    Duration:        400-600ms with natural deceleration
+    Stagger chain:   40-80ms delay per child item. Cap chain at maximum 5-6 items.
+    Implementation:  IntersectionObserver + class toggle, or Framer Motion whileInView / variants.
+
+EXIT ANIMATIONS (Always Exit Faster than Entrance):
+    Duration:        150-250ms (roughly 50-70% of enter duration)
+    Pattern:         opacity 1 -> 0 with scale(0.98) or translateY(-10px)
+
+FOUR-STATE ASYNC FEEDBACK:
+    Loading:         Shimmer skeleton with moving gradient highlight or crisp spinner.
+    Success:         Green pulse or checkmark morph, auto-dismiss toast.
+    Error:           Subtle horizontal shake (translateX: -4px, 4px, -2px, 0), 250ms + visible alert.
+    Empty:           Fade-in with illustrated icon and actionable CTA.
+
+TEXT & HERO REVEAL (for Portfolios, Creative, Landing Pages):
+    Word / line clip-path reveal: inset(100% 0 0 0) -> inset(0 0 0 0)
+    Duration:        600-800ms per line, cubic-bezier(0.16, 1, 0.3, 1).
+    Stagger:         50-80ms per line/word.
 ```
 
-### 4.4 Technology Priority
+### 4.4 Timing, Curves and Physics Tokens
 
 ```text
-1. CSS transition           hover, focus, color, simple transform changes
-2. CSS animation            repeating or multi-step keyframe sequences
-3. IntersectionObserver + CSS class toggle   scroll-triggered entrances
-4. Framer Motion (whileInView, motion.div, variants)
-                            React/Next.js projects with complex entrance or
-                            page transitions - USE THIS freely when the stack
-                            supports it, do not avoid it out of fear of weight
-5. GSAP + ScrollTrigger     advanced scroll-driven, timeline, pinned sections
-                            use for HTML/vanilla JS or when Framer is unavailable
-6. Web Animations API       JS-controlled precision animation without a library
-7. requestAnimationFrame    canvas, SVG, true frame-level control
+TIMING SCALES:
+    Immediate Feedback:   100-150ms (button press, active ripple)
+    Routine State Change: 150-250ms (hover, dropdown toggle, tab switch)
+    View / Modal / Drawer:300-450ms (dialog open, sheet slide-in)
+    Authored Focal Entrance: 500-750ms (hero reveal, page banner)
+
+PHYSICS & EASING CURVES:
+    Natural Deceleration (Default enter):
+        cubic-bezier(0.16, 1, 0.3, 1)  /* Ultra-smooth exponential ease-out */
+    Snappy UI (Dropdowns, popovers):
+        cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    Spring Physics (Micro-interactions, bouncy buttons):
+        cubic-bezier(0.34, 1.56, 0.64, 1.0)
+    Framer Motion Spring Spec:
+        { type: "spring", stiffness: 350, damping: 25, mass: 1 }
 ```
 
-### 4.5 Forbidden Animation Patterns
+### 4.5 Technology Stack Priority
 
 ```text
-- Infinite floating blobs/circles/particles with no functional purpose
-- Parallax on every single section simultaneously
-- Heavy particle systems as pure backgrounds (tsParticles, Three.js for decoration)
-- Animations that delay the user completing a task
-- More than 4-5 animated elements competing simultaneously in the same viewport
-- Animations that cannot be paused (violates prefers-reduced-motion)
-- Durations longer than 2s on interactive/feedback elements
+1. CSS Transitions & Transforms:
+   Best for hover, focus, active press, simple visibility toggles. Zero JS overhead.
+
+2. Framer Motion (React / Next.js):
+   FIRST CHOICE for React projects when building complex layout animations, AnimatePresence
+   for exit transitions, scroll-driven whileInView, and gesture physics. Use freely.
+
+3. GSAP + ScrollTrigger:
+   Best for vanilla JS, timeline-driven sequences, or pinned horizontal scroll sections.
+
+4. View Transitions API:
+   Native browser shared-element navigation between pages or large views.
 ```
 
-### 4.6 prefers-reduced-motion (MANDATORY)
+### 4.6 Gesture Safety & Interruption Handling
+
+- If pointer capture is lost (`lostpointercapture`, `pointercancel`, or window `blur`), reset animation and drag state immediately.
+- Prevent gestures from getting stuck in mid-state when a second finger touches the screen.
+
+### 4.7 Accessible prefers-reduced-motion (MANDATORY)
+
+Reduced motion does NOT mean eliminating visual feedback. It means removing disorienting spatial movement while keeping essential opacity, color, and state changes:
 
 ```css
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    /* Retain essential opacity and color feedback */
+    .fade-transition, [data-motion="fade"] {
+        transition: opacity 150ms ease-in-out !important;
     }
 }
 ```
@@ -438,7 +472,7 @@ SPECIFIC CATEGORY SEARCHES on Unsplash:
 
 ---
 
-## 6. Layout and Spacing
+## 6. Layout, Spacing & Browser Surfaces Craft Floor
 
 ### 6.1 Spacing System (use these units, not arbitrary px)
 
@@ -455,24 +489,60 @@ SPECIFIC CATEGORY SEARCHES on Unsplash:
 128px - hero vertical padding
 ```
 
-### 6.2 Layout Composition
+### 6.2 Layout Composition & Measure
 
 ```text
 - Max content width: 1200-1440px, centered with margin: auto.
 - CSS Grid for page-level layout. Flexbox for component-level.
 - Never use fixed pixel heights on content containers (use min-height).
-- Section backgrounds: use color variation. Alternate:
+- Section backgrounds: use intentional contrast and rhythm. Alternate:
   off-white > tinted light brand > white > image-full > white.
 - Grid asymmetry: 7:5 or 3:5 column split is more dynamic than 50:50.
+- Body measure: 65-75ch line length for comfortable reading. Never full-width unconstrained text.
+- Heading balance: use `text-wrap: balance` on all headings to eliminate orphan single words.
 - Full-bleed sections (no container width cap) for hero and feature images.
 - Oversized typography used as layout element (not just text) is encouraged.
 ```
 
+### 6.3 Browser Surfaces Theming (The Impeccable Craft Floor)
+
+The parts you didn't draw still carry the design. Un-themed browser defaults make an interface feel assembled rather than authored:
+
+```css
+/* 1. Brand selection colors */
+::selection {
+    background-color: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.25);
+    color: hsl(var(--text-color));
+}
+
+/* 2. Brand caret color */
+input, textarea {
+    caret-color: hsl(var(--primary-color));
+}
+
+/* 3. Accessible, deliberate focus rings */
+:focus-visible {
+    outline: 2px solid hsl(var(--primary-color));
+    outline-offset: 2px;
+}
+
+/* 4. Tabular numbers for clean numeric alignment */
+.tabular, table, [data-numeric] {
+    font-variant-numeric: tabular-nums;
+}
+
+/* 5. Custom themed scrollbars */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: hsla(var(--text-h), 10%, 60%, 0.4) transparent;
+}
+```
+
 ---
 
-## 7. Anti-Slop Design Checklist (HARD RULE)
+## 7. Anti-Slop & Craft Floor Checklist (HARD RULE)
 
-Never produce a UI that matches any of the following. Each item is a failure state:
+Never produce a UI that matches any of the following. Each item is a hard failure state:
 
 ```text
 PALETTE FAILURES:
@@ -480,37 +550,48 @@ PALETTE FAILURES:
 [ ] Pure black (#000000) background with zero warmth or brand color
 [ ] Gray-on-gray: no primary color present anywhere in the UI
 [ ] Dark background when product type does not require it
+[ ] Failing contrast: body & placeholder text < 4.5:1, large text < 3:1
+[ ] Neutral gray secondary text on colored backgrounds (must tint from surface hue)
 
-TYPOGRAPHY FAILURES:
+TYPOGRAPHY & MEASURE FAILURES:
 [ ] Default browser font (Times New Roman, Arial, bare sans-serif)
 [ ] Every element approximately the same font size
 [ ] Heading and body in the same weight
 [ ] No display/heading font loaded
+[ ] Full-width unconstrained paragraphs exceeding 85ch line length
+[ ] Orphan single-word lines in headings (missing text-wrap: balance)
 
-LAYOUT FAILURES:
+LAYOUT & SCAFFOLDING FAILURES:
 [ ] Hero: centered heading + subtext + two buttons + logo strip = generic SaaS
 [ ] Three equal-width feature cards always in a row
+[ ] Nested cards (cards placed inside other cards)
+[ ] Kicker / eyebrow tags slapped above headings by reflex (let the heading speak)
+[ ] Zero-blur block shadows (box-shadow: 4px 4px 0) outside an intentional neobrutalist world
 [ ] Every section is full-width text/image alternating, forever
 [ ] Padding is framework/browser default, never intentionally set
 [ ] All images are colored placeholder boxes
 
-DECORATION FAILURES:
+DECORATION & ASSET FAILURES:
 [ ] Glassmorphism on every card
 [ ] Glowing buttons with multiple competing box-shadow layers
 [ ] Floating decorative blobs with no informational purpose
+[ ] Sketch-style SVG doodles imitating pictures (amateur aesthetic)
 [ ] Gradient overlay on every image for no reason
 
 ANIMATION FAILURES:
 [ ] Zero animations anywhere (static, dead interface)
 [ ] Only one animation: a simple opacity fade on the hero
 [ ] Hover states are identical for buttons, cards, links, and icons
+[ ] Exit animations taking longer than entrance animations
 [ ] No loading/success/error feedback on form submit
+[ ] Missing prefers-reduced-motion fallback
 
-CONTENT FAILURES:
+CONTENT & SECURITY FAILURES:
 [ ] Colored rectangles instead of real images in a visual product
 [ ] Lorem ipsum as placeholder text
-[ ] Fake statistics the user never provided
-[ ] Generic icon grid with 2-word labels as "features"
+[ ] Fake statistics, testimonials, or awards the user never provided
+[ ] Insecure dangerous HTML injection without sanitization
+[ ] Client-side state without handling all 4 async states (loading, empty, error, success)
 ```
 
 ---

@@ -5,87 +5,94 @@ Read this when entering Step 16 (Self-review), after implementation is done and 
 Run through every category below. If any item fails, fix it, then re-run that category (and any other category the fix might affect) before continuing.
 
 ```text
-PRODUCT
+PRODUCT & FUNCTIONALITY
 [ ] The PRD's Problem Statement is genuinely solved by the implementation
-[ ] Every main User Flow can be completed start to finish
-[ ] Every Core Feature (Explicit + Inferred) actually works
+[ ] Every main User Flow can be completed start to finish without breaking
+[ ] Every Core Feature (Explicit + Inferred) actually works in practice
+[ ] Clarifications and resolved user questions are reflected in the final output
 
-DESIGN (hard blockers - same status as a broken build)
-[ ] Design matches the product type's priorities (design-guidelines.md section 1)
-[ ] No pattern from the Anti-Slop checklist appears (design-guidelines.md section 7)
-[ ] Visual hierarchy is clear: important elements stand out, not everything equal weight
-[ ] Layout has an intentional composition, not framework/template defaults
-[ ] Color: a real, saturated primary color is present and defines the brand identity
-    (NOT gray-on-gray, NOT purple-to-blue AI gradient as the only color)
-[ ] Dark background was ONLY chosen if the product type genuinely requires it
-    (code editor, media player, night tool) or the user explicitly asked.
-    Otherwise: light mode is mandatory.
-[ ] Typography: a real named font is loaded (not browser default Times/Arial/sans-serif)
-[ ] Type scale is dramatic: headings are clearly larger and heavier than body text
-[ ] Font pairing is intentional: display font contrasts the body font in style/weight
-[ ] Real images are used (Unsplash CDN or generated) in visual sections, not color blocks
+DESIGN & CRAFT FLOOR (HARD BLOCKER)
+[ ] Design matches the product type and Visitor Surface Mode (Persuade/Operate/Read/Experience)
+[ ] Visual hierarchy is clear: distinct weight, scale, and spatial grouping
+[ ] No pattern from the Anti-Slop checklist appears (no generic purple AI gradient)
+[ ] Real saturated primary color is present and defines brand identity (NOT gray-on-gray)
+[ ] Dark mode was ONLY chosen if genuinely warranted by product type or user request;
+    otherwise light mode is mandatory
+[ ] Real named display and body fonts are loaded (Google Fonts or local, never browser default)
+[ ] Typography measure respected: 65-75ch body measure, text-wrap: balance on headings
+[ ] Browser surfaces themed: ::selection, caret-color, custom scrollbars, :focus-visible rings
+[ ] Contrast ratios verified: body/placeholder ≥ 4.5:1, large headings ≥ 3:1
+[ ] Real photography used (Unsplash CDN or generated), never solid-color placeholder boxes
 
-INTERACTION (hard blockers - same status as a broken build)
-[ ] Every button has a hover animation (scale + color/shadow, NOT just color change alone)
-[ ] Every card has a hover animation (translateY lift + shadow increase)
-[ ] Every link has a hover animation (underline slide or color fade)
-[ ] Entrance animations are present: key sections/elements animate in on scroll/load
-[ ] Button click/press has micro-interaction (scale-down press, ~80-100ms)
-[ ] Form submit shows loading state, then a visible success or error state
-[ ] All states (loading, empty, error, success, disabled) are handled and visible
-[ ] Feedback exists for all important actions (submit, delete, save, toggle)
-[ ] Animations use correct timing per design-guidelines.md section 4.3
-[ ] prefers-reduced-motion media query is present in the CSS
+INTERACTION & MOTION SYSTEM (HARD BLOCKER)
+[ ] Motion Thesis defined and respected: Focal moment + Continuity + Feedback + Budget
+[ ] One authored focal moment or sequence that gives the surface personality
+[ ] Every button has hover animation (scale + shadow/color, 150-200ms ease-out)
+[ ] Every button has active press micro-interaction (scale 0.96-0.97, 80-100ms)
+[ ] Every card has hover animation (translateY lift + shadow elevation, 200-250ms)
+[ ] Every link has visible hover response (underline slide or color fade)
+[ ] Entrance animations present for key sections with natural deceleration (cubic-bezier(0.16, 1, 0.3, 1))
+[ ] Exit transitions animate faster than entrance (~50-70% of enter duration)
+[ ] Stagger chains capped at 5-6 items, 40-80ms delay per item
+[ ] prefers-reduced-motion media query is implemented and preserves semantic feedback
+[ ] Gestures handle pointercancel, lostpointercapture, and blur safely without getting stuck
 
-PERFORMANCE
-[ ] No dependency was added without a genuine need
-[ ] Images use Unsplash CDN params (?w=&q=&auto=format) or are optimized
-[ ] Animations use appropriate technology per design-guidelines.md section 4.4
-[ ] No disruptive layout shift while loading
-[ ] Below-fold images use loading="lazy"
+SECURITY & DATA PRIVACY (HARD BLOCKER)
+[ ] All user inputs validated with strict schemas (Zod/Valibot) or type guards
+[ ] Zero dangerouslySetInnerHTML or innerHTML injection without sanitized allowlists
+[ ] External links use rel="noopener noreferrer" and safe protocols (http/https/mailto)
+[ ] Auth tokens stored securely (HttpOnly cookies preferred, never sensitive tokens in localStorage)
+[ ] Authorization & resource ownership verified on the server for all mutations
+[ ] Zero secrets, private environment variables, or database credentials leaked to client JS
+[ ] Safe logging: no passwords, PII, or full server stack traces exposed to end-users
 
-CODE
-[ ] Code is readable by another developer without extra explanation
-[ ] Naming is clear and consistent (not x, data2, Component123)
-[ ] Components are split for a clear reason, not excessively or all crammed into one file
-[ ] No hardcoded magic numbers or colors without a variable/token
-[ ] No unused imports, no commented-out code blocks in final output
-[ ] No over-engineering (heavy state management/libraries the feature's scale doesn't need)
-[ ] No unrelated files/sections were changed
+CODE SAFETY, HARDENING & MAINTAINABILITY (HARD BLOCKER)
+[ ] Strict TypeScript types used (strict: true, zero loose 'any' casts)
+[ ] Asynchronous UI states modeled with discriminated unions (eliminating impossible states)
+[ ] All 4 async states handled: Loading (shimmer/skeleton), Success, Empty state, and Error with Retry button
+[ ] Component-level Error Boundaries in place so one failure does not crash the entire app
+[ ] Text overflow handled: truncate, line-clamp, overflow-wrap: break-word, min-width: 0 on flex/grid children
+[ ] Tested with extreme inputs (100+ chars, emoji, long words) without breaking layouts
+[ ] Clean architecture: UI presentation separated from business logic hooks and API services
+[ ] Zero magic numbers or hardcoded hex colors without a design token or named constant
+[ ] Resources cleaned up: event listeners, intervals, and AbortControllers aborted on unmount
+[ ] No unused imports, dead code, or commented-out blocks left in final delivery
 
-ACCESSIBILITY
-[ ] Interactive elements are reachable by keyboard
-[ ] Focus states are clearly visible
-[ ] Form fields have properly associated labels
-[ ] Semantic HTML is used (not <div> for everything)
-[ ] Icon-only buttons have an accessibility label
-[ ] Information is never conveyed by color alone
-[ ] All images have meaningful alt text (not "image" or "photo")
+ACCESSIBILITY (WCAG 2.1 AA)
+[ ] All interactive elements reachable and operable via keyboard
+[ ] Visible focus rings on all interactive elements (:focus-visible)
+[ ] Form fields have explicitly associated <label> elements
+[ ] Semantic HTML used (<main>, <nav>, <section>, <button>, <header>, <footer>)
+[ ] Icon-only buttons have an aria-label or accessible text
+[ ] Color is never the sole indicator of state or meaning
+[ ] All images have descriptive alt text (not "photo" or "image")
 
-RESPONSIVE (MANDATORY, checked on BOTH mobile and desktop, no exceptions)
-[ ] Verified on a mobile viewport (~360-430px width): layout, navigation,
-    typography, spacing, forms, images all correct
-[ ] Verified on a desktop viewport (~1280px+ width): layout, navigation,
-    typography, spacing, forms, images all correct
-[ ] Verified on tablet width when the layout is complex enough to risk
-    breaking between mobile and desktop
-[ ] No horizontal scroll from unhandled overflow, no clipped or
-    overlapping content at either extreme
-[ ] Touch targets are large enough to tap reliably on mobile (~44x44px minimum)
-[ ] If this item is not checked, the task CANNOT be marked done
+RESPONSIVE (HARD BLOCKER, verified on BOTH mobile and desktop)
+[ ] Verified on mobile viewport (~360-430px): layout, navigation, typography, forms all correct
+[ ] Verified on desktop viewport (~1280px+): layout, sidebars, typography all correct
+[ ] Verified on tablet viewport (~768-1024px) when layout complexity warrants
+[ ] Zero horizontal scrollbars from unhandled container overflow at any viewport
+[ ] Touch targets are at least 44x44px minimum for reliable mobile tapping
 
-REQUIREMENTS
-[ ] Every Acceptance Criterion in the PRD is met
-[ ] Every Assumption made is still consistent with the final implementation
-[ ] No em dash character ("—") anywhere in code, comments, or generated content
-[ ] No fake content/data anywhere in the UI
-[ ] No lorem ipsum anywhere in the UI
+REQUIREMENTS & INTEGRITY
+[ ] Every Acceptance Criterion in the PRD is met and verified
+[ ] Assumptions made are consistent with the final implementation
+[ ] No em dash character ("—") anywhere in code, comments, or copy
+[ ] No fake content, statistics, client logos, or fabricated testimonials
+[ ] No lorem ipsum anywhere in the user interface
 ```
 
-"The build succeeded" or "no errors" alone is NEVER enough to call a task done.
-There are THREE hard blockers - all must pass before the task is finished:
-1. RESPONSIVE: verified on mobile and desktop
-2. DESIGN: real font, real color, intentional layout, real images
-3. INTERACTION: hover animations on all interactive elements, entrance animations present
-Skipping any of these three means the task is not done.
+---
 
+## The Five Mandatory Hard Blockers
+
+"The build succeeded" or "no errors" alone is NEVER enough to declare a task complete.
+There are **FIVE HARD BLOCKERS** that must all pass before the task is finished:
+
+1. **RESPONSIVE**: Verified on mobile (~390px) AND desktop (~1440px), zero overflow.
+2. **DESIGN & CRAFT FLOOR**: Real font, real primary color, themed browser surfaces, contrast passed, no AI slop.
+3. **INTERACTION & MOTION**: Authored motion thesis, hover/active states on all controls, reduced-motion path.
+4. **SECURITY & DATA PRIVACY**: Strict input validation, XSS prevention, secure token hygiene, zero leaked secrets.
+5. **CODE SAFETY & HARDENING**: Strict types, 4-state UI handling, error boundaries, resilient text wrapping.
+
+Skipping any of these five means the task is incomplete.

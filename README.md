@@ -1,142 +1,67 @@
+<div align="center">
+
 # Genzi
 
-> **Genzi adalah koentji. Full Professional AI Partner for Product Engineering, UX/UI Design, and Implementation.**
+**Genzi adalah koentji.**
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Antigravity Skill](https://img.shields.io/badge/Antigravity-Skill%20%26%20Plugin-orange)](https://github.com/Naff-Dev/genzi)
-[![Gemini Ready](https://img.shields.io/badge/Gemini-Ready-blue)](https://github.com/Naff-Dev/genzi)
-[![Claude Plugin](https://img.shields.io/badge/Claude-Plugin%20Compatible-purple)](https://github.com/Naff-Dev/genzi)
-[![Cursor Ready](https://img.shields.io/badge/Cursor-Ready-blue)](https://github.com/Naff-Dev/genzi)
+Skill untuk AI coding agent yang bekerja seperti satu tim kecil: bertanya kalau instruksi belum jelas, mendesain dengan karakter, menulis kode yang aman, lalu mengaudit hasilnya sendiri sebelum bilang "selesai".
+
+<br>
+
+[![Stars](https://img.shields.io/github/stars/Naff-Dev/genzi?style=for-the-badge&color=f59e0b&logo=github)](https://github.com/Naff-Dev/genzi/stargazers)
+[![Forks](https://img.shields.io/github/forks/Naff-Dev/genzi?style=for-the-badge&color=3b82f6&logo=github)](https://github.com/Naff-Dev/genzi/network/members)
+[![Downloads](https://img.shields.io/github/downloads/Naff-Dev/genzi/total?style=for-the-badge&color=10b981&logo=download&label=Downloads)](https://github.com/Naff-Dev/genzi/releases)
+[![Visitors](https://api.visitorbadge.io/api/visitors?path=Naff-Dev%2Fgenzi&label=Visitors&countColor=%23ef4444&style=for-the-badge)](https://github.com/Naff-Dev/genzi)
+
+[![License: MIT](https://img.shields.io/github/license/Naff-Dev/genzi?color=blue)](LICENSE)
+[![Last commit](https://img.shields.io/github/last-commit/Naff-Dev/genzi?color=orange)](https://github.com/Naff-Dev/genzi/commits)
+[![Issues](https://img.shields.io/github/issues/Naff-Dev/genzi?color=purple)](https://github.com/Naff-Dev/genzi/issues)
+![Works with](https://img.shields.io/badge/works%20with-Antigravity%20%7C%20Gemini%20%7C%20Claude%20Code%20%7C%20Cursor%20%7C%20Codex%20%7C%20Copilot-black)
+
+[**Coba sekarang**](#-coba-dalam-30-detik) · [**Cara kerja**](#-cara-kerja) · [**5 Hard Blocker**](#-lima-hard-blocker) · [**Instalasi**](#-instalasi-permanen) · [**FAQ**](#-faq)
+
+</div>
 
 ---
 
-## Genzi adalah koentji.
+## Kenapa Genzi ada
 
-**Genzi** adalah skill AI yang berfungsi sebagai **mitra profesional penuh** - bukan sekadar checklist. Genzi berpikir, membuat keputusan, dan mengeksekusi seperti seorang senior engineer yang sekaligus merangkap sebagai art director.
+Minta AI bikin landing page, hasilnya hampir selalu sama: hero di tengah, tiga kartu fitur, gradient ungu-biru, font bawaan browser. Rapi, tapi hambar dan kelihatan banget buatan mesin.
 
-Genzi menggabungkan 5 peran sekaligus:
+Masalahnya tidak berhenti di tampilan. Agent sering menebak saat instruksi kurang jelas, menaruh token di tempat yang salah, lupa menangani state error, dan baru ketahuan rusak waktu ada teks 100 karakter masuk ke kolom nama.
 
-| Peran | Fungsi |
-|---|---|
-| **Product Manager** | Menerjemahkan permintaan ambigu jadi requirement yang jelas. Mendefinisikan scope. |
-| **UX Designer** | Memikirkan user flow, state, feedback, dan cognitive load sebelum coding. |
-| **Art Director** | Membuat keputusan visual yang bold dan intentional. Tidak pernah default ke estetika generik. |
-| **Senior Frontend Engineer** | Menulis kode yang bersih, performant, accessible, dan responsif. |
-| **Code Reviewer** | Melakukan self-review ketat sebelum mendeklarasikan task selesai. |
+Genzi dibuat untuk menutup semua itu. Sebelum menulis kode, agent dipaksa tahu dulu produknya untuk siapa dan apa yang belum jelas (dan **bertanya** kalau memang krusial). Sesudah menulis, dia mengaudit hasilnya sendiri terhadap lima aturan wajib. Kalau satu saja gagal, task belum dianggap selesai.
+
+---
+
+## ⚡ Coba dalam 30 detik
+
+Tidak perlu install apa-apa. Paste satu baris ini ke agent kamu:
 
 ```text
-Raw Request -> Intent -> Requirements -> PRD -> Design Direction ->
-Animation Plan -> Architecture -> Implementation -> Verification -> Finalize
+use Naff-Dev/genzi [tulis task kamu di sini]
 ```
 
----
+Contoh yang bisa langsung dicopy:
 
-## Fitur Utama
-
-- **Requirements Translation**: Klasifikasi kebutuhan menjadi 4 kategori (Explicit, Inferred, Assumption, Unknown).
-- **Context-Aware PRD**: PRD yang disesuaikan dengan skala tugas (Micro PRD hingga Full PRD).
-- **Workspace & Stack Detection**: Selalu memeriksa project yang ada, tidak pernah menimpa stack existing.
-- **Bold Design by Default**: Warna saturated, font editorial nyata, layout asimetris - bukan template AI generik.
-- **Real Typography**: Font pairing spesifik (Clash Display, Space Grotesk, Inter, dll) - bukan browser default.
-- **Real Images**: Menggunakan Unsplash CDN URL langsung atau `generate_image` - tidak ada kotak berwarna.
-- **Motion Animation**: Framer Motion dan GSAP diizinkan dan didorong untuk animasi yang kompleks.
-- **Mandatory Hover & Entrance Animations**: Setiap button, card, dan link harus punya animasi.
-- **Mandatory Responsive**: Desktop (~1280px+) dan Mobile (~360px) diverifikasi - hard blocker.
-- **Zero Fake Facts**: Tidak ada statistik palsu, logo klien palsu, atau klaim yang tidak diberikan user.
-- **Multi-Agent Compatible**: Antigravity, Gemini, Claude Code, Cursor, Codex, Copilot.
-
----
-
-## 18-Step Workflow
-
-```text
-1.  Interpret User Request
-2.  Detect Product / Task Context
-3.  Inspect Workspace
-4.  Detect Existing Project
-5.  Detect Existing Technology Stack
-6.  Detect Existing Structure / Assets / Components / Design System
-7.  Decide: Extend Existing vs Create New
-8.  Normalize Requirements (Explicit / Inferred / Assumption / Unknown)
-9.  Generate PRD (Micro or Full)
-10. Define Design Direction
-        - Color palette (specific HSL values, NOT "blue" or "orange")
-        - Font pairing (specific font names: Space Grotesk, Inter, etc)
-        - Layout composition (custom per product, NOT a template)
-        - Image strategy (Unsplash CDN, generate_image, or existing)
-11. Define Interaction & Motion Plan
-        - Hover animations per element type (button, card, link, nav)
-        - Entrance animations (IntersectionObserver / Framer Motion whileInView)
-        - Click/press feedback, form states (loading, success, error)
-        - Technology: CSS / Framer Motion / GSAP
-12. Define Technical Architecture
-13. Define Acceptance Criteria (responsive criteria mandatory)
-14. Implement
-15. Verify (desktop AND mobile, all interactive states)
-16. Self-review (references/review-checklist.md - 3 hard blockers)
-17. Fix ALL issues found
-18. Finalize (no TODOs, no fake content, no lorem ipsum)
-```
-
-### Workflow Scaling
-
-| Task Size | Contoh | Tipe PRD | Langkah Wajib |
-|---|---|---|---|
-| **Trivial** | Ganti warna tombol, perbaiki typo | Tidak perlu PRD | Cek workspace, langsung implementasi |
-| **Small** | Tambah 1 komponen, perbaiki bug | Micro PRD (3-5 baris) | Langkah 1, 3-7, 9, 14-16 |
-| **Medium** | Fitur baru multi-state, integrasi baru | Micro / Full PRD ringkas | Semua langkah (kondensasi) |
-| **Large** | Produk baru, aplikasi multi-halaman | Full PRD lengkap | Semua 18 langkah secara penuh |
-
----
-
-## Design Quality Hard Rules
-
-Genzi memperlakukan kualitas desain sebagai **hard blocker** - sama pentingnya dengan responsivitas. Output yang gagal di bawah ini dianggap **belum selesai**:
-
-```text
-WAJIB ADA:
-- Font nyata yang di-import (bukan Times New Roman / Arial / browser default)
-- Warna primary yang saturated dan intentional (bukan gray-on-gray)
-- Hover animation pada setiap button, card, link, dan nav item
-- Entrance animation pada section/elemen utama (scroll-triggered)
-- Gambar nyata (Unsplash CDN atau generate_image) di section visual
-
-DILARANG:
-- Dark/hitam sebagai default tanpa alasan product-specific atau permintaan user
-- Purple-to-blue gradient sebagai identitas utama (AI cliche)
-- Interface yang sepenuhnya statis (zero hover states)
-- Placeholder kotak berwarna solid menggantikan gambar
-- Layout generic: centered hero + 3 equal feature cards + CTA (always)
-```
-
----
-
-## Cara Menggunakan & Aktivasi via Prompt
-
-Kamu **tidak wajib install manual**! Cukup copy prompt di bawah ini lalu **paste langsung ke AI coding agent kamu** (Antigravity, Cursor, Claude Code, Windsurf, Copilot, ChatGPT, dll). Agent akan otomatis mengambil dan menjalankan skill Genzi dari repository ini:
-
-### ⚡ Format Cepat (Quick Command)
-
-```text
-use Naff-Dev/genzi [tulis kebutuhan / task kamu di sini]
-```
-
-**Contoh:**
 ```text
 use Naff-Dev/genzi buatkan landing page untuk aplikasi food delivery lokal, target ibu rumah tangga kota tier 2
 ```
+
 ```text
 use Naff-Dev/genzi build a POS cashier app with daily sales report and inventory tracking
 ```
+
 ```text
 use Naff-Dev/genzi redesign dashboard ini agar lebih visual, bold, dan responsive
 ```
 
----
+<details>
+<summary><b>Agent kamu tidak paham format <code>use ...</code>? Pakai prompt lengkap ini</b></summary>
 
-### 🚀 Universal Prompt (Paste ke Sembarang Agent / Chat)
+<br>
 
-> **Copy prompt ini, isi bagian `Task:`, lalu paste ke chat agent kamu:**
+Ganti bagian `Task:` lalu paste ke chat agent apa saja (Antigravity, Cursor, Claude Code, Windsurf, Copilot, ChatGPT, dll):
 
 ```text
 Gunakan skill dari repo ini: https://github.com/Naff-Dev/genzi
@@ -150,28 +75,181 @@ Instruksi untuk Agent:
 Task: [Tulis kebutuhan aplikasi / website / fitur yang mau kamu buat di sini]
 ```
 
+</details>
+
+<details>
+<summary><b>Mode khusus: desain saja, atau review saja</b></summary>
+
+<br>
+
+**Hanya arah desain dan visual:**
+
+```text
+use Naff-Dev/genzi design-only: [deskripsi produk atau fitur]
+```
+
+**Audit hasil kode dan desain** (dicek terhadap `review-checklist.md`):
+
+```text
+use Naff-Dev/genzi review: audit project ini menggunakan checklist skills/genzi/references/review-checklist.md
+```
+
+</details>
+
 ---
 
-### 🎯 Mode Khusus (Desain Saja / Review Saja)
+## 🧠 Cara kerja
 
-- **Hanya Desain & Visual Direction:**
-  ```text
-  use Naff-Dev/genzi design-only: [deskripsi produk atau fitur]
-  ```
-- **Review Hasil Kode & Desain (Anti-Slop Audit):**
-  ```text
-  use Naff-Dev/genzi review: audit project ini menggunakan checklist skills/genzi/references/review-checklist.md
-  ```
+Genzi merangkap enam peran sekaligus, jadi agent tidak langsung loncat ke kode.
+
+| Peran | Tugasnya |
+|---|---|
+| **Product Manager** | Mengubah permintaan yang masih kabur jadi requirement konkret. Bertanya kalau ada ambiguitas penting. |
+| **UX & Motion Designer** | Merancang mode permukaan (visitor surface mode), alur, motion thesis, micro-interaction, dan kontinuitas spasial. |
+| **Art Director** | Menentukan identitas visual yang berani, tipografi berkarakter, dan standar craft floor. |
+| **Security Architect** | Menjaga baseline OWASP, validasi skema input, pencegahan XSS/injeksi, dan isolasi rahasia. |
+| **Senior Engineer** | Menulis kode yang aman, modular, strictly-typed, punya error boundary, dan gampang dirawat. |
+| **Code Reviewer** | Mengaudit hasil kerjanya sendiri terhadap 5 hard blocker sebelum task dinyatakan selesai. |
+
+```text
+Request mentah → Intent + Clarification Gate (tanya kalau belum jelas) → Requirements →
+PRD (Security & Motion) → Design Craft Floor → Motion System → Arsitektur aman →
+Implementasi defensif → Verifikasi (Mobile / Desktop / State) → Selesai
+```
+
+### Yang bikin Genzi beda
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+**🙋 Clarification Gate**
+Kalau ada ambiguitas soal arsitektur, auth, atau scope, agent berhenti dan bertanya secara terstruktur. Tidak menebak.
+
+**📋 Requirements jelas**
+Setiap kebutuhan diklasifikasi: Explicit, Inferred, Assumption, atau Unknown.
+
+**📝 PRD yang ikut ukuran task**
+Dari Micro PRD sampai Full PRD, lengkap dengan visitor surface mode, threat model, motion thesis, dan arsitektur kode.
+
+**🔐 Baseline OWASP**
+Validasi input ketat (Zod/Valibot), proteksi XSS dan SQL injection, token di HttpOnly cookie, tidak ada secret bocor ke client.
+
+</td>
+<td width="50%" valign="top">
+
+**🧱 Arsitektur kode yang aman**
+Strict TypeScript, discriminated union untuk state machine async, layer yang terpisah, dan error boundary.
+
+**💥 Chaos hardening**
+Tahan input ekstrem (100+ karakter, CJK, RTL), overflow teks ditangani (`min-width: 0`), dan 4 state UI selalu ada: Loading, Success, Empty, Error + Retry.
+
+**🎨 Desain berkarakter**
+Tipografi punya kepribadian, warna saturated, dan permukaan browser ikut di-theme (`::selection`, `caret-color`, `:focus-visible`, scrollbar).
+
+**🎬 Motion yang dirancang**
+Ada focal moment, kontinuitas spasial, micro-interaction di bawah 150ms, spring physics, dan fallback `prefers-reduced-motion`.
+
+</td>
+</tr>
+</table>
+
+Dan satu aturan yang selalu berlaku: **tidak ada fakta palsu**. Statistik, logo klien, atau klaim yang tidak diberikan user tidak akan dikarang.
+
+<details>
+<summary><b>Lihat 18 langkah lengkapnya</b></summary>
+
+<br>
+
+```text
+ 1. Pahami request & kenali konteks produk (Surface Mode: Persuade / Operate / Read / Experience)
+ 2. Clarification Gate (tanya user kalau belum jelas atau ambigu)
+ 3. Periksa workspace & baca sinyal project
+ 4. Cek project yang sudah ada & dependensinya
+ 5. Cek stack teknologi & arsitektur yang dipakai
+ 6. Cek struktur, aset, dan design token yang ada
+ 7. Putuskan: extend project yang ada atau bikin baru
+ 8. Rapikan requirement (Explicit / Inferred / Assumption / Unknown)
+ 9. Tulis PRD (Micro atau Full, dengan spesifikasi Security, Motion, dan Safety)
+10. Tentukan arah desain & Craft Floor (warna HSL, pasangan font, browser surface yang di-theme)
+11. Rancang sistem interaksi & motion (motion thesis, focal moment, spring curve, reduced-motion)
+12. Tentukan arsitektur teknis, security, dan safe code (skema, HttpOnly auth, strict types)
+13. Tulis acceptance criteria (5 Mandatory Hard Blocker)
+14. Implementasi (modular, aman, defensif, tahan input ekstrem)
+15. Verifikasi (desktop DAN mobile, 4 state async, gesture safety, aksesibilitas keyboard)
+16. Self-review pakai references/review-checklist.md (5 Mandatory Hard Blocker)
+17. Perbaiki SEMUA temuan
+18. Finalisasi (nol TODO, nol konten palsu, nol error tak tertangani, siap produksi)
+```
+
+</details>
+
+### Skala kerja menyesuaikan ukuran task
+
+Ganti warna tombol tidak perlu PRD sepanjang novel. Genzi menyesuaikan.
+
+| Ukuran | Contoh | PRD | Langkah |
+|---|---|---|---|
+| **Trivial** | Ganti warna tombol, benerin typo | Tidak perlu | Cek workspace, langsung kerjakan, cek responsif |
+| **Small** | Tambah 1 input field, bug fix, satu endpoint | Micro PRD (5-10 baris) | Langkah 1-2, 3-7, 9, 14-16 |
+| **Medium** | Fitur multi-state, sistem filter, alur modal | Full PRD ringkas | Semua langkah, versi padat |
+| **Large** | Produk baru, aplikasi multi-halaman, sistem auth | Full PRD (24 seksi) | Semua 18 langkah |
 
 ---
 
-## Instalasi Permanen (Opsional)
+## 🚧 Lima Hard Blocker
 
-Jika ingin Genzi selalu aktif di semua sesi tanpa perlu menuliskan URL repo:
+Task **tidak boleh** dianggap selesai kalau salah satu dari lima ini gagal.
 
-### Option 1: Antigravity / Gemini IDE
+| # | Blocker | Syaratnya |
+|:-:|---|---|
+| **1** | 📱 **Responsive** | Diverifikasi di mobile (~360-430px) **dan** desktop (~1280px+). Tidak ada horizontal scroll, touch target minimal 44px. |
+| **2** | 🎨 **Design & Craft Floor** | Font nyata ter-import, warna utama saturated, browser surface di-theme (`::selection`, caret, focus ring), kontras lolos WCAG AA. |
+| **3** | 🎬 **Interaction & Motion** | Ada motion thesis dengan focal moment, micro-interaction di tiap kontrol (press scale 0.97, hover lift), dan fallback `prefers-reduced-motion`. |
+| **4** | 🔐 **Security & Data Privacy** | Input divalidasi skema (Zod/Valibot), aman dari XSS/injeksi, token di HttpOnly cookie, tidak ada kredensial bocor ke client. |
+| **5** | 🛡 **Code Safety & Hardening** | Strict types, state machine tanpa impossible state, Error Boundary terpasang, 4 state UI tertangani, overflow teks beres. |
 
-#### A. Global (tersedia di semua project)
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### ✅ Wajib ada
+
+- Font nyata yang di-import, bukan Times New Roman / Arial / default browser
+- Warna utama yang saturated dan punya alasan
+- Hover animation di setiap button, card, link, dan item nav
+- Animasi masuk saat scroll di section utama
+- Gambar sungguhan (Unsplash CDN atau `generate_image`) di section visual
+
+</td>
+<td width="50%" valign="top">
+
+### ❌ Dilarang
+
+- Tema gelap sebagai default tanpa alasan produk atau permintaan user
+- Gradient ungu-ke-biru sebagai identitas utama
+- Interface yang sepenuhnya statis, tanpa hover sama sekali
+- Kotak warna polos sebagai pengganti gambar
+- Layout generik: hero di tengah + 3 kartu sama besar + CTA
+
+</td>
+</tr>
+</table>
+
+Detailnya ada di [`design-guidelines.md`](skills/genzi/references/design-guidelines.md) dan [`security-and-hardening.md`](skills/genzi/references/security-and-hardening.md).
+
+---
+
+## 📦 Instalasi permanen
+
+Opsional. Berguna kalau kamu mau Genzi selalu aktif tanpa menulis URL repo tiap kali.
+
+<details>
+<summary><b>Antigravity / Gemini IDE</b></summary>
+
+<br>
+
+**Global** (semua project):
 
 ```bash
 # Windows PowerShell
@@ -181,105 +259,187 @@ git clone https://github.com/Naff-Dev/genzi.git "$HOME\.gemini\config\plugins\ge
 git clone https://github.com/Naff-Dev/genzi.git ~/.gemini/config/plugins/genzi
 ```
 
-#### B. Per-Project (hanya untuk project tertentu)
+**Per project** (satu project saja):
 
 ```bash
 git clone https://github.com/Naff-Dev/genzi.git .agents/plugins/genzi
 ```
 
-Setelah install, skill langsung aktif. Gunakan salah satu prompt di atas untuk memicunya.
+Setelah itu skill langsung aktif.
 
----
+</details>
 
-### Option 2: Claude Code / Claude Desktop
+<details>
+<summary><b>Claude Code / Claude Desktop</b></summary>
+
+<br>
 
 ```bash
 claude plugin add Naff-Dev/genzi
 ```
 
-Atau clone ke direktori plugin lokal Claude, lalu gunakan prompt aktivasi di atas.
+Atau clone manual ke direktori plugin lokal Claude, lalu pakai prompt aktivasi di atas.
 
----
+</details>
 
-### Option 3: Cursor / Windsurf / Codex
+<details>
+<summary><b>Cursor / Windsurf / Codex</b></summary>
+
+<br>
 
 ```bash
 git clone https://github.com/Naff-Dev/genzi.git .cursor/skills/genzi
 ```
 
-Masukkan isi `AGENTS.md` ke dalam `.cursorrules` Anda, atau sertakan prompt aktivasi di awal chat.
+Lalu salin isi `AGENTS.md` ke `.cursorrules`, atau tempel prompt aktivasi di awal chat.
+
+</details>
+
+<details>
+<summary><b>GitHub Copilot / GitHub Models</b></summary>
+
+<br>
+
+Salin isi `AGENTS.md` ke system prompt, atau ke `.github/copilot-instructions.md` di project kamu.
+
+</details>
 
 ---
 
-### Option 4: Copilot / GitHub Models
+## 🗂 Isi repository
 
-Salin isi `AGENTS.md` ke dalam system prompt atau `copilot-instructions.md` di `.github/` folder project Anda.
+<details>
+<summary><b>Buka struktur folder</b></summary>
 
----
-
-## Struktur Repository
+<br>
 
 ```text
 genzi/
 ├── skills/
 │   └── genzi/
-│       ├── SKILL.md                    <- Instruksi utama 18-step workflow
+│       ├── SKILL.md                       ← instruksi utama (18 langkah)
 │       └── references/
-│           ├── design-guidelines.md   <- Color, typography, animation, anti-slop
-│           ├── prd-template.md        <- Template Micro PRD dan Full PRD
-│           ├── review-checklist.md    <- Self-review (3 hard blockers)
-│           └── workspace-detection.md <- Stack detection & extend-vs-new matrix
-├── .agents/
-│   └── plugins/
-│       └── genzi/                     <- Auto-detected by Antigravity/Gemini
-│           ├── plugin.json
-│           └── skills/genzi/          <- Mirror dari skills/genzi/
+│           ├── design-guidelines.md       ← warna, tipografi, motion, craft floor
+│           ├── prd-template.md            ← template Micro & Full PRD (Security & Motion)
+│           ├── security-and-hardening.md  ← pertahanan OWASP, chaos hardening, safe code
+│           ├── review-checklist.md        ← self-review (5 hard blocker)
+│           └── workspace-detection.md     ← deteksi stack & extend-vs-new
+├── .agents/plugins/genzi/                 ← terdeteksi otomatis oleh Antigravity/Gemini
+│   ├── plugin.json
+│   └── skills/genzi/                      ← mirror dari skills/genzi/
 ├── .claude-plugin/
 │   ├── plugin.json
 │   └── marketplace.json
 ├── .cursor-plugin/
 │   └── plugin.json
-├── AGENTS.md                          <- Rules untuk semua agent + activation prompt
-├── GEMINI.md                          <- Rules khusus Antigravity/Gemini
+├── AGENTS.md                              ← aturan untuk semua agent + prompt aktivasi
+├── GEMINI.md                              ← aturan khusus Antigravity/Gemini
 ├── plugin.json
 ├── package.json
 └── README.md
 ```
 
----
+</details>
 
-## Referensi Dokumentasi
-
-1. [SKILL.md](skills/genzi/SKILL.md) - Instruksi utama workflow lengkap
-2. [design-guidelines.md](skills/genzi/references/design-guidelines.md) - Color system, typography, animation playbook, asset rules, anti-slop checklist
-3. [prd-template.md](skills/genzi/references/prd-template.md) - Template Micro PRD dan Full PRD
-4. [review-checklist.md](skills/genzi/references/review-checklist.md) - Self-review dengan 3 hard blockers
-5. [workspace-detection.md](skills/genzi/references/workspace-detection.md) - Framework detection & stack decision matrix
-
----
-
-## Contoh Trigger Prompts
-
-Genzi akan otomatis aktif saat mendeteksi:
-
-- *"Buatkan landing page untuk startup SaaS saya"*
-- *"Bikin website portfolio developer yang modern"*
-- *"Tolong buatkan aplikasi kasir POS"*
-- *"Tambahkan fitur export PDF pada laporan"*
-- *"Redesign halaman dashboard ini biar lebih bagus"*
-- *"Make a booking app for a travel agency"*
-- *"Build a product page for my e-commerce"*
+**Bacaan lanjutan:**
+[SKILL.md](skills/genzi/SKILL.md) ·
+[design-guidelines](skills/genzi/references/design-guidelines.md) ·
+[prd-template](skills/genzi/references/prd-template.md) ·
+[security-and-hardening](skills/genzi/references/security-and-hardening.md) ·
+[review-checklist](skills/genzi/references/review-checklist.md) ·
+[workspace-detection](skills/genzi/references/workspace-detection.md)
 
 ---
 
-## Validasi
+## 💬 Kata-kata yang memicu Genzi
+
+Genzi biasanya aktif sendiri kalau agent melihat permintaan seperti:
+
+- "Buatkan landing page untuk startup SaaS saya"
+- "Bikin website portfolio developer yang modern"
+- "Tolong buatkan aplikasi kasir POS"
+- "Tambahkan fitur export PDF pada laporan"
+- "Redesign halaman dashboard ini biar lebih bagus"
+- "Make a booking app for a travel agency"
+- "Build a product page for my e-commerce"
+
+---
+
+## ❓ FAQ
+
+<details>
+<summary><b>Apakah Genzi menimpa stack yang sudah ada di project saya?</b></summary>
+
+<br>
+
+Tidak. Genzi memeriksa workspace dulu dan mengikuti framework serta struktur yang sudah ada. Stack baru hanya dipakai kalau memang belum ada project sama sekali.
+
+</details>
+
+<details>
+<summary><b>Kenapa agent malah bertanya balik, bukan langsung ngoding?</b></summary>
+
+<br>
+
+Itu Clarification Gate. Kalau ada hal krusial yang belum jelas (misalnya sistem login, siapa penggunanya, atau batas fitur), menebak biasanya berujung kerja ulang. Genzi bertanya sekali, terstruktur, lalu lanjut. Untuk task kecil dan jelas, dia tidak akan menahan kamu.
+
+</details>
+
+<details>
+<summary><b>Kenapa hasilnya tidak pernah dark mode?</b></summary>
+
+<br>
+
+Bisa kok. Aturannya hanya melarang dark sebagai *default malas*. Kalau produknya memang cocok gelap (misalnya app musik atau tool developer) atau kamu memintanya, Genzi akan memakainya.
+
+</details>
+
+<details>
+<summary><b>Boleh pakai animasi berat seperti GSAP?</b></summary>
+
+<br>
+
+Boleh, bahkan didorong untuk animasi yang kompleks. CSS biasa cukup untuk hover sederhana, Framer Motion atau GSAP untuk yang lebih rumit. Fallback `prefers-reduced-motion` tetap wajib ada.
+
+</details>
+
+<details>
+<summary><b>Agent saya bilang tidak bisa mengakses repo ini.</b></summary>
+
+<br>
+
+Beberapa agent tidak bisa membuka URL. Kalau begitu, clone repo-nya (lihat [instalasi](#-instalasi-permanen)) atau paste isi `skills/genzi/SKILL.md` langsung ke chat.
+
+</details>
+
+---
+
+## 📈 Star history
+
+<a href="https://star-history.com/#Naff-Dev/genzi&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Naff-Dev/genzi&type=Date&theme=dark" />
+    <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Naff-Dev/genzi&type=Date" />
+    <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Naff-Dev/genzi&type=Date" width="100%" />
+  </picture>
+</a>
+
+---
+
+## 🤝 Kontribusi
+
+Nemu bug, punya ide aturan baru, atau hasil Genzi masih terasa generik? Buka [issue](https://github.com/Naff-Dev/genzi/issues) atau kirim PR. Sebelum kirim, jalankan:
 
 ```bash
 npm run validate
 ```
 
+Kalau Genzi membantu, kasih ⭐ di atas ya. Itu cara paling gampang untuk bilang "ini berguna".
+
 ---
 
-## Lisensi
+<div align="center">
 
-Distribusi di bawah lisensi [MIT](LICENSE). Hak Cipta (c) 2026 **naffdev**.
+Dilisensikan di bawah [MIT](LICENSE) · © 2026 **naffdev**
+
+</div>

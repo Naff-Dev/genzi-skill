@@ -58,6 +58,7 @@ const requiredReferences = [
   'workspace-detection.md',
   'prd-template.md',
   'design-guidelines.md',
+  'security-and-hardening.md',
   'review-checklist.md'
 ];
 
