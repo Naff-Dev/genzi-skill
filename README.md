@@ -4,9 +4,9 @@
 
 # Genzi
 
-**Genzi is the key.**
+**Genzi adalah koentji.**
 
-A comprehensive skill for AI coding agents that operates like a dedicated product team: clarifies when technical instructions are ambiguous, designs with distinct domain character, writes secure maintainable code, and audits its own output before declaring completion.
+Skill komprehensif untuk AI coding agent yang bekerja layaknya satu tim produk profesional: mengklarifikasi saat instruksi teknis ambigu, merancang desain berkarakter kuat sesuai ranah produk, menulis kode yang aman dan mudah dirawat, serta mengaudit hasilnya sendiri secara mandiri sebelum menyatakan selesai.
 
 <br>
 
@@ -45,32 +45,34 @@ No installation required. Paste this one line into your coding agent:
 use Naff-Dev/genzi-skill [write your task here]
 ```
 
-5 ready-to-use prompt examples:
+5 ready-to-use prompt examples across core archetypes:
 
-1. **Local Grocery Delivery (Hyperlocal / Consumer)**:
+1. **[Local Grocery Delivery (Hyperlocal / Consumer)](skills/genzi/examples/01-food-delivery-landing.md)**:
 ```text
 use Naff-Dev/genzi-skill build a landing page for a local grocery delivery service targeting tier-2 city families
 ```
 
-2. **POS Cashier App (Retail & Inventory)**:
+2. **[POS Cashier App (Retail & Inventory)](skills/genzi/examples/02-pos-cashier-app.md)**:
 ```text
 use Naff-Dev/genzi-skill build a fast POS cashier app with daily sales report, barcode scan, and inventory tracking
 ```
 
-3. **B2B Deal Pipeline (Dashboard & Analytics)**:
+3. **[B2B Deal Pipeline (Dashboard & Analytics)](skills/genzi/examples/03-saas-crm-pipeline.md)**:
 ```text
 use Naff-Dev/genzi-skill redesign this deal pipeline dashboard to be more visual, bold, responsive, with revenue summary per stage
 ```
 
-4. **Coffee Roastery Storefront (Artisanal E-Commerce)**:
+4. **[Coffee Roastery Storefront (Artisanal E-Commerce)](skills/genzi/examples/04-coffee-roastery-store.md)**:
 ```text
 use Naff-Dev/genzi-skill create a local coffee roastery storefront with single-origin beans catalog, flavor filters, and monthly subscriptions
 ```
 
-5. **Architecture Studio (Showcase & Editorial Portfolio)**:
+5. **[Architecture Studio (Showcase & Editorial Portfolio)](skills/genzi/examples/05-architecture-portfolio.md)**:
 ```text
 use Naff-Dev/genzi-skill build an architecture studio portfolio with asymmetrical project grid, full-bleed imagery, and editorial typography
 ```
+
+> 💡 *Each example file in [`skills/genzi/examples/`](skills/genzi/examples/) includes a complete prompt suite: primary activation prompt, short informal prompt, detailed constraint prompt, step-by-step iteration prompts, and English/Indonesian variations.*
 
 <details>
 <summary><b>Does your agent require a full prompt? Use this universal version</b></summary>
@@ -262,20 +264,38 @@ A task is strictly incomplete if ANY of these six hard blockers fails.
 </tr>
 </table>
 
-Read complete guidelines in [`design-guidelines.md`](skills/genzi/references/design-guidelines.md), [`seo-and-performance.md`](skills/genzi/references/seo-and-performance.md), and [`security-and-hardening.md`](skills/genzi/references/security-and-hardening.md).
+Read complete guidelines in:
+- [`design-guidelines.md`](skills/genzi/references/design-guidelines.md) — 20 Anti-AI rules, AI-Slop check, surface-aware design system
+- [`token-kits.md`](skills/genzi/references/token-kits.md) — Drop-in CSS token kits A to I (Utilitarian, Dashboard, Artisanal, Retail, etc.)
+- [`reference-driven-design.md`](skills/genzi/references/reference-driven-design.md) — Reference intake, Design DNA template, and visual verification scoring
+- [`prd-template.md`](skills/genzi/references/prd-template.md) — Micro and Full PRD templates with security and motion plans
+- [`security-and-hardening.md`](skills/genzi/references/security-and-hardening.md) — OWASP baseline, input validation, token safety, chaos testing
+- [`seo-and-performance.md`](skills/genzi/references/seo-and-performance.md) — Semantic outline, JSON-LD Schema.org, Core Web Vitals
+- [`review-checklist.md`](skills/genzi/references/review-checklist.md) — 15-Point AI-Slop self-audit and the Six Mandatory Hard Blockers
+- [`workspace-detection.md`](skills/genzi/references/workspace-detection.md) — Workspace signals and extend-vs-new decision matrix
 
 ---
 
 ## 📦 Permanent Installation
 
-Optional. Useful when you want Genzi available globally without referencing the repository URL every time.
+Optional. Useful when you want Genzi available globally or locally without typing repository URLs.
 
 <details>
 <summary><b>Antigravity / Gemini IDE</b></summary>
 
 <br>
 
-**Global** (all projects):
+**Option A — Global Skill** (Recommended, available across all projects):
+
+```bash
+# Windows PowerShell
+git clone https://github.com/Naff-Dev/genzi-skill.git "$HOME\.gemini\config\skills\genzi"
+
+# macOS / Linux
+git clone https://github.com/Naff-Dev/genzi-skill.git ~/.gemini/config/skills/genzi
+```
+
+**Option B — Global Plugin**:
 
 ```bash
 # Windows PowerShell
@@ -285,10 +305,10 @@ git clone https://github.com/Naff-Dev/genzi-skill.git "$HOME\.gemini\config\plug
 git clone https://github.com/Naff-Dev/genzi-skill.git ~/.gemini/config/plugins/genzi
 ```
 
-**Per Project** (single project repository):
+**Option C — Workspace Skill** (within a single repository):
 
 ```bash
-git clone https://github.com/Naff-Dev/genzi-skill.git .agents/plugins/genzi
+git clone https://github.com/Naff-Dev/genzi-skill.git .agents/skills/genzi
 ```
 
 </details>
@@ -302,7 +322,7 @@ git clone https://github.com/Naff-Dev/genzi-skill.git .agents/plugins/genzi
 claude plugin add Naff-Dev/genzi-skill
 ```
 
-Or clone manually to your local Claude plugin directory, then use the activation prompt above.
+Or clone directly into your project's `.claude/skills/genzi` folder.
 
 </details>
 
@@ -315,16 +335,7 @@ Or clone manually to your local Claude plugin directory, then use the activation
 git clone https://github.com/Naff-Dev/genzi-skill.git .cursor/skills/genzi
 ```
 
-Then copy the contents of `AGENTS.md` into your `.cursorrules`, or paste the activation prompt into chat.
-
-</details>
-
-<details>
-<summary><b>GitHub Copilot / GitHub Models</b></summary>
-
-<br>
-
-Copy the contents of `AGENTS.md` into your project's `.github/copilot-instructions.md`.
+Or reference `skills/genzi/SKILL.md` directly in your project prompt or `.cursorrules`.
 
 </details>
 
@@ -333,37 +344,38 @@ Copy the contents of `AGENTS.md` into your project's `.github/copilot-instructio
 ## 🗂 Repository Structure
 
 ```text
-genzi/
+genzi-skill/
+├── .github/
+│   └── workflows/
+│       └── validate-skill.yml             <- CI workflow to validate skill integrity
+├── assets/
+│   └── logo.png                           <- Genzi banner and brand asset
+├── scripts/
+│   └── validate.js                        <- Local manifest, references, and examples validator
 ├── skills/
 │   └── genzi/
-│       ├── SKILL.md                       <- Core instructions (18-step workflow)
-│       ├── examples/                      <- 5 ready-to-use prompt examples
-│       │   ├── 01-food-delivery-landing.md
-│       │   ├── 02-pos-cashier-app.md
-│       │   ├── 03-saas-crm-pipeline.md
-│       │   ├── 04-coffee-roastery-store.md
-│       │   └── 05-architecture-portfolio.md
+│       ├── SKILL.md                       <- Core instructions & 18-step master workflow
+│       ├── examples/                      <- 5 practical prompt collections across archetypes
+│       │   ├── 01-food-delivery-landing.md   <- Grocery & food delivery landing page prompts
+│       │   ├── 02-pos-cashier-app.md         <- High-density POS cashier app prompts
+│       │   ├── 03-saas-crm-pipeline.md       <- B2B deal pipeline & CRM prompts
+│       │   ├── 04-coffee-roastery-store.md   <- Artisanal coffee roastery storefront prompts
+│       │   └── 05-architecture-portfolio.md  <- Minimalist architecture studio portfolio prompts
 │       └── references/
-│           ├── design-guidelines.md       <- 20 Anti-AI rules, AI-Slop check, purpose layouts
-│           ├── seo-and-performance.md     <- Full-spectrum SEO, JSON-LD Schema, Core Web Vitals
-│           ├── prd-template.md            <- Micro and Full PRD templates (Security, Motion, SEO)
-│           ├── security-and-hardening.md  <- OWASP baseline, chaos hardening, safe code
-│           ├── review-checklist.md        <- Self-review checklist (15-Point AI-Slop Check & 6 Blockers)
-│           └── workspace-detection.md     <- Stack detection and extend-vs-new rules
-├── .agents/plugins/genzi/                 <- Auto-detected plugin mirror for Antigravity/Gemini
-│   ├── plugin.json
-│   └── skills/genzi/                      <- Mirror of skills/genzi/
-├── .claude-plugin/
-│   ├── plugin.json
-│   └── marketplace.json
-├── .cursor-plugin/
-│   └── plugin.json
-├── AGENTS.md                              <- Universal rules for all AI coding agents
-├── GEMINI.md                              <- Specific directives for Antigravity/Gemini
-├── plugin.json
-├── package.json
-└── README.md
+│           ├── design-guidelines.md       <- Surface-aware design, recipes, and anti-slop rules
+│           ├── prd-template.md            <- Micro and Full PRD templates
+│           ├── reference-driven-design.md <- Reference Intake, Design DNA, visual verification
+│           ├── review-checklist.md        <- 15-Point AI-Slop check & 6 Hard Blockers audit
+│           ├── security-and-hardening.md  <- OWASP baseline, chaos hardening, safe types
+│           ├── seo-and-performance.md     <- Full-spectrum SEO, JSON-LD, Core Web Vitals
+│           ├── token-kits.md              <- Drop-in CSS token kits A to I
+│           └── workspace-detection.md     <- Stack detection and architecture decision matrix
+├── LICENSE                                <- MIT License
+├── package.json                           <- NPM metadata and validation scripts
+├── plugin.json                            <- Universal plugin manifest
+└── README.md                              <- Project documentation and usage guide
 ```
+
 
 ---
 

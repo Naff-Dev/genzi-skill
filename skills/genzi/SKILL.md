@@ -155,3 +155,5 @@ If any blocker fails, fix it and re-check before declaring the task complete. "T
 - `references/security-and-hardening.md`: OWASP baseline, hardening, 4-state pattern, error boundary. **Read at Steps 6, 9, 12.**
 - `references/seo-and-performance.md`: Meta, JSON-LD, Core Web Vitals. **Read at Steps 7, 9, 11.**
 - `references/review-checklist.md`: Final self-review and the six blockers. **Read at Step 12.**
+- `examples/`: Practical activation, iterative, and refinement prompt collections across five core archetypes (Food Delivery Landing, POS Cashier, B2B CRM Pipeline, Specialty Coffee Roastery, Architecture Studio Portfolio).
+

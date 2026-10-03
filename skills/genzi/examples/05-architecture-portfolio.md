@@ -1,57 +1,38 @@
-# Example 5: Architecture Studio & High-Ticket Showcase (Spatial & Monumental Archetype)
+# Example 5: Architecture Studio Portfolio
 
 ## Activation Prompt
 ```text
-use Naff-Dev/genzi-skill build an architecture studio portfolio with asymmetrical project grid, full-bleed imagery, and editorial typography
+use Naff-Dev/genzi-skill build an editorial architecture studio portfolio website with an asymmetric project masonry grid, full-bleed photography lightbox, interactive blueprint floorplan viewer, and project inquiry booking drawer.
 ```
 
----
+## Short Prompt (Informal)
+```text
+use Naff-Dev/genzi-skill bikin website portfolio arsitektur studio dengan grid proyek asimetris, galeri foto full-bleed, tipografi editorial minimalis, dan formulir konsultasi proyek.
+```
 
-## 1. Domain & Behavioral Context
-- **Product**: Modular architectural studio & turnkey prefabricated living spaces.
-- **Target Audience**: Discerning homeowners, property investors, and landholders seeking bespoke, sustainable modular architecture.
-- **Surface Mode**: Experience & Persuade. High-ticket, spatial authority, atmospheric depth.
-- **Design Inspiration Standard**: World-class architectural showcase (twilight environmental photography, monumental typography, glassmorphism workflow indicators, asymmetrical narrative).
+## Detailed Prompt with Editorial & Gallery Requirements
+```text
+use Naff-Dev/genzi-skill rancang portfolio studio arsitektur kontemporer "Studio Parametrik":
+- Hero Section: Tipografi monumental high-contrast ("Ruang, Cahaya, dan Keberlanjutan Tropis"), video/foto ambient bangunan beton ekspos arsitektur modern minimalis.
+- Selected Works Grid: Layout asimetris editorial (kombinasi 1-kolom lebar dan 2-kolom dinamis), thumbnail proyek dengan micro-zoom hover, metadata ringkas di bawah gambar (Nama Proyek, Lokasi, Luas Bangunan, Tahun Selesai).
+- Project Detail Modal/Drawer: Menampilkan galeri foto resolusi tinggi, deskripsi konsep desain, tab 'Denah & Potongan Arsitektur' dengan viewer interaktif (bisa zoom/pan gambar cetak biru), dan daftar material utama (Beton Cetak, Kayu Jati Daur Ulang, Baja Hitam).
+- About & Philosophy: Manifesto arsitektur studio dengan tipografi serif besar, statistik pencapaian (35+ Bangunan Terbangun, 6 Penghargaan IAI), dan profil lead architects.
+- Design: Dark / Minimalist Monolithic archetype (#0D0D0E, #F4F4F5, #71717A), font Syne / Cormorant Garamond untuk heading & Inter untuk teks teknis. Zero decorative gradients atau generic cards.
+```
 
----
+## Iteration & Follow-up Prompts
+```text
+// Iterasi 1 - Filter Kategori Proyek
+tambahkan sticky navigation bar untuk memfilter portofolio berdasarkan tipologi: 'Semua Proyek', 'Residensial', 'Komersial / Kafe', 'Ruang Publik', dan 'Konseptual'.
 
-## 2. Page Architecture & Section Hierarchy
+// Iterasi 2 - Interactive Before/After & 360 View
+pada halaman detail proyek, tambahkan slider perbandingan before/after pengerjaan renovasi dan virtual tour panorama 360 derajat.
 
-### 1. Minimalist Architectural Header
-- Transparent/hairline top navigation bar over full-bleed night photography.
-- Clean architectural wordmark logo with geometric precision.
-- Navigational links: Company, Projects, Manufacturing, Configurations, Process, Contacts.
-- Direct phone contact indicator and outline consultation button (`Schedule Consultation ↗`).
+// Iterasi 3 - Consultation Booking Form
+buatkan slide-out drawer 'Mulai Proyek Baru' dengan form kualifikasi singkat: tipe bangunan, estimasi luas tanah/bangunan, estimasi budget proyek, dan kalender booking sesi konsultasi arsitek.
+```
 
-### 2. Monumental Full-Bleed Hero Section
-- **Background**: Full-bleed twilight photography of modern timber-and-glass modular pavilion with warm interior lighting and natural evening backdrop.
-- **Typographic Scale**: Giant architectural watermark title in crisp white, layered with authoritative left-aligned headline:
-  - Headline: *"Bespoke Turnkey Modular Architecture, Fabricated and Delivered to Your Land"*
-  - Subtitle: Engineering precision from blueprint to final assembly in 45 days.
-  - Action CTA: Minimalist dark pill button with diagonal arrow (`View Selected Works ↗`).
-- **Hero Workflow Glass Cards**: 4 horizontal frosted-glass cards positioned across the bottom of the hero viewport with thin hairline icons and circular arrow buttons:
-  1. `01 Blueprint & Design`
-  2. `02 Precision Fabrication`
-  3. `03 Secure Transport`
-  4. `04 Modular Assembly`
-
-### 3. Asymmetric Narrative Section
-- 3-column asymmetric layout:
-  - Left column: Studio philosophy, core promises, quality certification checklist, and link button.
-  - Middle column: Wide photographic plate of completed pavilion exterior with outdoor fireplace.
-  - Right column: 3 stacked hairline benefit cards (`Turnkey Delivery`, `Advanced Materials`, `Energy Efficiency`).
-
-### 4. High-Spec Project Showcase Grid
-- 3-column project showcase featuring high-resolution exterior photography at dusk:
-  - Project title and model code (e.g. `BARN 84 m²`, `FOREST 110 m²`, `NORD 72 m²`).
-  - Technical metadata: Floor area, fabrication turnaround timeline.
-  - Starting investment price in bold tabular numerals.
-  - Circular icon action trigger for interactive project walkthrough.
-
-### 5. Dark Metric Ribbon & Numbered Sequential Timeline
-- High-contrast solid dark bar with 4 key credibility counters (`450+ Completed Homes`, `12 Years Engineering`, `45 Days Average Turnaround`, `5-Year Structural Warranty`).
-- Numbered horizontal timeline: `01 Consultation` -> `02 Design & Calculation` -> `03 In-Factory Assembly` -> `04 Land Delivery` -> `05 On-Site Mounting` -> `06 Handover & Warranty`.
-
-### 6. Interactive Consultation & Project Calculation Bar
-- Integrated multi-field consultation form: Client Name, Phone Number, Email, Land Location / Project Description, and instant estimate request button.
-- Clean multi-column architectural footer with studio address, licensing details, and direct contact channels.
+## English Variation Prompt
+```text
+use Naff-Dev/genzi-skill create a brutalist-minimalist architecture portfolio for a bespoke design studio. Features: asymmetric project layout, full-bleed imagery viewports, interactive CAD floor plan inspector, and sleek project inquiry sheet.
+```
