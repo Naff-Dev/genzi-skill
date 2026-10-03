@@ -20,7 +20,7 @@ Skill komprehensif untuk AI coding agent yang bekerja layaknya satu tim produk p
 [![Issues](https://img.shields.io/github/issues/Naff-Dev/genzi-skill?color=purple)](https://github.com/Naff-Dev/genzi-skill/issues)
 ![Works with](https://img.shields.io/badge/works%20with-Antigravity%20%7C%20Gemini%20%7C%20Claude%20Code%20%7C%20Cursor%20%7C%20Codex%20%7C%20Copilot-black)
 
-[**Try Now**](#-try-in-30-seconds) · [**How It Works**](#-how-it-works) · [**6 Hard Blockers**](#-the-six-mandatory-hard-blockers) · [**Permanent Setup**](#-permanent-installation) · [**FAQ**](#-faq)
+[**Try Now**](#-try-in-30-seconds) · [**How It Works**](#-how-it-works) · [**6 Hard Blockers**](#-the-six-mandatory-hard-blockers) · [**Permanent Setup**](#-permanent-installation) · [**FAQ**](#-faq) · [**Contributing**](CONTRIBUTING.md)
 
 </div>
 
@@ -370,6 +370,7 @@ genzi-skill/
 │           ├── seo-and-performance.md     <- Full-spectrum SEO, JSON-LD, Core Web Vitals
 │           ├── token-kits.md              <- Drop-in CSS token kits A to I
 │           └── workspace-detection.md     <- Stack detection and architecture decision matrix
+├── CONTRIBUTING.md                        <- Contribution guide (100% open contribution)
 ├── LICENSE                                <- MIT License
 ├── package.json                           <- NPM metadata and validation scripts
 ├── plugin.json                            <- Universal plugin manifest
@@ -421,13 +422,19 @@ Yes. CSS transitions are ideal for micro-press and hover states, while Framer Mo
 
 ## 🤝 Contributing
 
-Found a bug, want to add a domain archetype, or spotted an AI slop pattern we should eradicate? Open an [issue](https://github.com/Naff-Dev/genzi-skill/issues) or submit a pull request. Before submitting, please run:
+Genzi is **100% Open Contribution!** We actively welcome contributions from developers, designers, prompt engineers, and product builders worldwide to help eradicate generic AI slop.
+
+Want to contribute a new industry prompt collection, report an AI cliché pattern, craft a new Token Kit, or improve security guidelines?
+
+👉 **Read our full guide in [CONTRIBUTING.md](CONTRIBUTING.md)** to get started in minutes!
+
+Quick check before submitting any PR:
 
 ```bash
 npm run validate
 ```
 
-If Genzi helped you build better software, please give it a ⭐ on GitHub.
+If Genzi helped you build better software, please consider giving it a ⭐ on GitHub!
 
 ---
 
