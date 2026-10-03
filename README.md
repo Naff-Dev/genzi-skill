@@ -20,7 +20,7 @@ Skill komprehensif untuk AI coding agent yang bekerja layaknya satu tim produk p
 [![Issues](https://img.shields.io/github/issues/Naff-Dev/genzi-skill?color=purple)](https://github.com/Naff-Dev/genzi-skill/issues)
 ![Works with](https://img.shields.io/badge/works%20with-Antigravity%20%7C%20Gemini%20%7C%20Claude%20Code%20%7C%20Cursor%20%7C%20Codex%20%7C%20Copilot-black)
 
-[**Try Now**](#-try-in-30-seconds) · [**How It Works**](#-how-it-works) · [**6 Hard Blockers**](#-the-six-mandatory-hard-blockers) · [**Permanent Setup**](#-permanent-installation) · [**FAQ**](#-faq) · [**Contributing**](CONTRIBUTING.md)
+[**Try Now**](#-try-in-30-seconds) · [**Hasil Nyata**](#-hasil-nyata-dari-skill-genzi-concrete-deliverables) · [**How It Works**](#-how-it-works) · [**6 Hard Blockers**](#-the-six-mandatory-hard-blockers) · [**Permanent Setup**](#-permanent-installation) · [**FAQ**](#-faq) · [**Contributing**](CONTRIBUTING.md)
 
 </div>
 
@@ -112,6 +112,105 @@ use Naff-Dev/genzi-skill design-only: [describe product, domain, and goals]
 use Naff-Dev/genzi-skill review: audit this project against skills/genzi/references/review-checklist.md
 ```
 
+</details>
+
+---
+
+## 🎯 Hasil Nyata dari Skill Genzi (Concrete Deliverables)
+
+Saat Anda memberikan instruksi kepada AI coding agent menggunakan Genzi, Anda tidak hanya mendapatkan satu blok kode acak. Anda menerima paket output produk profesional yang siap pakai dan aman:
+
+### 1. 📊 Perbandingan Hasil: AI Generik vs Skill Genzi
+
+| Aspek | AI Coding Biasa (Generic AI Slop) | Hasil Skill Genzi (Human-Crafted Standard) |
+|---|---|---|
+| **Tata Letak (Layout)** | Cloned hero tengah + 3 kartu bento generik | Layout spesifik ranah (Katalog retail, high-density POS split-view, Kanban board, editorial asymmetric) |
+| **Identitas Visual** | Gradien ungu-biru klise, floating badge melayang, `rounded-2xl` di semua elemen | Palet warna harmonis bertema (misal: Deep Harvest Green, Warm Espresso, Slate Charcoal), radius proporsional |
+| **Tipografi** | Font bawaan browser (`sans-serif` default) | Kombinasi tipografi profesional Google Fonts (Playfair Display + Inter, Satoshi, Plus Jakarta Sans) |
+| **Bahasa & Konten (Copy)** | Buzzword kosong (*"Elevate your workflow ✨"*, teks placeholder) | Copywriting manusiawi, relevan, bernilai nyata (*"Sayur segar pasar tradisional diantar sebelum 06.30 WIB"*) |
+| **Interaksi & Motion** | Animasi melayang memusingkan tanpa tujuan | Micro-press tactile `scale(0.97)` <150ms, feedback status interaktif, aman `prefers-reduced-motion` |
+| **Keamanan & Validasi** | Tanpa validasi input, token disimpan di localStorage, rawan XSS | Skema Zod/Valibot, sanitasi input, token HttpOnly, zero secrets di client |
+| **Responsivitas & SEO** | Pecah di layar HP, teks terpotong, CLS buruk | Responsif teruji di 360-430px hingga 1440px+, touch target ≥ 44px, OpenGraph + JSON-LD Schema.org lengkap |
+
+---
+
+### 2. 📦 4 Output Konkret yang Diterima Pengguna
+
+Setiap kali Genzi mengeksekusi instruksi, agen menghasilkan deliverable lengkap:
+
+1. **📄 PRD & Keputusan Teknis Terstruktur**
+   - Kebutuhan diklasifikasikan dengan jelas (Explicit, Inferred, Assumption) tanpa membuang waktu menanyakan preferensi visual.
+   - Definisi arsitektur, boundary keamanan, dan skema data TypeScript sebelum menulis kode.
+
+2. **🎨 Bespoke Token Kit & Design System**
+   - Token CSS berbasis HSL yang kohesif (warna brand, surface, border, typography scale, spacing rhythm).
+   - Menghasilkan antarmuka berkarakter kuat tanpa template bootstrap yang membosankan.
+
+3. **💻 Kode Produksi Bersih, Hardened, & Siap Pakai**
+   - Penanganan 4 status asinkron (`idle`, `loading`, `success`, `error`).
+   - Mock data realistis sesuai domain bisnis nyata (bukan sekadar "User 1", "Produk A").
+   - Proteksi overflow teks (`min-width: 0`, `truncate`), navigasi keyboard, dan error boundaries.
+
+4. **📋 Laporan Audit Mandiri Lulus 6 Hard Blockers**
+   - Laporan verifikasi 15-Point AI-Slop Check.
+   - Verifikasi 6 pemblokir utama sebelum pekerjaan dinyatakan selesai:
+   ```text
+   [x] 1. RESPONSIVE: mobile (360-430px) & desktop (1440px), 44px targets, zero overflow
+   [x] 2. CRAFT & PERSONALITY: no AI clichés, curated fonts, realistic imagery
+   [x] 3. MOTION: snappy tactile feedback, active state, reduced-motion fallback
+   [x] 4. SEO & PERFORMANCE: single h1, OpenGraph, JSON-LD Schema, zero CLS
+   [x] 5. SECURITY: schema validation, no XSS, secure auth handling
+   [x] 6. CODE SAFETY: strict types, 4-state machine, error boundary, 0 TODO
+   ```
+
+---
+
+### 3. 🖼️ Contoh Hasil Output Nyata dari Contoh Prompt
+
+Berikut ringkasan hasil nyata yang dirancang oleh Genzi berdasarkan file contoh di [`skills/genzi/examples/`](skills/genzi/examples/):
+
+<details open>
+<summary><b>Hasil Contoh 1: SegarPagi — Grocery & Dawn Delivery Landing Page</b></summary>
+
+<br>
+
+- **Ranah**: Retail & Storefront
+- **Visual Identity**: Deep Harvest Green (`hsl(155, 33%, 17%)`), Warm Canvas (`hsl(40, 20%, 97%)`), Carrot Accent (`hsl(17, 76%, 52%)`).
+- **Karakter Tipografi**: Editorial Serif (*Playfair Display*) untuk headline + Geometric Sans (*Inter*) untuk katalog.
+- **Komponen Kunci yang Terwujud**:
+  - Announcement ribbon jadwal pengantaran subuh sebelum 06.30 WIB dengan kalkulator ongkir kecamatan.
+  - Slim value bar (garansi timbang pas dengan stiker tera, harga pasar asli, bisa bayar COD di tempat).
+  - Katalog kartu sayur & lauk segar dengan dual price ticker (pasar vs supermarket).
+  - Sticky mobile drawer keranjang belanja + generator pesan pemesanan langsung terformat rapi ke WhatsApp.
+</details>
+
+<details>
+<summary><b>Hasil Contoh 2: POS Kasir Retail & Kafe — High-Density Terminal</b></summary>
+
+<br>
+
+- **Ranah**: High-Density Utilitarian
+- **Visual Identity**: Dark Charcoal Palette (`hsl(240, 6%, 10%)`) dengan kontras tinggi Amber Accent (`hsl(38, 92%, 50%)`) untuk kenyamanan shift malam kasir.
+- **Karakter Tipografi**: Monospace & Sans Teknis (*JetBrains Mono* + *Plus Jakarta Sans*).
+- **Komponen Kunci yang Terwujud**:
+  - Split layout: Katalog produk cepat di kiri, struk kasir live di kanan.
+  - Shortcut keyboard kasir (F2 cari item, F4 bayar tunai, ESC reset).
+  - Modal pembayaran kilat dengan nominal uang pas (Rp 20rb, Rp 50rb, Rp 100rb) dan kalkulasi uang kembalian instan.
+  - Cetak struk printer thermal 58mm/80mm & laporan penutupan shift kasir (Z-Report).
+</details>
+
+<details>
+<summary><b>Hasil Contoh 3: B2B CRM Deal Pipeline — High-Clarity Kanban</b></summary>
+
+<br>
+
+- **Ranah**: Dashboard & Data-First Pipeline
+- **Visual Identity**: Cool Slate Minimalist (`hsl(215, 25%, 27%)`) dengan status badge spesifik probabilitas deal.
+- **Karakter Tipografi**: Modern Corporate Sans (*Plus Jakarta Sans*).
+- **Komponen Kunci yang Terwujud**:
+  - Kanban board dengan kalkulasi forecast pendapatan otomatis per kolom.
+  - Indikator deal velocity dan peringatan deal yang hampir expired.
+  - Drawer riwayat aktivitas prospek (panggilan telepon, catatan meeting, status WhatsApp).
 </details>
 
 ---
