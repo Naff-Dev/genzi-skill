@@ -13,10 +13,18 @@ PRODUCT, CONTEXT & FUNCTIONALITY
 [ ] Clarifications and resolved user questions are reflected in the final output
 [ ] 9-Level Priority Hierarchy strictly obeyed: Functionality & Usability > Visual Polish > Decoration
 
-BESPOKE ANTI-AI CRAFT & PERSONALITY (HARD BLOCKER #2)
-[ ] PASSES ALL 15 POINTS OF THE AI-SLOP CHECK:
+REFERENCE FIDELITY (only when the user supplied references)
+[ ] A Design DNA sheet exists for every reference and the PRD contains the Reference Mapping
+[ ] Rendered at 1440x900 and 390x844 and compared with the lead reference using the 8-criteria score (reference-driven-design.md section 6)
+[ ] Score is 12/16 or higher, or the shortfall and its cause (for example asset quality) were told to the user
+[ ] Structure, mood, type behavior and imagery treatment match; no brand names, logos, copy or photos were copied from the references
+[ ] Known weaknesses of the reference (low contrast, tiny text) were fixed, not copied
+[ ] Hero imagery is high quality, text sits in calm space or on a scrim, contrast verified over the real image
+
+BESPOKE CRAFT & PERSONALITY (HARD BLOCKER #2)
+[ ] PASSES ALL 20 POINTS OF THE TELLS AUDIT (full list with fixes: design-guidelines.md section 11):
     1. Zero Vercel/Linear clone template styling unless explicitly requested
-    2. Dark mode was ONLY chosen if genuinely warranted by product context; otherwise clean light mode is mandatory
+    2. Light or dark was chosen with a stated reason (reference is dark, user asked, cinematic domain, or dark photography); never by habit
     3. Zero purposeless gradients, glowing orbs, or radial background fades
     4. ABSOLUTE BAN ON EMOJIS in UI: Zero emoji (🚀 ✨ 🔥 💡 ⚡ ❤️ 🎯 📈 🛡️) used as icons, badges, or decoration
     5. Card discipline enforced: Content structured via tables, lists, dividers, inline pairs, or tabs where appropriate (no card-soup)
@@ -27,14 +35,16 @@ BESPOKE ANTI-AI CRAFT & PERSONALITY (HARD BLOCKER #2)
     10. Purpose-driven layout: Product-first (store), editorial-first (news), data-first (dashboard), info-first (school), utility-first (admin)
     11. CTA discipline: Sized and placed appropriately, not oversized or repeated excessively
     12. Contextual color palette: Rooted in real domain psychology (not generic black/white + neon purple/cyan)
-    13. Zero invented sections: No fake testimonials, pricing tiers, FAQs, or newsletters on utilitarian/internal tools
+    13. No invented real-business claims: sections shown in the user's reference are allowed, but unsupplied numbers, named people, awards and prices are sample-flagged in the data module and listed in the final report; utilitarian/internal tools get no marketing sections
     14. Realistic mock data: Concrete domain entities (real SKUs, item names, realistic dates/prices), zero Lorem Ipsum, zero "Amazing Product"
     15. Authentic identity: If name and logo are removed, the site feels deliberately crafted for this specific product, not an AI template
     16. Single elevation declared: Crisp border OR soft shadow, zero ghost cards (1px border under wide shadow)
-    17. Zero kickers or eyebrow badges above headings: Let the heading speak and carry its own weight
-    18. Zero gradient text: Visual contrast achieved purely through typography weight, size, and measure
-    19. Overlays escape clipping: Dropdowns, tooltips, and modal dialogs escape ancestor overflow: hidden via portals/popovers
+    17. No generic status pill badge above the H1 (allowed only when a reference shows it and it announces something real)
+    18. No 3-card bento stack under the hero: No generic 3-box feature rows directly under the headline. Use a slim Horizontal Value Ribbon with hairline dividers or a floating workflow track
+    19. Visual anchor and immersion present: Consumer, lifestyle, travel, dining, retail, and architectural interfaces must have high-craft photography or studio visual assets with depth; zero sterile, flat white canvases
+    20. High-craft navbar: Uses a Floating Island frosted-glass capsule or a high-utility storefront header with search and live cart badge; never a stiff full-width block of plain text links
 [ ] Real photography used from CDN when visual context calls for it, never solid-color placeholder boxes
+[ ] Overlays escape clipping: Dropdowns, tooltips, and modal dialogs escape ancestor overflow: hidden via portals or popovers
 [ ] Browser surfaces themed: ::selection, caret-color, custom scrollbars, :focus-visible rings, tabular nums on numbers
 
 FUNCTIONAL MOTION SYSTEM & ACCESSIBILITY (HARD BLOCKER #3)
@@ -98,7 +108,7 @@ REQUIREMENTS & INTEGRITY
 [ ] Every Acceptance Criterion in the PRD is met and verified
 [ ] Assumptions made are consistent with the final implementation
 [ ] No em dash character anywhere in code, comments, or copy
-[ ] No fake content, statistics, client logos, or fabricated testimonials
+[ ] No fabricated facts presented as real: sample content is flagged and listed in the final report; no fake client logos
 [ ] No lorem ipsum anywhere in the user interface
 ```
 
@@ -110,7 +120,7 @@ REQUIREMENTS & INTEGRITY
 There are **SIX MANDATORY HARD BLOCKERS** that must all pass before the task is finished:
 
 1. **RESPONSIVE & MOBILE ERGONOMICS**: Verified on mobile (~360-430px) AND desktop (~1440px), zero horizontal overflow, 44x44px touch targets, safe area insets respected, thumb zone optimized.
-2. **BESPOKE ANTI-AI CRAFT & PERSONALITY**: Passes the 15-Point AI-Slop Check without exception. Zero emoji as UI elements, zero generic AI templates/clichés, zero banned marketing puffery, contextual palette, real typography pairing, themed browser surfaces.
+2. **BESPOKE CRAFT & REFERENCE FIDELITY**: Passes the 20-Point Tells Audit and the reference comparison. Zero emoji as UI elements, zero generic AI templates/clichés, zero banned marketing puffery, contextual palette, real typography pairing, themed browser surfaces.
 3. **FUNCTIONAL MOTION SYSTEM**: Fast, lightweight, purposeful. Micro-interactions (<150ms press scale 0.97), async state feedback, no forced hero animations on utilitarian apps, prefers-reduced-motion fallback implemented.
 4. **FULL-SPECTRUM SEO, SEMANTICS & WEB VITALS**: Semantic HTML5 landmark structure, single <h1> rule, complete OpenGraph/Twitter cards, domain JSON-LD Schema.org, Core Web Vitals protected (zero CLS, LCP priority).
 5. **SECURITY & DATA PRIVACY**: Strict input validation schemas (Zod/Valibot), XSS/injection prevented, tokens secured in HttpOnly cookies, zero leaked secrets.

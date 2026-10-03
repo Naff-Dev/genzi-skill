@@ -4,7 +4,7 @@ Read this when entering Step 9 (Generate PRD). Choose Micro PRD or Full PRD per 
 
 Writing rules for both PRD types:
 - No em dash character anywhere. Use `-`, `:`, `.`, `,`, or plain sentences.
-- Never include invented data (statistics, testimonials, customer names, pricing, awards, etc).
+- Never present invented data (statistics, testimonials, customer names, pricing, awards) as the user's real facts. When a layout needs them, use realistic sample values in a typed data module, mark them as sample, and list them in the PRD under Assumptions.
 - Realistic domain mock data: Real SKUs, actual product names, realistic prices/dates. No Lorem Ipsum, no "Amazing Product".
 - Tag requirements with their category: Explicit / Inferred / Assumption.
 - Clear, concrete language: Zero AI buzzword filler ("unleash", "elevate", "seamless", "modern").
@@ -23,7 +23,9 @@ Use this concise format (10-25 lines):
 Goal              : [what this change/feature is meant to achieve]
 Surface Mode      : [Persuade | Operate | Read | Experience]
 Visual Language   : [Utilitarian | Dense Dashboard | Institutional | Commercial | Warm Artisanal | Editorial | etc.]
-Layout Archetype  : [Product-first | Editorial-first | Data-first | Info-first | Utility-first | etc.]
+Layout Archetype  : [Product-first | Editorial-first | Data-first | Info-first | Utility-first | Scenic-immersive | etc.]
+Reference Mapping : [only if the user gave references: region -> lead reference, deviations]
+Asset Plan        : [image slots, source, aspect ratio, where text sits, treatment]
 Requirements      : [bullet list, tag (Explicit)/(Inferred)/(Assumption)]
 Clarifications    : [questions resolved with user regarding technical blockers or scope depth]
 Scope             : [files/components/pages created or modified]
@@ -34,7 +36,7 @@ Security & Safety : [input validation schema, token storage, auth check, text-ov
 Acceptance        :
   - [Functional acceptance criteria]
   - [Mobile (~360-430px) AND Desktop (~1280px+) responsive verified, zero overflow, 44x44px touch targets]
-  - [Bespoke anti-AI craft verified: 15-point AI-Slop check passed, domain palette, no emoji in UI, real typography]
+  - [Bespoke craft verified: 20-point tells audit passed, reference comparison scored, domain palette, no emoji in UI, real typography]
   - [Functional micro-interactions implemented with prefers-reduced-motion fallback]
   - [Full-spectrum SEO verified: single h1, valid meta, zero CLS explicit dimensions]
   - [Inputs validated and sanitized, no raw HTML injection]
@@ -85,7 +87,8 @@ Use the following 24 structured sections. Keep each section concrete and actiona
     - Summary of the product, purpose, and audience.
     - Surface Mode: Persuade | Operate | Read | Experience.
     - Visual Language: Utilitarian | Institutional | Dense Dashboard | Commercial | Warm Artisanal | Editorial | etc.
-    - Layout Archetype: Product-first | Editorial-first | Data-first | Info-first | Utility-first.
+    - Layout Archetype: Product-first | Editorial-first | Data-first | Info-first | Utility-first | Scenic-immersive.
+    - Reference Mapping (when references exist): per region lead reference, Design DNA summary, intentional deviations.
 
 2.  Problem Statement
     - Concrete user or business problem being solved (based on user request).
@@ -129,13 +132,14 @@ Use the following 24 structured sections. Keep each section concrete and actiona
 
 13. Bespoke Anti-AI Design Direction & Craft Floor (MANDATORY)
     - Visual Language & Archetype selected from domain context.
-    - Visual Identity: Specific primary color (HSL), secondary, background, and text colors (no generic black+neon).
+    - Visual Identity: Specific primary color (HSL), secondary, background, and text colors (no generic black+neon). Light or dark with a one-line reason.
+    - Asset Plan: each image slot with subject, source (user / generated / verified CDN), aspect ratio, text placement, scrim and treatment.
     - Typography: Specific named Display font and Body font pairing suited to domain formality.
     - Copywriting Craft: Zero banned AI buzzwords (no "Unleash", "Elevate", "Seamless", "Supercharge").
     - Zero Emoji in UI: Pure SVGs or standard icon library for functional icons only.
     - Card & Radius Discipline: Tables, lists, dividers utilized; systematic small/medium border-radii.
     - Browser Surfaces Theming: Selection color, caret-color, custom scrollbar, focus rings.
-    - AI-Slop Checklist: Passes all 15 audit questions before implementation.
+    - Tells audit: Passes the 20-point tells audit (design-guidelines.md section 11) before delivery.
 
 14. Responsive Behavior & Mobile Ergonomics (MANDATORY)
     - Mobile Small (~360-390px): 1-column layouts, 44x44px touch targets, 8px separation.
@@ -192,7 +196,7 @@ Use the following 24 structured sections. Keep each section concrete and actiona
 23. Verifiable Acceptance Criteria (The Six Mandatory Hard Blockers)
     - Concrete criteria covering functional behavior.
     - HARD BLOCKER 1: Responsive & Mobile Ergonomics verified on mobile (~360-430px) and desktop (~1440px).
-    - HARD BLOCKER 2: Bespoke Anti-AI Craft & Personality verified (Passes 15-Point AI-Slop Check).
+    - HARD BLOCKER 2: Bespoke Anti-AI Craft & Personality verified (Passes 20-Point Tells Audit).
     - HARD BLOCKER 3: Functional Motion System, micro-interactions, and reduced-motion verified.
     - HARD BLOCKER 4: Full-Spectrum SEO, Semantics & Web Vitals verified (single h1, Schema, zero CLS).
     - HARD BLOCKER 5: Security & Data Privacy baseline verified (Zod schemas, XSS defense, token hygiene).
@@ -206,12 +210,11 @@ Use the following 24 structured sections. Keep each section concrete and actiona
 
 ## Mandatory User Approval Gate (STOP Before Coding)
 
-### HARD DIRECTIVE: DUAL-GATE APPROVAL BEFORE CODE IMPLEMENTATION
-After generating either a Micro PRD or a Full PRD:
-1. **STOP IMMEDIATELY.** Do not write components, modify code files, install dependencies, or run implementation scripts.
-2. **Render Interactive Artifact**: Write the complete PRD into an interactive markdown artifact with `RequestFeedback: true` so the user can easily read and evaluate the full specification.
-3. **Trigger Approval Question**: Prompt the user using the `ask_question` tool with structured choices:
-   - "(Recommended) Approve PRD and proceed to implementation"
-   - "Modify visual direction / domain archetype"
-   - "Adjust scope or feature depth"
-4. **WAIT FOR EXPLICIT CONFIRMATION.** Do not proceed to code implementation until the user reviews and confirms the plan.
+After generating a Micro PRD or Full PRD (Trivial tasks skip this):
+1. **Stop.** Do not write components, modify code, install dependencies or run implementation scripts.
+2. **Present** the PRD (with the Reference Mapping and Asset Plan when they exist). For Full PRDs, put it in a readable document or artifact so the user can review it comfortably.
+3. **Ask once** using the platform's question/choice tool when available, otherwise plain text:
+   - (Recommended) Approve and proceed to implementation
+   - Change visual direction or reference mapping
+   - Adjust scope or feature depth
+4. **Wait for explicit confirmation.** One gate only: do not add a second design approval afterwards.
